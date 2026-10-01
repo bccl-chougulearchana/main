@@ -1,0 +1,944 @@
+<section class="tab-section upload-section main-dashboard" id="tab-section">
+    <div class="main-container container">
+        <!-- <h2 *ngIf="title" class="common-heading section-head txt-center ">{{title}} </h2> -->
+        <div *ngIf="isConfigResolved" libTabs [class.preview-open]="preview" (tabChanged)="onTabChange($event)">
+            <ng-template [libTab]="'Fun & Levity'" [libTabIcon]="'asset/images/Fun%20&%20Levity.svg'"
+                [libTabActive]="activeTab === 'Fun & Levity'">
+                <div class="heroblock">
+                    <div class="subBlock">
+                        <div class="funblock"
+                            [libDynamicGrid]="{ xs: 1, sm: 1, md: 12, lg: 12, xl: 12, xxl: 12}"
+                            [libGridGap]="'24px'">
+                            <div [libCol]="{ md: 8, lg: 9, xl: 9, xxl: 9 }"
+                                class="banner">
+                                <ng-container *ngIf="hasHeroBanner; else noHeroBanner">
+                                    <ng-container *ngIf="hasMultipleHeroBanners; else singleHeroBanner">
+                                        <owl-carousel-o [options]="heroBannerCarouselOptions" class="banner-carousel">
+                                            <ng-container *ngFor="let imagePath of activeHeroBanners">
+                                                <ng-template carouselSlide>
+                                                    <div class="banner-slide">
+                                                        <img [src]="imagePath" alt="Fun and levity banner">
+                                                    </div>
+                                                </ng-template>
+                                            </ng-container>
+                                        </owl-carousel-o>
+                                    </ng-container>
+                                    <ng-template #singleHeroBanner>
+                                        <img [src]="primaryHeroBanner" alt="Fun and levity banner">
+                                    </ng-template>
+                                </ng-container>
+                                <ng-template #noHeroBanner>
+                                    <div class="banner-empty-state">No image available</div>
+                                </ng-template>
+                            </div>
+                            <div [libCol]="{ md: 4, lg: 3, xl: 3, xxl: 3 }" class="joy">
+                                <div class="joyblock">
+                                    <div class="joyblock-header"
+                                        [class.mobile-collapsible]="isMobileView"
+                                        (click)="toggleJoyLeaderboard()">
+                                        <div class="joyblock-title">
+                                            <!-- <i class="fa fa-trophy" aria-hidden="true"></i> -->
+                                            <img src="asset/images/Joy%20Leader%20board.svg" alt="trophy">
+                                            <span>Joy Leader board</span>
+                                        </div>
+                                        <button *ngIf="isMobileView"
+                                            type="button"
+                                            class="joy-toggle-btn"
+                                            [attr.aria-expanded]="isJoyLeaderboardExpanded"
+                                            aria-label="Toggle joy leader board">
+                                            <span class="joy-toggle-icon"
+                                                [class.expanded]="isJoyLeaderboardExpanded"></span>
+                                        </button>
+                                    </div>
+                                    <ng-container *ngIf="!isMobileView || isJoyLeaderboardExpanded">
+                                        <div class="joyblock-list" *ngIf="topLikedPublishedStories.length > 0; else noJoyData">
+                                            <div class="joyblock-item" *ngFor="let post of topLikedPublishedStories">
+                                                <div class="joyblock-user">
+                                                    <img src="asset/images/Post%20Image.svg" alt="Post image icon">
+                                                    <!-- <span class="story-header" (click)="empconnect(post.id, publishedStories , post.category, 'Fun & Levity')"
+                                                    >{{ post.header }}</span> -->
+                                                    <div class="header" (click)="empconnect(post.id, funTabPublishedStories , post.category, 'Fun & Levity')">
+                                                    {{ (post.header) | slice:0: 14 }}<ng-container *ngIf="post.header?.length > 18">...</ng-container>
+                                                    </div>
+                                                </div>
+                                                <div class="joyblock-like">
+                                                    <img src="asset/images/like_blue.svg" alt=" like blue icon">
+                                                    <span class="joy-score" (click)="getLikes(post)">
+                                                    {{formatLikeCount(post.totalLikes)}}</span>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <ng-template #noJoyData>
+                                            <div class="joyblock-empty">No trending posts yet</div>
+                                        </ng-template>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fun-cards-grid" [class.has-text-stories]="hasFunTextStories">
+                            <div class="fun-story-row"
+                                [class.has-text-column]="row.textStories.length > 0"
+                                *ngFor="let row of visibleFunRows; trackBy: trackFunRow">
+                                <div class="fun-card-col"
+                                    *ngFor="let story of row.mediaStories; trackBy: trackFunStory">
+                                    <div class="postCard">
+                                        <div class="cardHeader"  
+                                         (click)="empconnect(story.id, funTabPublishedStories , story.category, 'Fun & Levity')">
+                                        <ng-container
+                                            *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                            <div class="caro-img-wrap">
+                                                <img class="video-play-icon" src="asset/images/Play.svg" alt="Play icon">
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #localMedia>
+                                            <ng-container
+                                                *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                <div class="caro-img-wrap">
+                                                    <img *ngIf="getStoryThumbnail(story)"
+                                                        class="card-preview-video"
+                                                        [src]="getStoryThumbnail(story)!"
+                                                        alt="Video thumbnail"
+                                                        loading="lazy">
+                                                    <ng-container *ngIf="!getStoryThumbnail(story) && hasStoryThumbnailError(story)">
+                                                        <div class="vid-box">
+                                                            <div class="play-overlay">
+                                                                <i class="fa fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <video *ngIf="!getStoryThumbnail(story)"
+                                                        class="card-preview-video card-preview-video-loader"
+                                                        [src]="getStoryMediaSrc(story)"
+                                                        muted
+                                                        playsinline
+                                                        preload="metadata"
+                                                        (loadedmetadata)="setCardVideoPreviewFrame($event, story)"
+                                                        (seeked)="freezeCardVideoPreview($event, story)"
+                                                        (error)="onCardVideoPreviewError(story)">
+                                                    </video>
+                                                    <img class="video-play-icon" src="asset/images/Play.svg" alt="Play icon">
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #imageTemplate>
+                                                <div class="img-wrp">
+                                                    <img
+                                                        class="file-icon img-widfirst caro-img"
+                                                        [src]="url +  story.folder + '/' + story.fileName">
+                                                </div>
+                                            </ng-template>
+                                        </ng-template>
+                                        
+                                        </div>
+                                        <div class="cardcontent">
+                                            <div class="user-wrap">
+                                                <div class="image-wrapper">
+                                                    <span class="story-avatar"
+                                                        [ngStyle]="getStoryAvatarStyle(story.name)">
+                                                        {{ getStoryAvatarText(story.name) }}
+                                                    </span>
+                                                </div>
+                                                <div class="connect-date">
+                                                    <h5
+                                                        class="manager-name">{{story.name | uppercase}}</h5>
+                                                    <p
+                                                        class="manager-post">{{story.department}}</p>
+                                                        <p
+                                                        class="manager-post">{{story.createdOn}}</p>
+                                                </div>
+                                            </div>
+                                            <h5 class="post-head story-header"
+                                            (click)="empconnect(story.id, funTabPublishedStories , story.category, 'Fun & Levity')">
+                                            {{ getStoryHeaderText(story.header) }}</h5>
+
+                                            <div class="story-poster ">
+                                                {{ (story.description || '') |
+                                                slice:0: 62 }}<ng-container
+                                                    *ngIf="story.description?.length > 62">...</ng-container>
+                                                <span class="read-more"
+                                                    *ngIf="story.description?.length > sliceCount"
+                                                    (click)="empconnect(story.id, funTabPublishedStories , story.category, 'Fun & Levity')">
+                                                    Read More
+                                                </span>
+                                            </div>
+                                             <!-- <div class="stroy-likes">
+                                                    <img (click)="updateLikes(story)"
+                                                        [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                        alt="like image" />
+                                                     <p
+                                                        class="stroy-likes-count">{{story.totalLikes}}</p> 
+                                                    <p class="stroy-likes-count" (click)="getLikes(story)">{{ formatLikeCount(story.totalLikes) }}</p>
+                                            </div> -->
+                                             <div class="story-bottom-row">
+                                                <div class="stroy-likes">
+                                                    
+                                                    <img (click)="updateLikes(story)"
+                                                        [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                        alt="like image" />
+                                                    <p class="stroy-likes-count" (click)="getLikes(story)">{{ formatLikeCount(story.totalLikes) }}</p>
+                                                </div>
+                                                 <p class="views-count">total views: <span>{{formatLikeCount(story.totalViews)}}</span></p> 
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fun-text-stack"
+                                    [class.single-text-stack]="!isMobileView && row.textStories.length === 1"
+                                    *ngIf="row.textStories.length > 0">
+                                    <div class="postCard text-post-card"
+                                        [class.single-text-card]="!isMobileView && row.textStories.length === 1">
+                                        <div class="cardcontent text-post-cardcontent"
+                                            *ngFor="let story of row.textStories; let isLast = last; trackBy: trackFunStory"
+                                            [class.single-text-content]="!isMobileView && row.textStories.length === 1"
+                                            [class.text-post-divider]="!isLast">
+                                            <div class="user-wrap">
+                                                <div class="image-wrapper">
+                                                    <span class="story-avatar"
+                                                        [ngStyle]="getStoryAvatarStyle(story.name)">
+                                                        {{ getStoryAvatarText(story.name) }}
+                                                    </span>
+                                                </div>
+                                                <div class="connect-date">
+                                                    <h5 class="manager-name">{{story.name | uppercase}}</h5>
+                                                    <p class="manager-post">{{story.department}}</p>
+                                                    <p class="manager-post">{{story.createdOn}}</p>
+                                                </div>
+                                            </div>
+                                            <h5 class="post-head story-header"
+                                                (click)="empconnect(story.id, funTabPublishedStories , story.category, 'Fun & Levity')">
+                                                {{ getStoryHeaderText(story.header) }}</h5>
+                                            <div class="story-poster">
+                                                {{ (story.description || '') |
+                                                slice:0: 62 }}<ng-container
+                                                    *ngIf="story.description?.length > 62">...</ng-container>
+                                                <span class="read-more"
+                                                    *ngIf="story.description?.length > 62"
+                                                    (click)="empconnect(story.id, funTabPublishedStories , story.category, 'Fun & Levity')">
+                                                    Read More
+                                                </span>
+                                            </div>
+                                            <div class="story-bottom-row">
+                                                <div class="stroy-likes">
+                                                    
+                                                    <img (click)="updateLikes(story)"
+                                                        [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                        alt="like image" />
+                                                    <p class="stroy-likes-count" (click)="getLikes(story)">{{ formatLikeCount(story.totalLikes) }}</p>
+                                                </div>
+                                               
+                                                       <p class="views-count">total views: <span>{{formatLikeCount(story.totalViews)}}</span></p> 
+                                                
+
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fun-toggle-wrap" *ngIf="canToggleFunStories">
+                            <div class="fun-toggle-btn" 
+                                (click)="toggleFunStories()"
+                                role="button"
+                                tabindex="0"
+                                (keydown.enter)="toggleFunStories()">
+                                {{ funStoriesToggleLabel }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template [libTab]="'Share A Moment'" [libTabIcon]="'asset/images/Upload.svg'"
+                [libTabActive]="activeTab === 'Share A Moment'">
+                <div class="tab-panel-surface form-panel">
+                    <div class="panel-title">Share A Moment</div>
+                    <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+                        <div class="input-main-wrapper" [class.text-mode]="isTextMediaType">
+
+                        <div class="input-box input-form">
+                            <input libTextSpecial class="input-style add-astrix"
+                                [libLabelText]="['#282828', 'Heading']"
+                                libUiUnderline libRequired
+                                formControlName="headline"
+                                placeholder="Enter your Heading"
+                                maxlength="250" libTextarea="250"
+                                style="height: 33px;" />
+                            <!-- <div class="errorMsg"
+                                *ngIf="storyForm.get('headline')?.touched && storyForm.get('headline')?.errors?.['required']">
+                                This is a required field.
+                            </div> -->
+                            <div class="errorMsg"
+                                *ngIf="storyForm.get('headline')?.touched && storyForm.get('headline')?.errors?.['maxlength']">
+                                Maximum 250 characters allowed.
+                            </div>
+                        </div>
+                        <div class="input-box input-form">
+                            <!-- <select class="input-style" [libSelect]="mediaOptions"
+                                [libLabelText]="['#333', 'Image/Video']"
+                                 [libLabelText]="['#282828', 'Upload Image/Video/Text']"
+                                 libRequired
+                                formControlName="mediaType" (change)="allowedExtensions"></select> -->
+                            <select class="input-style add-astrix"
+                                [libSelect]="mediaOptions"
+                                [libLabelText]="['#282828', 'Upload Image/Video']"
+                                libRequired formControlName="mediaType"
+                                (change)="onMediaTypeChange($event)">
+                            </select>
+                        </div>
+                       
+                        <!-- <div class="input-box input-form">
+                            <input type="text" class="input-style"
+                                [libLabelText]="['#333', 'Link']" libUiUnderline
+                                formControlName="link"
+                                placeholder="Enter your Link" />
+                            <span class="errorMsg" style="margin: 6px 0;"
+                                *ngIf="storyForm.get('link')?.touched && storyForm.get('link')?.errors?.['pattern']">
+                                Please enter a valid link
+                            </span>
+                        </div> -->
+                        
+                        <!-- <div class="input-box input-form"></div> -->
+                        <div class="input-box input-form fileupload-field" *ngIf="!isTextMediaType">
+                            <ng-container>
+                                <input class="add-astrix" libFileuploadNU
+                                    [allowedExtensions]="allowedExtensions"
+                                    [enableDownload]="false"
+                                    [maxFileSizeMB]="currentFileSizeLimitMb"
+                                    [labelConfig]="['#282828', 'Choose File']"
+                                    formControlName="attachment1"
+                                    controlName="attachment1"
+                                    (fileSelected)="onFileChange($event, 'attachment1')"
+                                    (fileDownload)="onFileDownload($event)"
+                                    (fileCleared)="onRemove('attachment1')" />
+                                <span class="fileupload-limit-label">({{ currentFileSizeLimitLabel | lowercase }})</span>
+                                
+                                <div class="errorMsg" style="margin: 6px 0;"
+                                    *ngIf="storyForm.get('attachment1')?.errors?.['uploadFailed'] 
+                                    && storyForm.get('attachment1')?.touched">
+                                    This is a required field.
+                                </div>
+                            </ng-container>
+
+                            <!-- <ng-container *ngIf="isvideo">
+                                <div style="margin-top: 10px;">
+                                    <span>OR</span>
+                                    <input type="text" class="input-style"
+                                        [libLabelText]="['#333', 'External Link (optional)']" libUiUnderline
+                                        formControlName="externalLink" placeholder="Enter Media Link" />
+                                </div>
+                            </ng-container> -->
+
+                            <!-- <ng-container
+                                *ngIf="isvideo && category !== 'employeeconnect'">
+                                <div style="margin-top:5px;">
+                                    <span
+                                        style="padding:7px 0;display: inline-block;">OR</span>
+                                    <input type="text" class="input-style"
+                                        [libLabelText]="['#333', 'External Link (optional)']"
+                                        libUiUnderline
+                                        formControlName="externalLink"
+                                        placeholder="Enter your Link" />
+                                    <span class="errorMsg"
+                                        *ngIf="storyForm.get('externalLink')?.touched && storyForm.get('externalLink')?.invalid && storyForm.get('externalLink')?.errors?.['pattern']">
+                                        Please enter a valid link
+                                    </span>
+                                </div>
+                                <div class="errorMsg" style="margin: 6px 0;"
+                                    *ngIf="storyForm.get('externalLink')?.invalid 
+                                        && storyForm.get('externalLink')?.touched">
+
+                                    <span
+                                        *ngIf="storyForm.get('externalLink')?.errors?.['maxlength']">
+                                        Maximum 1000 characters allowed.
+                                    </span>
+                                </div>
+
+                            </ng-container> -->
+                        </div>
+                         <div class="input-box input-form w-100">
+                            <textarea class="input-style add-astrix" [libLabelText]="['#282828', 'Description']"
+                                libTextarea="1000" libRequired placeholder="Enter your Description..."
+                                formControlName="storyDescription"></textarea>
+                            <!-- <div class="field-counter">
+                                {{ (storyForm.get('storyDescription')?.value || '').length }}/1000
+                            </div> -->
+                            <div class="errorMsg"
+                                *ngIf="storyForm.get('storyDescription')?.value.length == 1000">
+                                You have exceeded 1000 characters.
+                            </div>
+                            <!-- <div class="errorMsg"
+                                *ngIf="storyForm.get('storyDescription')?.touched && storyForm.get('storyDescription')?.errors?.['required']">
+                                This is a required field.
+                            </div> -->
+                        </div>
+                        </div>
+                        <div class="submit-btn-wrapper">
+                            <div class="btn-submit">
+                                <button type="button" class="reset-btn"
+                                    (click)="onReset()">reset</button>
+                                <button type="submit"
+                                    class="submit-btn">submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+
+            <ng-template [libTab]="'Posted Content'" [libTabIcon]="'asset/images/Posted%20Content.svg'"
+                [libTabActive]="activeTab === 'Posted Content'">
+
+                <div class="tab-panel-surface content-panel">
+                    <div class="panel-title">Posted Content</div>
+                    <div *ngIf="postedStories.length > 0" class="content-grid">
+                        <div *ngFor="let story of pagedPostedStories"
+                            class="blogsBlock">
+                            <div class="blogs">
+                                <div class="blog-left"
+                                    (click)="empconnect(story.id, postedStories , story.category, 'Posted Content')">
+                                    <ng-container *ngIf="isTextStory(story); else postedContentMedia">
+                                        <div class="img-wrp text-story-placeholder">
+                                            <img class="file-icon img-widfirst caro-img"
+                                                [src]="textStoryPlaceholder"
+                                                alt="Text post placeholder">
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #postedContentMedia>
+                                        <ng-container
+                                            *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                            <div class="caro-img-wrap external-video-placeholder">
+                                                <img class="video-play-icon video-play-icon-sm"
+                                                    src="asset/images/Play.svg" alt="Play icon">
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #localMedia>
+                                            <ng-container
+                                                *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                <div class="caro-img-wrap">
+                                                    <img *ngIf="getStoryThumbnail(story)"
+                                                        class="card-preview-video"
+                                                        [src]="getStoryThumbnail(story)!"
+                                                        alt="Video thumbnail"
+                                                        loading="lazy">
+                                                    <ng-container *ngIf="!getStoryThumbnail(story) && hasStoryThumbnailError(story)">
+                                                        <div class="vid-box">
+                                                            <div class="play-overlay">
+                                                                <i class="fa fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <video *ngIf="!getStoryThumbnail(story)"
+                                                        class="card-preview-video card-preview-video-loader"
+                                                        [src]="getStoryMediaSrc(story)"
+                                                        muted
+                                                        playsinline
+                                                        preload="metadata"
+                                                        (loadedmetadata)="setCardVideoPreviewFrame($event, story)"
+                                                        (seeked)="freezeCardVideoPreview($event, story)"
+                                                        (error)="onCardVideoPreviewError(story)">
+                                                    </video>
+                                                    <img class="video-play-icon video-play-icon-sm"
+                                                        src="asset/images/Play.svg" alt="Play icon">
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #imageTemplate>
+                                                <div class="img-wrp">
+                                                    <img
+                                                        class="file-icon img-widfirst caro-img"
+                                                        [src]="url +  story.folder + '/' + story.fileName">
+                                                </div>
+                                            </ng-template>
+                                        </ng-template>
+                                    </ng-template>
+                                </div>
+                                <!-- <div class="blog-left"
+                                (click)="empconnect(story.id, postedStories, story.category, 'Posted Content')">
+
+                            
+                            <ng-container *ngIf="story.mediaType === 'Video'; else imageCase">
+
+                               
+                                <ng-container *ngIf="isUrl(story.fileName); else localVideo">
+                                <div class="caro-img-wrap">
+                                    
+                                    <iframe
+                                    width="100%"
+                                    [src]="transform(story.fileName)"
+                                    frameborder="0"
+                                    allowfullscreen>
+                                    </iframe>
+                                </div>
+                                </ng-container>
+
+                                
+                                <ng-template #localVideo>
+                                <div class="caro-img-wrap">
+                                    <video class="vid-new" controls>
+                                    <source
+                                        [src]="url + story.folder + '/' + story.fileName"
+                                        type="video/mp4">
+                                    </video>
+                                </div>
+                                </ng-template>
+
+                            </ng-container>
+
+                            
+                            <ng-template #imageCase>
+                                <img class="file-icon img-widfirst caro-img"
+                                    [src]="isUrl(story.fileName) ? story.fileName : url + story.folder + '/' + story.fileName"
+                                    [alt]="story.header">
+                            </ng-template>
+
+                            </div> -->
+
+                                <div class="blog-right">
+                                    <div class="story-top-row">
+                                        <h5 class="blogs-head story-header"
+                                            (click)="empconnect(story.id, postedStories , story.category, 'Posted Content')">
+                                            {{ getStoryHeaderText(story.header) }}</h5>
+                                    </div>
+
+                                    <!-- <div class="story-description-wrapper">
+                                        <p class="story-poster story-header">{{ story.description }}</p>
+                                        <span class="read-more" (click)="empconnect(story.id, postedStories , story.category, 'Posted Content')">Read More</span>
+                                </div> -->
+                                    <div class="story-poster ">
+                                        {{ (story.description || '') |
+                                        slice:0:sliceCount }}<ng-container
+                                            *ngIf="story.description?.length > sliceCount">...</ng-container>
+                                        <span class="read-more"
+                                            *ngIf="story.description?.length > sliceCount"
+                                            (click)="empconnect(story.id, postedStories , story.category, 'Posted Content')">
+                                            Read More
+                                        </span>
+                                    </div>
+                                    <div class="story-meta-row">
+                                        <span class="story-author">{{story.name | uppercase}}</span>
+                                          <span class="story-date">{{ story.createdOn}} <span class="story-meta-separator">|</span> <span class="views-count">total views: <span>{{formatLikeCount(story.totalViews)}}</span></span></span>
+                                    </div>
+                                    <div class="story-bottom-row">
+                                        <div class="stroy-likes">
+                                            <img (click)="updateLikes(story)"
+                                                [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                alt="like image" />
+                                            <p (click)="getLikes(story)"
+                                                class="stroy-likes-count">{{ formatLikeCount(story.totalLikes) }}</p>
+                                        </div>
+                                        <div class="publish-wrapper">
+                                            <div class="btn-submit">
+                                                <button type="button" class="reset my-sub"
+                                                    [ngClass]="{
+                                                                        'red-btn': story.status === 'L',
+                                                                        'green-btn': story.status === 'P',
+                                                                        'gray-btn': story.status === 'X' 
+                                                                    }">
+                                                    {{ story.status === 'L' ?
+                                                    'Pending' : story.status === 'P'
+                                                    ? 'Published' : 'Archived' }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- ✅ Dynamic Button Section -->
+                        </div>
+                    </div>
+                    <app-pagination-controls
+                        *ngIf="postedStories.length > tabPageSize"
+                        [totalItems]="postedStories.length"
+                        [pageSize]="tabPageSize"
+                        [currentPage]="postedStoriesPage"
+                        [label]="'posts'"
+                        (pageChange)="onPostedStoriesPageChange($event)">
+                    </app-pagination-controls>
+
+                    <div *ngIf="postedStories.length === 0"
+                        class="no-data-state">
+                        No Content Available
+                    </div>
+                </div>
+
+            </ng-template>
+
+            <ng-template [libTab]="'My Submission'" [libTabIcon]="'asset/images/My%20Submission.svg'"
+                [libTabActive]="activeTab === 'My Submission'">
+                <div class="tab-panel-surface content-panel">
+                    <div class="panel-title">My Submission</div>
+                    <div *ngIf="myStories.length > 0" class="content-grid ">
+                        <div *ngFor="let story of pagedMyStories" class="blogsBlock">
+                            <div class="blogs">
+                                <div class="blog-left"
+                                    (click)="empconnect(story.id, myStories , story.category, 'My Submission')">
+                                    <ng-container *ngIf="isTextStory(story); else mySubmissionMedia">
+                                        <div class="img-wrp text-story-placeholder">
+                                            <img class="file-icon img-widfirst caro-img"
+                                                [src]="textStoryPlaceholder"
+                                                alt="Text post placeholder">
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #mySubmissionMedia>
+                                        <ng-container
+                                            *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                            <div class="caro-img-wrap external-video-placeholder">
+                                                <img class="video-play-icon video-play-icon-sm"
+                                                    src="asset/images/Play.svg" alt="Play icon">
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #localMedia>
+                                            <ng-container
+                                                *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                <div class="caro-img-wrap">
+                                                    <img *ngIf="getStoryThumbnail(story)"
+                                                        class="card-preview-video"
+                                                        [src]="getStoryThumbnail(story)!"
+                                                        alt="Video thumbnail"
+                                                        loading="lazy">
+                                                    <ng-container *ngIf="!getStoryThumbnail(story) && hasStoryThumbnailError(story)">
+                                                        <div class="vid-box">
+                                                            <div class="play-overlay">
+                                                                <i class="fa fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <video *ngIf="!getStoryThumbnail(story)"
+                                                        class="card-preview-video card-preview-video-loader"
+                                                        [src]="getStoryMediaSrc(story)"
+                                                        muted
+                                                        playsinline
+                                                        preload="metadata"
+                                                        (loadedmetadata)="setCardVideoPreviewFrame($event, story)"
+                                                        (seeked)="freezeCardVideoPreview($event, story)"
+                                                        (error)="onCardVideoPreviewError(story)">
+                                                    </video>
+                                                    <img class="video-play-icon video-play-icon-sm"
+                                                        src="asset/images/Play.svg" alt="Play icon">
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #imageTemplate>
+                                                <div class="img-wrp">
+                                                    <img
+                                                        class="file-icon img-widfirst caro-img"
+                                                        [src]="url + story.folder + '/' + story.fileName" />
+                                                </div>
+                                            </ng-template>
+                                        </ng-template>
+                                    </ng-template>
+                                </div>
+
+                                <div class="blog-right">
+                                    <div class="story-top-row">
+                                        <h5 class="blogs-head story-header"
+                                            (click)="empconnect(story.id, myStories , story.category, 'My Submission')">{{
+                                            getStoryHeaderText(story.header) }}</h5>
+                                    </div>
+                                    <div class="story-poster ">
+                                        {{ (story.description || '') |
+                                        slice:0:sliceCount }}
+                                        <ng-container
+                                            *ngIf="story.description?.length > sliceCount">...</ng-container>
+                                        <span class="read-more"
+                                            *ngIf="story.description?.length > sliceCount"
+                                            (click)="empconnect(story.id, myStories , story.category, 'My Submission')">
+                                            Read More
+                                        </span>
+                                    </div>
+                                    <div class="story-meta-row">
+                                        <span class="story-author">{{story.name | uppercase}}</span>
+                                          <span class="story-date">{{ story.createdOn}} <span class="story-meta-separator">|</span> <span class="views-count">total views: <span>{{formatLikeCount(story.totalViews)}}</span></span></span>
+                                    </div>
+                                    <div class="story-bottom-row">
+                                        <div class="stroy-likes">
+                                            <img (click)="updateLikes(story)"
+                                                [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                alt="like image" />
+                                            <p (click)="getLikes(story)"
+                                                class="stroy-likes-count">{{ formatLikeCount(story.totalLikes)
+                                                }}</p>
+                                        </div>
+                                        <div class="publish-wrapper">
+                                            <div class="btn-submit">
+                                                <button type="button" class="reset my-sub"
+                                                    [ngClass]="{
+                                                                        'red-btn': story.status === 'L',
+                                                                        'green-btn': story.status === 'P',
+                                                                        'gray-btn': story.status === 'X'
+                                                                    }">
+                                                    {{ story.status === 'L' ?
+                                                    'Pending' : story.status === 'P'
+                                                    ? 'Published' : 'Archived' }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ✅ Dynamic Button Section -->
+                        </div>
+                    </div>
+                    <app-pagination-controls
+                        *ngIf="myStories.length > tabPageSize"
+                        [totalItems]="myStories.length"
+                        [pageSize]="tabPageSize"
+                        [currentPage]="myStoriesPage"
+                        [label]="'submissions'"
+                        (pageChange)="onMyStoriesPageChange($event)">
+                    </app-pagination-controls>
+                    <div *ngIf="myStories.length === 0" class="no-data-state">
+                        No Content Available
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template *ngIf="isAdmin" [libTab]="'Publish Content'" [libTabIcon]="'asset/images/Publish%20Content.svg'"
+                [libTabActive]="activeTab === 'Publish Content'">
+                <div class="tab-panel-surface content-panel">
+                    <div class="tab-panel-head">
+                        <div class="panel-title">Publish Content</div>
+                        <div>
+                            <button class="download-btn" (click)="downloadReport()">
+                                <img class="download-icon" src="asset/images/Download.svg">
+                                <span class="download-label">Report</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="allStories.length > 0" class="content-grid ">
+                        <div *ngFor="let story of pagedAllStories"
+                            class="blogsBlock publishContent">
+                            <div class="blogs">
+                                <div class="blog-left"
+                                    (click)="empconnect(story.id, allStories , story.category, 'Publish Content')">
+                                    <ng-container *ngIf="isTextStory(story); else publishContentMedia">
+                                        <div class="img-wrp text-story-placeholder">
+                                            <img class="file-icon img-widfirst caro-img"
+                                                [src]="textStoryPlaceholder"
+                                                alt="Text post placeholder">
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #publishContentMedia>
+                                        <ng-container
+                                            *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                            <div class="caro-img-wrap external-video-placeholder">
+                                                <img class="video-play-icon video-play-icon-sm"
+                                                    src="asset/images/Play.svg" alt="Play icon">
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #localMedia>
+                                            <ng-container
+                                                *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                <div class="caro-img-wrap">
+                                                    <img *ngIf="getStoryThumbnail(story)"
+                                                        class="card-preview-video"
+                                                        [src]="getStoryThumbnail(story)!"
+                                                        alt="Video thumbnail"
+                                                        loading="lazy">
+                                                    <ng-container *ngIf="!getStoryThumbnail(story) && hasStoryThumbnailError(story)">
+                                                        <div class="vid-box">
+                                                            <div class="play-overlay">
+                                                                <i class="fa fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <video *ngIf="!getStoryThumbnail(story)"
+                                                        class="card-preview-video card-preview-video-loader"
+                                                        [src]="getStoryMediaSrc(story)"
+                                                        muted
+                                                        playsinline
+                                                        preload="metadata"
+                                                        (loadedmetadata)="setCardVideoPreviewFrame($event, story)"
+                                                        (seeked)="freezeCardVideoPreview($event, story)"
+                                                        (error)="onCardVideoPreviewError(story)">
+                                                    </video>
+                                                    <img class="video-play-icon video-play-icon-sm"
+                                                        src="asset/images/Play.svg" alt="Play icon">
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #imageTemplate>
+                                                <div class="img-wrp">
+                                                    <img
+                                                        class="file-icon img-widfirst caro-img"
+                                                        [src]="url + story.folder + '/' + story.fileName" />
+                                                </div>
+                                            </ng-template>
+                                        </ng-template>
+                                    </ng-template>
+                                </div>
+
+                                <div class="blog-right">
+                                    <div class="story-top-row">
+                                        <h5 class="blogs-head story-header"
+                                            (click)="empconnect(story.id, allStories , story.category, 'Publish Content')">
+                                            {{ getStoryHeaderText(story.header) }}</h5>
+                                    </div>
+                                    <div class="story-poster ">
+                                        {{ (story.description || '') |
+                                        slice:0:sliceCount }}
+                                        <ng-container
+                                            *ngIf="story.description?.length > sliceCount">...</ng-container>
+                                        <span class="read-more"
+                                            *ngIf="story.description?.length > sliceCount"
+                                            (click)="empconnect(story.id, allStories , story.category, 'Publish Content')">
+                                            Read More
+                                        </span>
+                                    </div>
+                                    <div class="story-meta-row">
+                                        <span class="story-author">{{story.name | uppercase}}</span>
+                                        <span class="story-date">{{ story.createdOn}} <span class="story-meta-separator publish-date-views">|</span> <span class="views-count publish-date-views">total views: <span>{{formatLikeCount(story.totalViews)}}</span></span></span>
+                                    </div>
+                                    <div class="story-bottom-row publish-bottom-row">
+                                        <div class="publish-stats-row">
+                                            <div class="stroy-likes">
+                                                <img (click)="updateLikes(story)"
+                                                    [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                                                    alt="like image" />
+                                                <p class="stroy-likes-count"
+                                                    (click)="getLikes(story)">{{
+                                                    formatLikeCount(story.totalLikes) }}</p>
+                                            </div>
+                                            <p class="views-count publish-mobile-views">total views: <span>{{formatLikeCount(story.totalViews)}}</span></p>
+                                        </div>
+                                        <div class="publish-wrapper">
+                                            <div class="btn-submit">
+                                                <button type="button" class="status-btn" disabled><span class="status-label">status :</span>
+                                                    <span class="status-value">
+                                                        {{ story.status === 'L' ? 'pending'
+                                                        : story.status === 'P' ? 'published'
+                                                        :
+                                                        'archived' }}
+                                                    </span>
+                                                </button>
+                                                <button *ngIf="!story.actionSuccess"
+                                                    type="button" class="reset"
+                                                    [ngClass]="{
+                                                    'green-btn': story.status === 'L',
+                                                    'gray-btn': story.status === 'P',
+                                                    'red-btn': story.status === 'X'
+                                                }" (click)="handleStoryAction(story)">
+                                                    {{ story.status === 'L' ? 'Publish'
+                                                    : story.status === 'P' ? 'Archive'
+                                                    : 'Republish' }}
+                                                </button>
+                                                <!-- <p *ngIf="story.actionSuccess"
+                                                    class="action-success-msg"> {{ story.actionSuccess }}
+                                                </p> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ✅ Dynamic Button Section -->
+                            <div class="publish-wrapper publish-wrapper-inline">
+                                <div class="btn-submit">
+
+                                    <p class="status-pill">status :
+                                        <span>
+                                            {{ story.status === 'L' ? 'pending'
+                                            : story.status === 'P' ? 'published'
+                                            :
+                                            'archived' }}
+                                        </span>
+                                    </p>
+
+                                    <!-- ✅ Hide button after actionSuccess -->
+                                    <button *ngIf="!story.actionSuccess"
+                                        type="button" class="reset"
+                                        [ngClass]="{
+                                        'green-btn': story.status === 'L',
+                                        'gray-btn': story.status === 'P',
+                                        'red-btn': story.status === 'X'
+                                    }" (click)="handleStoryAction(story)">
+                                        {{ story.status === 'L' ? 'Publish'
+                                        : story.status === 'P' ? 'Archive'
+                                        : 'Republish' }}
+                                    </button>
+
+                                    <!-- ✅ Show Success Message -->
+                                    <p *ngIf="story.actionSuccess"
+                                        class="action-success-msg">
+                                        ✅ {{ story.actionSuccess }}
+                                    </p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <app-pagination-controls
+                        *ngIf="allStories.length > tabPageSize"
+                        [totalItems]="allStories.length"
+                        [pageSize]="tabPageSize"
+                        [currentPage]="publishStoriesPage"
+                        [label]="'posts'"
+                        (pageChange)="onPublishStoriesPageChange($event)">
+                    </app-pagination-controls>
+                    <div *ngIf="allStories.length === 0" class="no-data-state">
+                        No Content Available
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <app-preview-content
+            *ngIf="preview && previewStory"
+            class="tab-panel-surface preview-panel"
+            [story]="previewStory"
+            [isAdmin]="isAdmin"
+            [previewSourceTab]="previewSourceTab"
+            [url]="url"
+            (likeToggle)="updateLikes($event)"
+            (likesOpen)="getLikes($event)"
+            (storyAction)="handleStoryAction($event)"
+            (imageOpen)="openImage($event)">
+        </app-preview-content>
+    </div>
+</section>
+
+<ng-template #likes>
+    <div class="likesmodel">
+        <div class="Likeheader"> 
+             <img src= 'asset/images/Like%20Active.svg' alt="like image" />
+            <h4>Likes</h4>
+        </div>
+        
+        <div class="user-list">
+            <div class="row" *ngFor="let user of likedUser">
+                 <div class="image-wrapper">
+                    <span class="story-avatar"
+                        [ngStyle]="getStoryAvatarStyle(user.name)">
+                        {{ getStoryAvatarText(user.name) }}
+                    </span>
+                </div>
+                <div class="col user-name"> {{ user.name }}</div>
+
+                <!-- <div class="col">
+                    <span class="col user-time">{{ user.likedOn }}</span>
+                    <i class="fa-solid fa-thumbs-up"></i>
+                </div> -->
+            </div>
+            <div class=" no-data-center" *ngIf="likedUser.length == 0">
+                No Likes
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- ✅ Fullscreen Image Modal -->
+<div class="overlay" *ngIf="selectedImage" (click)="closeImage()">
+    <div class="overlay-content">
+        <img [src]="selectedImage" alt="Full image" class="fullscreen-img">
+    </div>
+</div>
+<!-- Popup -->
+<ng-container *ngIf="likeshowPopup">
+    <ng-container [libPopup]="likes" [popupWidth]="'353px'"
+        [popupHeight]="'434px'" (closed)="likesPopupClose()">
+    </ng-container>
+</ng-container>
+<!-- popup -->

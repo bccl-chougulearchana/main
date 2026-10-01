@@ -1,0 +1,325 @@
+// Investment / Trading Disclosure — Questionnaire
+// Brand cyan: #01BEFE. White surface (per project), subtle card separation.
+
+$brand: #01BEFE;
+$yes: #1ea672;
+$no: #e23b3b;
+$ink: #2d2f33;
+$muted: #6b7178;
+$card-border: #ececec;
+
+.questionnaire {
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $ink;
+    margin: 0 0 1.25rem;
+  }
+}
+.pt-20{
+  padding-top: 20px;
+}
+.qd-card {
+  background: #fff;
+  border: 1px solid $card-border;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  outline: none;
+
+  &--missing {
+    border-color: #e03131;
+    box-shadow: 0 0 0 2px rgba(224, 49, 49, 0.12);
+  }
+
+  &__question {
+    margin: 0 0 0.85rem;
+    color: $ink;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+/* Info icon + hover tooltip on sub-questions */
+.qd-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  outline: none;
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #1f2328;
+    color: #fff;
+    font-style: italic;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  &__tip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 190px;
+    max-width: 260px;
+    background: #fff;
+    color: #2d2f33;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0.5rem 0.65rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.12s ease;
+    z-index: 30;
+
+    // little pointer under the bubble
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #fff;
+    }
+  }
+
+  &:hover &__tip,
+  &:focus &__tip,
+  &:focus-within &__tip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 0.25rem;
+    color: #01beff;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.qd-choices {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+// Selectable Yes/No — exclusive by design (bound to one answer value).
+// Rendered as buttons (not checkboxes) so only the chosen option shows a tick.
+.qd-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: $ink;
+  cursor: pointer;
+  user-select: none;
+  text-transform: none;
+
+  &__label {
+    font-size: 16px;
+    color: $ink;
+    text-transform: none;
+  }
+}
+
+.qd-box {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.qd-choice--yes .qd-box { color: $yes; }
+.qd-choice--no .qd-box { color: $no; }
+
+// Tick only when this option is the selected one.
+.qd-choice.is-selected .qd-box::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 2px;
+  width: 6px;
+  height: 17px;
+  border: solid currentColor;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.declaration {
+  margin-top: 1.5rem;
+  color: $ink;
+  font-size: 0.9rem;
+
+  &__text { margin: 0 0 1rem; }
+
+  &__line {
+    margin: 0 0 0.25rem;
+    strong { font-weight: 600; }
+  }
+
+  &__notes {
+    margin: 0.25rem 0 0.5rem;
+    padding-left: 1.25rem;
+    li { margin-bottom: 0.2rem; }
+  }
+
+  &__footnote {
+    margin: 0.25rem 0 0;
+    color: $ink;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.btn {
+  min-width: 130px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  &--primary {
+    background: $brand;
+    border: 1px solid $brand;
+    color: #fff;
+  }
+
+  &--outline {
+    background: #fff;
+    border: 1px solid $brand;
+    color: $brand;
+  }
+}
+
+// ---- Responsive (mobile: stacked, full-width actions) ----
+@media only screen and (max-width: 768px) {
+
+  .qd-card {
+    padding: 1rem;
+      &__question {font-size: 14px;   }
+  }
+  .qd-choice {
+    &__label {
+      font-size: 14px;
+    }
+  }
+  .declaration__actions {
+    flex-direction: column;
+    .btn { width: 100%; }
+  }
+}
+/* ---------------------------------------------------------------------------
+ * Inline "existing records" (returning users) + Add-new-record toggle
+ * ------------------------------------------------------------------------- */
+.qd-records {
+  margin: -0.25rem 0 1rem;
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    background: #f6fdff;
+    border: 1px solid rgba(1, 190, 254, 0.35);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0b6b86;
+    text-align: left;
+
+    &:hover { background: #ecfaff; }
+  }
+
+  &__label { line-height: 1.3; }
+
+  &__chevron {
+    flex-shrink: 0;
+    color: #0b6b86;
+    transition: transform 0.15s ease;
+    &.is-open { transform: rotate(180deg); }
+  }
+
+  &__body {
+    padding: 0.75rem 0 0.25rem;
+  }
+}
+
+.qd-addnew {
+  margin: 0 0 1rem;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    border: 1px dashed $brand;
+    border-radius: 6px;
+    color: #0b6b86;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    span { font-size: 1.05rem; line-height: 1; }
+    &:hover { background: #f6fdff; }
+  }
+}
+
+/* Cancel action for an optional "add new record" form */
+.qd-newform {
+  &__actions {
+    display: flex;
+    justify-content: flex-start;
+    margin: -0.25rem 0 1rem;
+  }
+}
+
+.qd-cancelnew {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1px solid #d0d5da;
+  border-radius: 6px;
+  color: #5b6169;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover { background: #f2f4f6; color: #2d2f33; }
+}

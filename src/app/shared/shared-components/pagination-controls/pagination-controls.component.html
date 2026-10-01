@@ -1,0 +1,33 @@
+<nav class="pagination" *ngIf="totalPages > 1" aria-label="Content pagination">
+  <div class="pagination-summary">
+    Showing {{ startItem }}-{{ endItem }} of {{ totalItems }} {{ label }}
+  </div>
+
+  <div class="pagination-actions">
+    <button
+      type="button"
+      class="pagination-btn pagination-edge"
+      [disabled]="safeCurrentPage === 1"
+      (click)="selectPage(safeCurrentPage - 1)">
+      Prev
+    </button>
+
+    <button
+      *ngFor="let page of pageNumbers"
+      type="button"
+      class="pagination-btn pagination-page"
+      [class.active]="page === safeCurrentPage"
+      [attr.aria-current]="page === safeCurrentPage ? 'page' : null"
+      (click)="selectPage(page)">
+      {{ page }}
+    </button>
+
+    <button
+      type="button"
+      class="pagination-btn pagination-edge"
+      [disabled]="safeCurrentPage === totalPages"
+      (click)="selectPage(safeCurrentPage + 1)">
+      Next
+    </button>
+  </div>
+</nav>

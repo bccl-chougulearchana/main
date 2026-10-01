@@ -1,0 +1,308 @@
+section {
+  margin: 25px 0px;
+}
+
+.header-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.owl-item .slide-grid {
+  width: 100% !important;
+  /* ensures grid container fills the carousel item */
+}
+
+.event-head {
+  font-size: 24px;
+  color: rgb(51, 51, 51);
+  font-weight: 600;
+  font-family: "Open Sans";
+  margin-bottom: 30px;
+  margin-top: -0.5625rem;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.event-info {
+  font-size: 14px;
+  color: rgb(51, 51, 51);
+  font-weight: 400;
+  font-family: "Open Sans";
+  margin-bottom: 30px;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.event-manager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.event-date-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  flex: 0 0 100%;
+}
+
+.image-wrapper {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-right: 1rem;
+  background: rgb(200, 200, 200);
+  border-radius: 50%;
+  overflow: hidden;
+  width: 30px;
+}
+
+.manager-name {
+  font-size: 14px;
+  color: rgb(51, 51, 51);
+  font-weight: 400;
+  font-family: "Open Sans";
+}
+
+.event-date {
+  font-size: 14px;
+  color: rgb(51, 51, 51);
+  font-weight: 400;
+  font-family: "Open Sans";
+}
+
+.image-wrapper img {
+  display: block;
+  max-width: 100%;
+}
+
+.like-count-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.like-count {
+  font-size: 1rem;
+  font-weight: 500;
+  // cursor: pointer;
+  // align-self: end;
+}
+
+.vid-new {
+  height: 100%;
+  width: 100%;
+}
+
+.caro-img-wrap {
+  height: 560px;
+  width: 100%;
+  object-fit: contain;
+  //   background: #F6F6F6;
+}
+
+.caro-img-wrap img,
+video,
+iframe {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* ===== Likes popup styles ===== */
+.likesmodel {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  /* limit for large screens */
+  max-height: 40vh;
+  /* never taller than 80% of screen */
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header stays fixed */
+.likesmodel h4 {
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  flex-shrink: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.likesmodel .user-time {
+  font-size: 11px;
+  padding: 0 8px;
+}
+
+.likesmodel .user-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* User list scrolls independently */
+.likesmodel .user-list {
+  flex: 1;
+  max-height: calc(40vh - 60px);
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+/* User row */
+.likesmodel .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.publish-action {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 0px 5px;
+}
+
+.publish-action .btn-submit .reset {
+  cursor: pointer;
+}
+
+.red-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.green-btn {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.gray-btn {
+  background-color: #7f8c8d;
+  color: #fff;
+}
+
+.col-link {
+  // display: block;
+  width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.thumb-icon {
+  width: 75% !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .likesmodel {
+    width: 95%;
+    /* almost full width on small screens */
+    max-width: none;
+    max-height: 70vh;
+    /* smaller on mobile */
+  }
+
+  .likesmodel h4 {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  .likesmodel .row {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+/* 📱 Small tablets / large phones (481px – 767px) */
+@media (max-width: 767px) {
+  .caro-img {
+    height: 100%;
+  }
+
+  .caro-img-wrap {
+    height: 335px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .thumb-icon {
+    width: 100% !important;
+  }
+}
+
+/* 📱 Tablets (768px – 1024px, includes iPad Mini/Air portrait) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .caro-img-wrap {
+    height: 378px;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+/* 💻 Laptops / desktops (1025px – 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .caro-img-wrap {
+    height: 530px;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    margin: 25px 0px 25px;
+  }
+
+  .main-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .event-date-wrap {
+    margin-bottom: 0px;
+  }
+
+  .like-count-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+  }
+
+  .btn-head-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 65px;
+    padding-bottom: 2%;
+    flex-direction: column;
+  }
+}
+
+
+/* Tablet portrait (iPad Mini, etc.) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .event-date-wrap {
+    margin-bottom: 0px;
+  }
+
+  .like-count-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+  }
+
+  .btn-head-wrap span {
+    display: block;
+  }
+}

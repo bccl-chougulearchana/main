@@ -1,0 +1,210 @@
+<header class="header-sticky fixed-header">
+    <div class="web-design">
+        <div class="container">
+            <div class="top-bar">
+                <div class="logo">
+                    <img class="logo-new" (click)="onLogoClick()" src="asset/images/timescape_logo.png" alt="Logo">
+                </div>
+                <div class="name-date center-text">
+                    Welcome <strong>{{empData.firstName}}&nbsp;{{empData.surname}}</strong> | {{ today | date:'EEE, MMM dd, yyyy' }}
+                </div>
+                <div class="user-icon">
+                    <div>
+                        <div class="nav-wraper">
+                            <ng-container *ngFor="let item of utilityIcons">
+                                <!-- Router-based icon (e.g. Service Desk) -->
+                                <div *ngIf="item.type === 'route'" class="nav-icon notification" [title]="item.title" [routerLink]="[item.route]" routerLinkActive="router-link-active">
+                                    <a>
+                                        <img [src]="item.icon" [alt]="item.alt">
+                                    </a>
+                                </div>
+                                <!-- Click / callback / external icon (Home, Alerts, Medical, BCCL, LinkedIn, Password, Logout) -->
+                                <div *ngIf="item.type !== 'route'" class="nav-icon notification" [title]="item.title" (click)="onIconAction(item)">
+                                    <a>
+                                        <img [src]="item.icon" [alt]="item.alt">
+                                        <!-- Dynamic Notification Badge -->
+                                        <span class="badge-notify" *ngIf="item.badge && notificationCount > 0">
+                                            {{ notificationCount > 99 ? "99+" : notificationCount }}
+                                        </span>
+                                    </a>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <div class="bottom-icons" [libDynamicGrid]="appIconsGrid">
+                            <ng-container *ngFor="let item of appIcons">
+                                <!-- Standard app link icon (link resolved from quickLinks.json) -->
+                                <div *ngIf="item.type === 'quicklink'" class="nav-icon notification" [attr.id]="item.id" [title]="item.title" (click)="onIconAction(item)">
+                                    <a>
+                                        <img [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                                    </a>
+                                </div>
+                                <!-- Quick Links popup toggle -->
+                                <div *ngIf="item.type === 'quicklinksToggle'" class="nav-icon notification" [attr.id]="item.id" [title]="item.title">
+                                    <a (click)="togglePopup()">
+                                        <img class="rotate-icon" [class.rotated]="popupOpen" [src]="item.icon" [alt]="item.alt">
+                                    </a>
+                                </div>
+                                <!-- Search toggle -->
+                                <div *ngIf="item.type === 'search'" class="nav-icon" [attr.id]="item.id" [title]="item.title" (click)="toggleSearch()">
+                                    <img [src]="item.icon" [alt]="item.alt">
+                                </div>
+                            </ng-container>
+
+                            <!-- Expanding Search Bar Overlay -->
+                            <div class="search-bar-overlay" #searchOverlay [class.active]="showSearch">
+                                <input type="text" placeholder="Search..." (focus)="onFocus()"
+                                    (input)="onSearch($event)" (blur)="closeSearch()" [(ngModel)]="searchText"
+                                    autofocus />
+                            </div>
+                            <ul *ngIf="isDropdownOpen && filteredItems.length > 0" class="search-dropdown">
+                                <li
+                                    *ngFor="let item of filteredItems"
+                                    (mousedown)="onSelectSearchItem(item, $event)"
+                                    [class.disabled]="!item.url"
+                                >
+                                    <span>{{ item.name }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div id="sm-screen-new-des">
+            <div class="sm-nav-wrapper">
+                <div class="sm-nav-gap">
+                    <a class="anchor index pad-left">
+                        <div libSideNav [menuItems]="menuItems" [logo]="logoUrl"></div>
+                    </a>
+
+                    <div class="home-icon sm-home-icon">
+                        <a class="anchor" (click)="onLogoClick()"><img class="main-logo"
+                                src="asset/images/timescape_logo.png"></a>
+                    </div>
+                </div>
+
+                <div class="mini-icons-mobile">
+                    <ng-container *ngFor="let item of mobileIcons">
+                        <!-- Router-based icon (Service Desk) -->
+                        <div *ngIf="item.type === 'route'" class="nav-icon notification" [title]="item.title" [routerLink]="[item.route]" routerLinkActive="router-link-active">
+                            <a>
+                                <img [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                            </a>
+                        </div>
+                        <!-- Quicklink app icon (TiVA) -->
+                        <div *ngIf="item.type === 'quicklink'" class="nav-icon notification" [title]="item.title" (click)="onIconAction(item)">
+                            <a>
+                                <img [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                            </a>
+                        </div>
+                        <!-- Quick Links popup toggle (image icon, same as desktop) -->
+                        <div *ngIf="item.type === 'quicklinksToggle'" class="nav-icon notification" [title]="item.title">
+                            <a (click)="togglePopup()">
+                                <img class="rotate-icon" [class.rotated]="popupOpen" [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                            </a>
+                        </div>
+                        <!-- Search toggle (image icon from header) -->
+                        <div *ngIf="item.type === 'search'" class="nav-icon" [title]="item.title" (click)="toggleSearch()">
+                            <img [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                        </div>
+                    </ng-container>
+
+                    <!-- Expanding Search Bar Overlay -->
+                    <!-- <div class="search-bar-overlay" #smSearchOverlay [class.active]="showSearch">
+                        <input type="text" placeholder="Search..." (blur)="closeSearch()" />
+                    </div> -->
+
+                    <div class="search-bar-overlay" #smSearchOverlay [class.active]="showSearch">
+                        <input type="text" placeholder="Search..." (focus)="onFocus()" (input)="onSearch($event)"
+                            (blur)="closeSearch()" [(ngModel)]="searchText" autofocus />
+                    </div>
+
+                    <ul *ngIf="isDropdownOpen && filteredItems.length > 0" class="search-dropdown">
+                        <li *ngFor="let item of filteredItems"
+                            (click)="openLinkTest(item)">
+                            <span>{{ item.name }}</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<div class="popup-overlay" *ngIf="popupOpen" (click)="closePopup()" role="dialog" aria-modal="true">
+    <div class="popup" (click)="$event.stopPropagation()">
+        <!-- <button class="close-btn" (click)="closePopup()" aria-label="Close menu">×</button> -->
+
+        <div class="popup-content small-pop-icon quicklinks-contents" >
+            <div [libDynamicGrid]="{ xs: 7, sm: 7, md: 7}" class="headlinks" *ngIf="isSmallScreen">
+                <a *ngFor="let item of popupIcons" (click)="onPopupIconAction(item)">
+                    <img [src]="item.icon" [alt]="item.alt" [attr.width]="item.width" [attr.height]="item.height">
+                </a>
+
+                <!-- <a id="my-hr" (click)="openLinkTest(iconLinks['my-hr']);closePopup()">
+                    <img src="asset/images/my_hr.png" alt="" >
+                </a>
+                <a (click)="openLinkTest(iconLinks['bccl partnerdx']);closePopup()">
+                    <img src="asset/images/invoice_approval_icon.png" alt="" >
+                </a>
+                <a id="sap" (click)="openLinkTest(iconLinks['sap']); closePopup()">
+                    <img src="asset/images/SAP_grey.png" alt="">
+                </a>
+                
+                 <a (click)="openLinkTest(iconLinks['my-ess']);closePopup();">
+                    <img src="asset/images/my_ess.png" alt="" >
+                </a>
+                <a (click)="openLinkTest(iconLinks['tgit service desk']);closePopup()">
+                    <img src="asset/images/service_desk_icon.png" alt="">
+                </a>
+                <a (click)="closePopup();openLinkTest(iconLinks['travel hub'] || iconLinks['quest 2 travel'])">
+                    <i class="fa-solid fa fa-plane"></i>
+                </a>     
+                <a (click)="closePopup()">
+                    <img src="asset/images/tiva.png" alt="Support Icon" width="24" height="24">
+                </a> -->
+
+            </div>
+             <div class="flex-container min-max-height" [libDynamicGrid]="{ xs: 3, sm: 3, md: 5, lg: 6, xl: 7, xxl: 7 }" [class.expanded]="isExpanded" #contentRef >
+                    <a class="anchor" *ngFor="let item of quicklinkLoadData?.navigationLinks"
+                        (click)="openLinkTest(item);closePopup()">
+                        <div class="card">
+                            <div class="img-wrapper">
+                                <img class="card-img" [src]="item.icon" alt>
+                            </div>
+                            <p class="card-des">{{item.name}}</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                    <button class="btn" (click)="toggleExpand(contentRef)">{{
+                        isExpanded ? 'Show Less' : 'Show All'
+                        }}</button>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- --------------------------------------------  -->
+
+<!-- Template for Forgot Password -->
+<ng-template #forgotPassword>
+    <app-forgot-pass></app-forgot-pass>
+</ng-template>
+
+<!-- Popup -->
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="forgotPassword" [popupWidth]="'600px'" [popupHeight]="'97vh'"
+        (closed)="forgotPasswordPopupClose()">
+    </ng-container>
+</ng-container>

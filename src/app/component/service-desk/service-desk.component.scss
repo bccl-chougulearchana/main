@@ -1,0 +1,48 @@
+.clickable {
+  cursor: pointer;
+}
+
+.content-part:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s ease;
+}
+.inline-title,
+.inline-desc {
+  display: inline;
+}
+.icon-box {
+  width: 100px;
+  height: 50px;
+  background: #f4f6f8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.content-text {
+  h6 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+  }
+}
+
+.content-part {
+  gap: 15px;
+}
+@media only screen and (max-width: 768px) {
+    .icon-box {  width: 200px;}
+}

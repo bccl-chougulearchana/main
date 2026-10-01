@@ -1,0 +1,24 @@
+{
+  "relatedLinks": [
+    {
+      "label": "FAQ",
+      "url": "asset/configdata/doc/Investment declaration_FAQ.pdf",
+      "fileName": "Investment declaration_FAQ.pdf"
+    },
+    {
+      "label": "User Guide",
+      "url": "asset/configdata/doc/Investment Disclosure Process_User Guide.pptx",
+      "fileName": "Investment Disclosure Process_User Guide.pptx"
+    },
+    {
+      "label": "Personal investment in Unlisted Business Entities",
+      "url": "asset/configdata/doc/Personal Investments in Unlisted Business Entities.pdf",
+      "fileName": "Personal Investments in Unlisted Business Entities.pdf"
+    },
+    {
+      "label": "Annexure-a-integrity-attitudes-revision",
+      "url": "asset/configdata/doc/annexure-a-integrity-attitudes-revision.pdf",
+      "fileName": "annexure-a-integrity-attitudes-revision.pdf"
+    }
+  ]
+}

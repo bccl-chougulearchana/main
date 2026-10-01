@@ -1,0 +1,45 @@
+{
+  "status": "success",
+  "data": {
+    "logo": "asset/images/timescape_logo.png",
+    "appIconsGrid": { "xs": 1, "sm": 1, "md": 8, "lg": 8, "xl": 8, "xxl": 8 },
+    "utilityIcons": [
+      { "id": "home",          "title": "Home",             "icon": "asset/images/Icons/Home.svg",              "alt": "Home",             "type": "callback", "action": "home",          "order": 1 },
+      { "id": "serviceDesk",   "title": "Service Desk",     "icon": "asset/images/service_desk_icon.png",       "alt": "",                 "type": "route",    "route": "/portal/serviceDesk", "order": 2 },
+      { "id": "alerts",        "title": "Alerts",           "icon": "asset/images/Icons/Alterts.svg",           "alt": "Alerts",           "type": "callback", "action": "alerts", "badge": true, "order": 3 },
+      { "id": "medical",       "title": "Medical Emergency","icon": "asset/images/Icons/Medical Emergancy.svg", "alt": "Medical Emergency","type": "external", "url": "https://medibhai.com/ambulance-service", "order": 4 },
+      { "id": "bccl",          "title": "BCCL",             "icon": "asset/images/Icons/BCCL.svg",              "alt": "BCCL",             "type": "external", "url": "https://bccl.in/", "order": 5 },
+      { "id": "linkedin",      "title": "BCCL @Linkedin",   "icon": "asset/images/Icons/BCCL_Linkedin.svg",     "alt": "BCCL Linkedin",    "type": "external", "url": "https://in.linkedin.com/company/bennett-coleman-and-co-ltd-times-of-india", "order": 6 },
+      { "id": "passwordReset", "title": "Password Reset",   "icon": "asset/images/Icons/Password Reset.svg",    "alt": "Password Reset",   "type": "callback", "action": "passwordReset", "order": 7 },
+      { "id": "logout",        "title": "Logout",           "icon": "asset/images/Icons/Logout.svg",            "alt": "Logout",           "type": "callback", "action": "logout",        "order": 8 }
+    ],
+
+    "appIcons": [
+      { "id": "my-hr",             "title": "MY-HR",            "icon": "asset/images/img3.png",                       "alt": "",             "type": "quicklink", "quickKey": "myhr",             "order": 1 },
+      {                            "title": "BCCL PartnerDX",   "icon": "asset/images/DXTO_small_icon.png",            "alt": "",             "type": "quicklink", "quickKey": "bcclpartnerdx",    "order": 2 },
+      { "id": "visitorManagement", "title": "Visitor Management","icon": "asset/images/Icons/visitor management 01.svg","alt": "",            "type": "quicklink", "quickKey": "visitormanagement","order": 3 },
+      {                            "title": "Travel Hub",       "icon": "asset/images/travel_hub_icon.png",            "alt": "",             "type": "quicklink", "quickKey": "travelhub", "fallbackKey": "quest2travel", "order": 4 },
+      {                            "title": "Ask TiVA",         "icon": "asset/images/tiva.png",                       "alt": "Support Icon", "width": 24, "height": 24, "type": "quicklink", "quickKey": "tiva", "order": 5 },
+      { "id": "my-ess",            "title": "MY-ESS",           "icon": "asset/images/my_ess_blue_grey.png",           "alt": "",             "type": "quicklink", "quickKey": "myess",            "order": 6 },
+      { "id": "quickLinks",        "title": "Quick Links",      "icon": "asset/images/Icons/Quick Links.svg",          "alt": "Quick Links",  "type": "quicklinksToggle",      "order": 7 },
+      { "id": "search",            "title": "Search",           "icon": "asset/images/Icons/Search.svg",               "alt": "",             "type": "search",                "order": 8 }
+    ],
+
+    "mobileIcons": [
+      { "title": "Service Desk", "icon": "asset/images/service_desk_icon.png", "alt": "",             "width": 24, "height": 24, "type": "route",             "route": "/portal/serviceDesk", "order": 1 },
+      { "title": "TiVA",         "icon": "asset/images/tiva.png",              "alt": "Support Icon", "width": 24, "height": 24, "type": "quicklink",         "quickKey": "tiva",             "order": 2 },
+      { "title": "Quick Links",  "icon": "asset/images/Icons/Quick Links.svg", "alt": "Quick Links",  "width": 40, "height": 40, "type": "quicklinksToggle",  "order": 3 },
+      {                          "icon": "asset/images/Icons/Search.svg",      "alt": "",             "width": 40, "height": 40, "type": "search",            "order": 4 }
+    ],
+
+    "popupIcons": [
+      { "title": "Home",              "icon": "asset/images/Icons/Home.svg",              "alt": "Home",              "width": 26, "height": 26, "type": "callback", "action": "home",          "order": 1 },
+      { "title": "Alerts",            "icon": "asset/images/Icons/Alterts.svg",           "alt": "Alerts",            "width": 26, "height": 26, "type": "callback", "action": "alerts",        "order": 2 },
+      { "title": "Medical Emergency", "icon": "asset/images/Icons/Medical Emergancy.svg", "alt": "Medical Emergency", "width": 26, "height": 26, "type": "external", "url": "https://medibhai.com/ambulance-service", "order": 3 },
+      { "title": "BCCL",              "icon": "asset/images/Icons/BCCL.svg",              "alt": "BCCL",              "width": 26, "height": 26, "type": "external", "url": "https://bccl.in/", "order": 4 },
+      { "title": "BCCL @Linkedin",    "icon": "asset/images/Icons/BCCL_Linkedin.svg",     "alt": "BCCL Linkedin",     "width": 26, "height": 26, "type": "external", "url": "https://in.linkedin.com/company/bennett-coleman-and-co-ltd-times-of-india", "order": 5 },
+      { "title": "Password Reset",    "icon": "asset/images/Icons/Password Reset.svg",    "alt": "Password Reset",    "width": 26, "height": 26, "type": "callback", "action": "passwordReset", "order": 6 },
+      { "title": "Logout",            "icon": "asset/images/Icons/Logout.svg",            "alt": "Logout",            "width": 26, "height": 26, "type": "callback", "action": "logout",        "order": 7 }
+    ]
+  }
+}

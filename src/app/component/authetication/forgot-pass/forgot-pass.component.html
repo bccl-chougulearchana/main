@@ -1,0 +1,7 @@
+  <span *ngIf="safeSrc">
+    <!-- <iframe  allow="autoplay" [src]="safeSrc" (load)="onload()" width="573" height="584" frameborder="0" webkitallowfullscreen mozallowfullscreen
+                allowfullscreen style="position: relative; "></iframe> -->
+  
+    <iframe class="hriFrame hrpolicy" [src]="safeSrc" (load)="onload($event)" webkitallowfullscreen mozallowfullscreen
+      allowfullscreen style="height: 100%; width: 100%; display:block;"></iframe>
+  </span>

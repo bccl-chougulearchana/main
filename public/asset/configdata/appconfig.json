@@ -1,0 +1,12 @@
+{
+  "apiBaseUrl": "https://timescapenuuat.timesofindia.com/",
+  "forgotPasswordBaseUrl": "https://transmutesanction.timesofindia.com",
+  "admin": [
+    "sachin.kale@timesofindia.com",
+    "shreedhar.godbole@timesofindia.com",
+     "laura.fernandez@timesofindia.com"
+  ],
+  "allowedDomains" : ["timesofindia.com", "timesinternet.in", "artha.in"],
+  "ideal_session_timeout_in_minutes": 30,
+  "sessionCheck" : true
+}

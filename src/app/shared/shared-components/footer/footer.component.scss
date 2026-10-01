@@ -1,0 +1,413 @@
+// /* Footer */
+// #footer {
+//     position: fixed;
+//     bottom: 0;
+//     left: 0;
+//     width: 100%;
+//     background: #222;
+//     color: #fff;
+//     padding: 15px;
+//     text-align: center;
+//     transition: transform 0.4s ease, opacity 0.4s ease;
+//     z-index: 2;
+// }
+
+// /* Visible */
+// #footer.visible {
+//     transform: translateY(0);
+//     opacity: 1;
+// }
+
+// /* Hidden (slide down) */
+// #footer.hidden {
+//     transform: translateY(100%);
+//     opacity: 0;
+// }
+
+
+// footer {
+//     padding-bottom: 1%;
+//     margin-bottom: 0px;
+//     /*background: #ffffff;*/
+//     padding-top: 1%;
+
+// }
+
+// footer p {
+//     font-size: 18px;
+//     color: #333333;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-align: center;
+//     margin-bottom: 0px;
+// }
+
+// footer p span {
+//     display: block;
+// }
+
+// .footer-links ul {
+//     display: flex;
+//     list-style: none;
+//     margin-bottom: 13px;
+//     justify-content: flex-end;
+// }
+
+// .static {
+//     background-color: #333333;
+//     padding: 25px 0;
+//     position: static;
+//     width: 100%;
+// }
+
+// .footer-wrap {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 0 16px;
+// }
+
+// .footer-list a {
+//     font-size: 14px;
+//     color: #aaaaaa;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-decoration: none;
+// }
+
+// #footer .footer-links p {
+//     font-size: 14px;
+//     color: #a4a4a4;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-align: right;
+//     margin-bottom: 0px;
+// }
+
+// .footer-list:not(:last-child)::after {
+//     content: "|";
+//     margin-left: 8px;
+//     color: #aaaaaa;
+// }
+
+// .footer-list:not(:last-child)::after {
+//     content: "|";
+//     margin-left: 8px;
+//     color: #aaaaaa;
+// }
+
+// .footer-list:not(:last-child) {
+//     margin-right: 8px;
+// }
+
+// .footer-list:not(:last-child) {
+//     margin-right: 8px;
+// }
+
+// /* Footer End */
+
+
+
+
+// @media only screen and (max-width: 768px) {
+//     .footer-wrap {
+//         flex-direction: column;
+//         justify-content: center;
+//     }
+
+//     .footer-wrap .logo-wrap img {
+//         // width: auto;
+//         // margin-bottom: 0;
+//         width: 35%;
+//         height: auto;
+//         margin-bottom: 0;
+//         margin: 5px auto;
+//     }
+
+
+//     .footer-links ul {
+//         justify-content: center;
+//     }
+
+//     #footer .footer-links p {
+//         font-size: 12px;
+//     }
+
+//     #footer .footer-links p {
+//         text-align: center;
+//     }
+
+//     #footer .footer-links p {
+//         color: #a4a4a4;
+//         font-weight: 400;
+//         font-family: "Open Sans";
+//         margin-bottom: 0px;
+//     }
+
+//     #footer {
+//         padding: 8px;
+//         margin-bottom: 0px;
+//         padding-top: 10px;
+//     }
+// }
+/* =======================================
+   Footer
+//    ======================================= */
+// #footer {
+//     width: 100%;
+//     background: #222;
+//     color: #fff;
+//     padding: 15px;
+//     text-align: center;
+//     transition: transform 0.4s ease, opacity 0.4s ease;
+//     z-index: 1;
+// }
+
+// /* Fixed only when at top */
+// #footer.fixed-footer {
+//     position: fixed;
+//     bottom: 0;
+//     left: 0;
+// }
+
+// /* Static when scrolling or at bottom */
+// #footer.static-footer {
+//     position: static;
+// }
+
+// /* Visible (optional animation support) */
+// #footer.visible {
+//     transform: translateY(0);
+//     opacity: 1;
+// }
+
+// /* Hidden (optional animation support) */
+// #footer.hidden {
+//     transform: translateY(100%);
+//     opacity: 0;
+// }
+
+// /* =======================================
+//    Base Footer Styling
+//    ======================================= */
+// footer {
+//     padding-bottom: 1%;
+//     margin-bottom: 0px;
+//     /* background: #ffffff; */
+//     padding-top: 1%;
+// }
+
+// footer p {
+//     font-size: 18px;
+//     color: #333333;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-align: center;
+//     margin-bottom: 0px;
+// }
+
+// footer p span {
+//     display: block;
+// }
+
+// /* =======================================
+//    Footer Layout
+//    ======================================= */
+// .footer-links ul {
+//     display: flex;
+//     list-style: none;
+//     margin-bottom: 13px;
+//     justify-content: flex-end;
+// }
+
+// .static {
+//     background-color: #333333;
+//     padding: 25px 0;
+//     position: static;
+//     width: 100%;
+// }
+
+// .footer-wrap {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 0 16px;
+// }
+
+// /* =======================================
+//    Footer Links
+//    ======================================= */
+// .footer-list a {
+//     font-size: 14px;
+//     color: #aaaaaa;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-decoration: none;
+// }
+
+// #footer .footer-links p {
+//     font-size: 14px;
+//     color: #a4a4a4;
+//     font-weight: 400;
+//     font-family: "Open Sans";
+//     text-align: right;
+//     margin-bottom: 0px;
+// }
+
+// .footer-list:not(:last-child)::after {
+//     content: "|";
+//     margin-left: 8px;
+//     color: #aaaaaa;
+// }
+
+// .footer-list:not(:last-child) {
+//     margin-right: 8px;
+// }
+
+// /* =======================================
+//    Responsive Footer (Mobile/Tablet)
+//    ======================================= */
+// @media only screen and (max-width: 768px) {
+//     .footer-wrap {
+//         flex-direction: column;
+//         justify-content: center;
+//     }
+
+//     .footer-wrap .logo-wrap img {
+//         /* width: auto; margin-bottom: 0; */
+//         width: 35%;
+//         height: auto;
+//         margin-bottom: 0;
+//         margin: 5px auto;
+//     }
+
+//     .footer-links ul {
+//         justify-content: center;
+//     }
+
+//     #footer .footer-links p {
+//         font-size: 12px;
+//         text-align: center;
+//         color: #a4a4a4;
+//         font-weight: 400;
+//         font-family: "Open Sans";
+//         margin-bottom: 0px;
+//     }
+
+//     #footer {
+//         padding: 8px;
+//         margin-bottom: 0px;
+//         padding-top: 10px;
+//     }
+// }
+/* =======================================
+   Footer Container
+======================================= */
+#footer {
+    width: 100%;
+    background: #222;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    z-index: 1;
+}
+
+/* =======================================
+   Base Footer Styling
+======================================= */
+footer {
+    padding-bottom: 1%;
+    padding-top: 1%;
+    margin-bottom: 0;
+}
+
+footer p {
+    font-size: 18px;
+    color: #333333;
+    font-weight: 400;
+    font-family: "Open Sans";
+    text-align: center;
+    margin-bottom: 0;
+}
+
+footer p span {
+    display: block;
+}
+
+/* =======================================
+   Footer Layout
+======================================= */
+.footer-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.footer-links ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 13px;
+    justify-content: flex-end;
+}
+
+/* =======================================
+   Footer Links
+======================================= */
+.footer-list a {
+    font-size: 14px;
+    color: #aaaaaa;
+    font-weight: 400;
+    font-family: "Open Sans";
+    text-decoration: none;
+}
+
+#footer .footer-links p {
+    font-size: 14px;
+    color: #a4a4a4;
+    font-weight: 400;
+    font-family: "Open Sans";
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.footer-list:not(:last-child)::after {
+    content: "|";
+    margin-left: 8px;
+    color: #aaaaaa;
+}
+
+.footer-list:not(:last-child) {
+    margin-right: 8px;
+}
+
+/* =======================================
+   Responsive Footer (Mobile/Tablet)
+======================================= */
+@media only screen and (max-width: 768px) {
+    .footer-wrap {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .footer-wrap .logo-wrap img {
+        width: 35%;
+        height: auto;
+        margin: 5px auto;
+    }
+
+    .footer-links ul {
+        justify-content: center;
+    }
+
+    #footer .footer-links p {
+        font-size: 12px;
+        text-align: center;
+        color: #a4a4a4;
+        margin-bottom: 0;
+    }
+
+    #footer {
+        padding: 10px 8px;
+    }
+}

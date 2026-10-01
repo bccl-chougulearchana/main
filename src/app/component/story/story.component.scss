@@ -1,0 +1,447 @@
+::ng-deep .blogs .blog-left iframe {
+    width: 92px;
+    height: 92px;
+}
+
+.tabs-header {
+    padding: 30px 0;
+    margin: 0;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    padding: 10px 16px;
+    font-size: 24px;
+    pointer-events: none;
+}
+
+.vid-box {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    background-color: rgb(154, 146, 146);
+}
+
+.main-dashboard {
+    background: #fafafa;
+}
+
+.upload-section {
+    padding-top: 20px;
+    padding-bottom: 3.4375rem;
+    min-height: calc(100vh - 295px);
+}
+
+.upload-tab-head {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 70px;
+}
+
+.upload-tab-head li {
+    cursor: pointer;
+    font-size: 20px;
+    color: #8b8b8b;
+    font-weight: 400;
+    font-family: "Open Sans";
+    transition: all 0.3s ease;
+}
+
+.upload-tab-head li.active {
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+    font-family: "Open Sans";
+    text-align: center;
+}
+
+.input-main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 51px;
+}
+
+// .input-main-wrapper .select-wrapper{
+//     padding-top: 10px;
+// }
+.upload-section .input-main-wrapper .input-form {
+    width: 48% !important;
+}
+
+.errorMsg {
+    color: red;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.input-box {
+    width: 300px;
+    margin: 10px 0;
+}
+
+.input-box label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.submit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.publish-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px 5px;
+    width: 35%;
+}
+
+.publish-wrapper * {
+    text-align: center;
+}
+
+.blog-left {
+    cursor: pointer;
+    position: relative;
+}
+
+.blog-left:hover img {
+    transform: scale(1.03);
+    transition: 0.3s ease;
+}
+
+.reset {
+    cursor: pointer;
+}
+
+.my-sub {
+    cursor: default;
+}
+
+.red-btn {
+    background: #ff0000;
+}
+
+.no-data-center {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #777;
+}
+
+
+.blogsBlock {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.blogsBlock:last-child {
+    border-bottom: none;
+}
+
+.blogsBlock .blogs {
+    border-bottom: none;
+    width: 60%;
+}
+
+.red-btn {
+
+    color: #fff;
+}
+
+.green-btn {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.gray-btn {
+    background-color: #7f8c8d;
+    color: #fff;
+}
+
+.blogs {
+    border-bottom: 1px solid #dfdfdf;
+    display: flex;
+    gap: 10px;
+    flex-grow: 1;
+    padding: 15px 10px 5px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: #333333;
+    ;
+}
+
+.blogs:last-child {
+    border-bottom: none;
+}
+
+.blogs h5 {
+    font-size: 16px;
+    color: #333333;
+    font-weight: 600;
+    font-family: "Open Sans";
+}
+
+.blogs-head {
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.story-poster,
+.story-date {
+    font-size: 14px;
+    color: #333333;
+    font-weight: 300;
+    font-family: "Open Sans";
+    word-wrap: break-word;
+}
+
+.stroy-likes {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.stroy-likes img {
+    height: 15px;
+    width: 15px;
+}
+
+.stroy-likes-count {
+    font-size: 12px;
+    color: #333333;
+    font-weight: 300;
+    font-family: "Open Sans";
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+textarea.input-style {
+    min-height: 100px;
+}
+
+.input-box .lib-textarea-counter {
+    width: 100%;
+}
+
+.input-box .lib-select {
+    max-width: 100%;
+    color: #000;
+}
+
+/* ===== Likes popup styles ===== */
+.likesmodel {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    /* limit for large screens */
+    max-height: 40vh;
+    /* never taller than 80% of screen */
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Header stays fixed */
+.likesmodel h4 {
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    flex-shrink: 0;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.likesmodel .user-time {
+    font-size: 11px;
+    padding: 0 8px;
+}
+
+.likesmodel .user-name {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* User list scrolls independently */
+.likesmodel .user-list {
+    flex: 1;
+    max-height: calc(40vh - 60px);
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+/* User row */
+.likesmodel .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+select.lib-select option:first-child {
+    display: none;
+}
+
+.lib-label-wrapper:has(.add-astrix) .lib-label-text::after {
+    content: " *";
+    color: red;
+}
+
+.img-wrp {
+    height: 92px;
+    width: 92px;
+}
+
+.img-wrp img {
+    height: 100%;
+    width: 100%;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .likesmodel {
+        width: 95%;
+        /* almost full width on small screens */
+        max-width: none;
+        max-height: 70vh;
+        /* smaller on mobile */
+    }
+
+    .likesmodel h4 {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .likesmodel .row {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .blogs-head {
+        margin-bottom: 6px;
+    }
+}
+
+/* Mobile (portrait & small screens) */
+@media (max-width: 767px) {
+    .fileupload-wrapper,  .lib-label-wrapper  {align-items: start;}
+    // .vid-box { width: 65px;height: 65px;}
+    .tabs-body { padding: 10px;}
+    .upload-section .input-main-wrapper .input-form {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    .input-main-wrapper {
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    .blogs-head {
+        margin-bottom: 4px;
+    }
+}
+
+::ng-deep .fileupload-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 6px 0;
+}
+ 
+::ng-deep .fileupload-label {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 4px;
+  min-height: 40px;
+  line-height: 20px;
+  white-space: pre-wrap;
+}
+ 
+::ng-deep .fileupload-display-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+ 
+::ng-deep .fileupload-icon {
+  width: 23px;
+  height: 20px;
+}
+ 
+::ng-deep .fileupload-download-icon {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+  display: none;
+}
+ 
+::ng-deep .fileupload-file-container {
+  display: flex;
+  align-items: center;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+::ng-deep .fileupload-display-text {
+  font-size: 14px;
+  color: #666;
+  font-family: "Open Sans", sans-serif;
+  max-width: 200px;
+  padding-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+ 
+::ng-deep .fileupload-clear-btn {
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 4px;
+  margin-top: 6px;
+  user-select: none;
+  display: none;
+}
+ 
+::ng-deep .fileupload-clear-btn.show {
+  display: inline;
+}
+ 
+::ng-deep .fileupload-error-msg {
+  color: red;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+}

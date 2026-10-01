@@ -1,0 +1,17 @@
+<div class="custom-modal-overlay show">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <h5 class="custom-modal-title">{{ title }}</h5>
+      <button class="close-btn" (click)="close('cancel')">&times;</button>
+    </div>
+
+    <div class="custom-modal-body">
+      <p>{{ message }}</p>
+    </div>
+
+    <div class="custom-modal-footer">
+      <button class="btn-custom" (click)="close('ok')">OK</button>
+      <button *ngIf="type === 'confirm'" class="btn-custom cancel" (click)="close('cancel')">Cancel</button>
+    </div>
+  </div>
+</div>

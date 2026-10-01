@@ -1,0 +1,991 @@
+<div>
+    <section class="top-space tab-section corporate-employee-sec"
+        id="tab-section">
+        <div class="container">
+
+            <ul class="tab-header">
+                <li *ngIf="isSmallScreen"
+                    [class.active]="activeTab === 'corporate'"
+                    (click)="setTab('corporate')"
+                    data-tab="tab1">
+                    Corporate
+                    <span *ngIf="!isSmallScreen">Connect</span>
+                </li>
+                <li *ngIf="isSmallScreen" data-tab="tab2"
+                    [class.active]="activeTab === 'employee'"
+                    (click)="setTab('employee')">Employee
+                    <span *ngIf="!isSmallScreen">Connect</span>
+                </li>
+            </ul>
+
+            <div class="tab-container">
+                <div class="tab-box" *ngIf="!isSmallScreen">
+                    <div class="swiper corporate-slider"
+                        *ngIf="corpStories.length !== 0">
+                        <div class="swiper-wrapper">
+                            <div class="corporate-box swiper-slide">
+                                <div class="slider-img">
+
+                                    <app-corp-connect-carousel
+                                        [stories]="corpStories"
+                                        [isAdmin]="isAdmin"
+                                        (likeClicked)="getLikes($event)"
+                                        (likeAction)="updateLikes($event)"></app-corp-connect-carousel>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="swiper-pagination corporate-pagination"></div>
+                    </div>
+
+                    <div *ngIf="corpStories.length === 0">
+                        <div style="width: 100%; height: auto;">
+                            <img src="asset/images/top_dummy.jpg" alt
+                                style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-box">
+                    <div class="swiper emp-engage-slider"
+                        *ngIf="empStories.length !== 0">
+                        <div class="dynamic-grid-lg">
+                            <div [libDynamicGrid]="2">
+
+                                <div
+                                    class="corporate-box swiper-slide employee-box"
+                                    *ngFor="let story of empStories | slice:0:4; let i = index">
+                                    <!-- <div class="slider-img">
+                                        <a class="pop-cursor">
+                                            <ng-container *ngIf="story.type === 'Video'; else imageCase">
+                                                <ng-container
+                                                    *ngIf="story.fileName.startsWith('https://'); else localVideo">
+                                                    <div class="emp-box-ui" [autoAdaptiveGradient]="story.fileName">
+                                                        <app-universal-video
+                                                            [url]="story.fileName"></app-universal-video>
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-template #localVideo>
+                                                    <div class="emp-box-ui"
+                                                        [autoAdaptiveGradient]="AppSettings.ECCONTENTURL + 'published/'+ story.fileName">
+                                                        <video controls (play)="onVideoPlay(videoEl)"
+                                                            (pause)="onVideoPause()" (ended)="onVideoPause()" #videoEl
+                                                            style="height: auto; width: 100%; object-fit: contain;">
+                                                            <source
+                                                                [src]="AppSettings.ECCONTENTURL + 'published/'+ story.fileName"
+                                                                type="video/mp4">
+                                                        </video>
+                                                    </div>
+                                                </ng-template>
+
+                                            </ng-container>
+
+                                            <ng-template #imageCase>
+                                                <div class="emp-box-ui img-box-new"
+                                                    [autoAdaptiveGradient]="safeUrl(story.fileName) ? story.fileName : AppSettings.ECCONTENTURL + story.folder + '/' + story.fileName">
+                                                    <img #imgRef style="height: 100%; width: 100%; object-fit: contain"
+                                                        (click)="empconnect(story.id, empStories, story.category)"
+                                                        [src]="safeUrl(story.fileName) ? story.fileName : AppSettings.ECCONTENTURL + story.folder + '/' + story.fileName"
+                                                        [alt]="story.header">
+                                                </div>
+                                            </ng-template>
+                                        </a>
+                                    </div>
+
+                                    <div class="emp-conct-cont-wrp">
+                                        <div class="emp-conct-cont-right">
+                                            <div class="emp-con-user-icon-wrp">
+                                                <img src="asset/images/user_icon_black.png" alt="emp img">
+                                            </div>
+                                            <div>
+                                                <h3 class="slider-title story-header">{{
+                                                    story.header }}</h3>
+                                                <div class="person-name story-header">{{
+                                                    story.createdBy }}</div>
+                                                <div class="date">{{story.createdOn}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="thumb-wrp">
+                                            <img [src]="story.self ? 'asset/images/like_30x30_fill_white.png' : 'asset/images/like_light_grey_30x30.png'"
+                                                alt="like image" (click)="updateLikes(story)">
+                                            <p class="thumb-count" (click)="getLikes(story.id)">{{story.totalLikes}}</p>
+                                        </div>
+                                    </div> -->
+
+                                    <!-- ----------------------- new style without position --------------------  -->
+                                    <div class="impl-cnt-wrp">
+                                        <div class="media-content">
+                                            <!-- <div class="emp-conct-cont-wrp">
+                                                <div class="emp-conct-cont-right">
+                                                    <div class="emp-con-user-icon-wrp">
+                                                        <img src="asset/images/user_icon_black.png" alt="emp img">
+                                                    </div>
+                                                    <div class="cont-detl">
+                                                        <h3 class="slider-title story-header">{{
+                                                            story.header }}</h3>
+                                                        <div class="person-name story-header">{{
+                                                            story.createdBy }}</div>
+                                                        <div class="date story-header">{{story.createdOn}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="thumb-wrp">
+                                                    <img [src]="story.self ? 'asset/images/like_30x30_fill_white.png' : 'asset/images/like_light_grey_30x30.png'"
+                                                        alt="like image" (click)="updateLikes(story)">
+                                                    <p class="thumb-count" (click)="getLikes(story.id)">
+                                                        {{story.totalLikes}}</p>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- ---------------------- new ui changes ------------------  -->
+                                            <!-- <div [libDynamicGrid]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}"
+                                                [libGridGap]="'7px'" style="width: 100%;">
+                                                <div [libCol]="{ xs: 2, sm: 2, md: 2, lg: 2 }">
+                                                    <div class="emp-con-user-icon-wrp">
+                                                        <img src="asset/images/user_icon_black.png" alt="emp img">
+                                                    </div>
+                                                </div>
+                                                <div [libCol]="{ xs: 8, sm: 8, md: 7, lg: 8 }">
+                                                    <div class="cont-detl">
+                                                        <h3 class="slider-title story-header">{{
+                                                            story.header }}</h3>
+                                                        <div class="person-name story-header">{{
+                                                            story.createdBy }}</div>
+                                                        <div class="date story-header">{{story.createdOn}}</div>
+                                                    </div>
+                                                </div>
+                                                <div [libCol]="{ xs: 2, sm: 2, md: 3, lg: 2 }">
+                                                    <div class="thumb-wrp">
+                                                        <img [src]="story.self ? 'asset/images/like_30x30_fill_white.png' : 'asset/images/like_light_grey_30x30.png'"
+                                                            alt="like image" (click)="updateLikes(story)">
+                                                        <p class="thumb-count" (click)="getLikes(story.id)">
+                                                            {{story.totalLikes}}</p>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- ---------------------- new ui changes ------------------  -->
+
+                                            <h3
+                                                class="slider-title story-header new-emp-cnt-title">
+                                                {{story.header }}</h3>
+                                        </div>
+                                        <div class="media-box">
+                                            <ng-container
+                                                *ngIf="story.type === 'Video'; else imageCase">
+                                                <ng-container
+                                                    *ngIf="story.fileName.startsWith('https://'); else localVideo">
+                                                    <div class="media-wrp"
+                                                        [autoAdaptiveGradient]="story.fileName">
+                                                        <app-universal-video
+                                                            [url]="story.fileName"></app-universal-video>
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-template #localVideo>
+                                                    <div class="media-wrp"
+                                                        [autoAdaptiveGradient]="AppSettings.ECCONTENTURL + 'published/'+ story.fileName">
+                                                        <video controls
+                                                            (play)="onVideoPlay(videoEl)"
+                                                            class="video-format"
+                                                            (pause)="onVideoPause()"
+                                                            (ended)="onVideoPause()"
+                                                            #videoEl>
+                                                            <source
+                                                                [src]="AppSettings.ECCONTENTURL + 'published/'+ story.fileName"
+                                                                type="video/mp4">
+                                                        </video>
+                                                    </div>
+                                                </ng-template>
+                                            </ng-container>
+
+                                            <ng-template #imageCase>
+                                                <div class="media-wrp"
+                                                    [autoAdaptiveGradient]="safeUrl(story.fileName) ? story.fileName : AppSettings.ECCONTENTURL + story.folder + '/' + story.fileName">
+                                                    <img #imgRef
+                                                        class="img-format"
+                                                        (click)="openEmpLink(story)"
+                                                        [style.cursor]="story.link !== 'NA' ? 'pointer' : 'default'"
+                                                        [src]="safeUrl(story.fileName) ? story.fileName : AppSettings.ECCONTENTURL + story.folder + '/' + story.fileName">
+                                                </div>
+                                            </ng-template>
+                                        </div>
+
+                                    </div>
+                                    <!-- ----------------------- new style without position --------------------  -->
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div
+                            class="swiper-pagination corporate-pagination"></div>
+                    </div>
+                    <div *ngIf="empStories.length === 0">
+                        <div style="width: 100%; height: auto;">
+                            <img src="asset/images/top_dummy.jpg" alt
+                                style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                    <div class="employee-engage">
+                        <div class="content-box" id="notice-board">
+                            <!-- <p class="para">Lorem Ipsum is simply dummy text of
+                                the printing and typesetting
+                                industry.
+                                Lorem Ipsum has been the industry's standard
+                                dummy text ever since<span
+                                    class="read-more"
+                                    [routerLink]="['/portal/employee-connect']">
+                                    ...read more</span>
+                            </p> -->
+                            <div class="emp-detail">
+                                <a (click)="storyCat('admin')" *ngIf="isAdmin"
+                                    class="read-btn">publish content</a>
+                                <a (click)="storyCat()" *ngIf="isAdmin"
+                                    class="read-btn">post content</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-container only-sm-screeen-tab"
+                *ngIf="isSmallScreen">
+                <div class="tab-box active" id="tab1"
+                    *ngIf="activeTab === 'corporate'">
+                    <div class="swiper corporate-slider"
+                        *ngIf="corpStories.length !== 0">
+                        <div class="swiper-wrapper">
+                            <div class="corporate-box swiper-slide">
+                                <div class="slider-img">
+
+                                    <app-corp-connect-carousel
+                                        [stories]="corpStories"
+                                        [isAdmin]="isAdmin"
+                                        (likeClicked)="getLikes($event)"
+                                        (likeAction)="updateLikes($event)"></app-corp-connect-carousel>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="swiper-pagination corporate-pagination"></div>
+                    </div>
+
+                    <div *ngIf="corpStories.length === 0">
+                        <div style="width: 100%; height: auto;">
+                            <img src="asset/images/top_dummy.jpg" alt
+                                style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-box active" id="tab2"
+                    *ngIf="activeTab === 'employee'">
+                    <div class="swiper emp-engage-slider"
+                        *ngIf="empStories.length !== 0">
+                        <div class="swiper-wrapper">
+                            <div
+                                class="corporate-box swiper-slide employee-box first-box-lg-right">
+                                <owl-carousel-o [options]="employeeConnection"
+                                    #owlCarousel class="sm-only-caro">
+                                    <ng-container
+                                        *ngFor="let slide of empStories | slice:0:4; let i = index">
+                                        <ng-template carouselSlide>
+                                            <!-- <div class="slider-img" (click)="empconnect(slide.id, empStories, slide.category)"> -->
+                                            <!-- <ng-container *ngIf="slide.fileName.endsWith('.mp4'); else imageTemplate">
+                                                        <div class="caro-img-wrap">
+                                                            <video class="vid-new" controls (play)="onVideoPlay(videoEl)" (pause)="onVideoPause()"
+                                                            (ended)="onVideoPause()" #videoEl>
+                                                                <source [src]="AppSettings.ECCONTENTURL + 'published/' + slide.fileName" type="video/mp4">
+                                                            </video>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #imageTemplate>
+                                                        <div class="caro-img-wrap">
+                                                            <img [src]="AppSettings.ECCONTENTURL + 'published/' + slide.fileName" [alt]="slide.header" class="caro-img">
+                                                        </div>
+                                                    </ng-template>
+                                                </div> -->
+
+                                            <div class="slider-img">
+                                                <ng-container
+                                                    *ngIf="slide.type === 'Video'; else imageCase">
+                                                    <ng-container
+                                                        *ngIf="slide.fileName.startsWith('https://'); else localVideo">
+                                                        <div
+                                                            class="caro-img-wrap"
+                                                            [autoAdaptiveGradient]="slide.fileName">
+                                                            <app-universal-video
+                                                                [url]="slide.fileName"></app-universal-video>
+                                                        </div>
+                                                    </ng-container>
+
+                                                    <ng-template #localVideo>
+                                                        <div
+                                                            class="caro-img-wrap">
+                                                            <video
+                                                                (play)="onVideoPlay(videoEl)"
+                                                                [autoAdaptiveGradient]="AppSettings.ECCONTENTURL + 'published/'+ slide.fileName"
+                                                                (pause)="onVideoPause()"
+                                                                (ended)="onVideoPause()"
+                                                                #videoEl
+                                                                controls
+                                                                style="height: 100%; width: 100%;">
+                                                                <source
+                                                                    [src]="AppSettings.ECCONTENTURL + 'published/'+ slide.fileName"
+                                                                    type="video/mp4">
+                                                            </video>
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-container>
+
+                                                <ng-template #imageCase>
+                                                    <div class="caro-img-wrap"
+                                                        [autoAdaptiveGradient]="safeUrl(slide.fileName) ? slide.fileName : AppSettings.ECCONTENTURL + slide.folder + '/' + slide.fileName"
+                                                           (touchstart)="touchMoved = false"
+                                                             (touchmove)="touchMoved = true"
+                                                                (touchend)="onBannerTap(slide)"
+                                                                (click)="openEmpLink(slide)"
+                                                                >
+                                                        <img
+                                                            [src]="safeUrl(slide.fileName) ? slide.fileName : AppSettings.ECCONTENTURL + slide.folder + '/' + slide.fileName">
+                                                    </div>
+                                                </ng-template>
+                                            </div>
+
+                                            <div class="content-box">
+                                                <div class="top-content">
+                                                    <!-- <div style="width: 80%;">
+                                                        <h3 class="slider-title story-header cursor-p new-fnt-cng"
+                                                            (click)="empconnect(slide.id, empStories , slide.category)">
+                                                            {{slide.header}}</h3>
+                                                    </div> -->
+                                                    <div style="width: 80%;">
+                                                        <h3
+                                                            class="slider-title story-header cursor-p new-fnt-cng">
+                                                            {{slide.header}}</h3>
+                                                    </div>
+                                                    <!-- <div class="likes-content">
+                                                        <img [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                                                            alt="like image" (click)="updateLikes(slide)">
+                                                        <p class="likes-count" (click)="getLikes(slide.id)">
+                                                            {{slide.totalLikes}}</p>
+                                                    </div> -->
+                                                </div>
+                                                <!-- <div class="story-poster new-desc-font-chnge">
+                                                    {{ (slide.description || '') | slice:0:43 }}<ng-container
+                                                        *ngIf="slide.description?.length > 43">...</ng-container>
+                                                    <span class="read-more" *ngIf="slide.description?.length > 43"
+                                                        (click)="empconnect(slide.id, empStories , slide.category)">
+                                                        read more
+                                                    </span>
+                                                </div> -->
+                                                <div class="emp-detail">
+                                                    <!-- <div class="emp-img">
+                                                        <img src="asset/images/user_icon_30x30.png" alt="emp img">
+                                                        <div class="emp-name">
+                                                            <h6>{{slide.createdBy}}</h6>
+                                                            <p class="date-time">{{slide.createdOn}}
+                                                            </p>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="emp-action">
+                                                        <button *ngIf="isAdmin" (click)="storyCat('admin')"
+                                                            class="read-btn">publish content</button>
+                                                        <button class="read-btn" (click)="storyCat()">post
+                                                            your story</button>
+                                                    </div> -->
+                                                </div>
+                                                <!-- new ui change  -->
+                                                <div class="emp-detail"
+                                                    *ngIf="isAdmin">
+                                                    <div
+                                                        class="emp-action new-ui-btn-wrp-change">
+                                                        <button
+                                                            (click)="storyCat('admin')"
+                                                            class="read-btn">publish
+                                                            content</button>
+                                                        <button class="read-btn"
+                                                            (click)="storyCat()">post
+                                                            your story</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- new ui change  -->
+                                            </div>
+
+                                        </ng-template>
+                                    </ng-container>
+                                </owl-carousel-o>
+                            </div>
+                        </div>
+                        <div
+                            class="swiper-pagination corporate-pagination"></div>
+                    </div>
+                    <div class="employee-engage"
+                        *ngIf="empStories.length !== 0">
+                        <div class="content-box" id="notice-board">
+                            <!-- <p class="para">Lorem Ipsum is simply dummy text of
+                                the printing and typesetting
+                                industry.
+                                Lorem Ipsum has been the industry's standard
+                                dummy text ever since <span
+                                    class="read-more"
+                                    [routerLink]="['/portal/employee-connect']">
+                                    ...read more</span>
+                            </p> -->
+                            <div class="emp-detail">
+                                <a (click)="storyCat('admin')" *ngIf="isAdmin"
+                                    class="read-btn">publish content</a>
+                                <a (click)="storyCat()" class="read-btn">post
+                                    content</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="empStories.length === 0">
+                        <div style="width: 100%; height: auto;">
+                            <img src="asset/images/top_dummy.jpg" alt
+                                style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="section">
+        <div class="container">
+            <div
+                [libDynamicGrid]="{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 2 }">
+                <div class="custom-card" #alertsSection id="alertsSection">
+                    <div class="my-alert-new-ui">
+                        <h1>MY ALERTS</h1>
+
+                        <div class="card-scroll-wrap">
+                            <div class="content-row"
+                                *ngFor="let alert of alertsList">
+                                <div class="content-img"
+                                    (click)="openAlert(alert)">
+                                    <img [src]="alert.image" alt>
+                                </div>
+
+                                <div class="content-data"
+                                    (click)="openAlert(alert)">
+                                    <p
+                                        class="text pop-cursor">{{alert.text}}</p>
+                                    <!-- <p class="time">04:54 PM</p> -->
+                                </div>
+                            </div>
+                            <div class="content-row center"
+                                *ngIf="alertsList.length == 0">
+                                No alerts at the moment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card notice-board-bg" #notificationSection
+                    id="notification-section">
+                    <div class="notice-board-new-ui">
+                        <h1>Notice Board</h1>
+
+                        <div class="card-scroll-wrap">
+                            <div class="content-row"
+                                *ngFor="let n of noticesList">
+                                <div class="content-img" (click)="openPopup(n)">
+                                    <img src="asset/images/notice.png" alt>
+                                </div>
+
+                                <div class="content-data">
+                                    <p class="text pop-cursor"
+                                        (click)="openPopup(n)">{{ n.header }}
+                                    </p>
+                                    <p class="time">{{ n.publishedInfo }}</p>
+                                </div>
+                            </div>
+                            <div class="content-row center"
+                                *ngIf="noticesList.length == 0">
+                                No Notifications
+                            </div>
+
+                            <!-- <div class="content-row">
+                                <div class="content-img">
+                                    <img src="asset\images\group4.png" alt>
+                                </div>
+
+                                <div class="content-data">
+                                    <p class="text pop-cursor" (click)="openPopup()">She UnLTD. On
+                                        Wall...</p>
+                                    <p class="time">02:17 PM</p>
+                                </div>
+                            </div>
+
+                            <div class="content-row">
+                                <div class="content-img">
+                                    <img src="asset\images\group5.png" alt>
+                                </div>
+
+                                <div class="content-data">
+                                    <p class="text pop-cursor" (click)="openPopup()">View
+                                        Chandrayaan...</p>
+                                    <p class="time">01 day ago</p>
+                                </div>
+                            </div>
+
+                            <div class="content-row">
+                                <div class="content-img">
+                                    <img src="asset\images\group3.png" alt>
+                                </div>
+
+                                <div class="content-data">
+                                    <p class="text pop-cursor" (click)="openPopup()">Approve
+                                        Invoice...</p>
+                                    <p class="time">04:54 PM</p>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section">
+        <div class="container">
+            <div
+                [libDynamicGrid]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }">
+                <div class="custom-card vco-board-bg" *ngIf="vcoquote">
+                    <div class="my-alert-new-ui">
+                        <h1>VCO Inspiration</h1>
+                        <p class="vco-text">{{vcoquote}}</p>
+                        <span class="vco-person-name">{{vcoauthor}}</span>
+                        <br>
+                        <a class="vco-link-text" [href]="vcolink"
+                            target="_blank">{{vcolinkText}}</a>
+                        <!-- <span>{{vcolink}}</span>  -->
+                    </div>
+                </div>
+
+                <div class="custom-card poll-main-card" *ngIf="isPollActive">
+                    <div class="notice-board-new-ui poll-card">
+                        <h1>Poll Question/Answer</h1>
+                        <!-- <h5>What's the condition of the roads in your area?</h5> -->
+                        <form (ngSubmit)="pollQuestionAnsSubmit()">
+                            <div *ngIf="!pollStatusCheck">
+                                <div class="poll-container"
+                                    *ngIf="pollQuestion && pollOptions.length > 0;">
+                                    <h5>{{ pollQuestion }}</h5>
+                                    <div class="redio-btn-section">
+                                        <div *ngFor="let opt of pollOptions">
+                                            <label [for]="'option-' + opt.id"
+                                                class="poll-lable-ui">
+                                                <input type="radio"
+                                                    name="pollOption"
+                                                    [id]="'option-' + opt.id"
+                                                    [value]="opt.id"
+                                                    [(ngModel)]="selectedOption"
+                                                    required />
+                                                {{ opt.name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <ng-template #noPoll>
+                                <h3 class="no-poll-found">No poll question available.</h3>
+                            </ng-template> -->
+                            <div class="submit-btn-row"
+                                *ngIf="!pollStatusCheck">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+
+                        <div class="poll-summary-container"
+                            *ngIf="pollSummaries.length > 0;">
+                            <h3>{{ pollSummaries[0].question }}</h3>
+                            <div *ngFor="let poll of pollSummaries"
+                                class="poll-option">
+                                <div class="option-header">
+                                    <span class="option-name">{{ poll.optionName
+                                        }}</span>
+                                    <span class="option-percent">{{
+                                        poll.percentage }}%</span>
+                                </div>
+
+                                <div class="progress-bar">
+                                    <div class="progress-fill"
+                                        [style.width.%]="poll.percentage"
+                                        [style.background]="poll.color"></div>
+                                </div>
+                            </div>
+                            <p class="total-votes">Total Votes: {{
+                                pollSummaries[0].totalVotes }}</p>
+                        </div>
+
+                        <!-- <ng-template #noData>
+                            <h3 class="no-poll-found">No poll summary available.</h3>
+                        </ng-template> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------ quickLink config file check ------------------------  -->
+    <section id="quicklinks-section">
+        <div class="container">
+            <div class="quicklinks-contents">
+                <h2 class="ql-head common-heading txt-center" #contentRef>Quick
+                    Links</h2>
+                <div class="flex-container min-max-height"
+                    [class.expanded]="isExpanded">
+                    <a class="anchor"
+                        *ngFor="let item of quicklinkLoadData?.navigationLinks"
+                        (click)="openLinkTest(item)">
+                        <div class="card">
+                            <div class="img-wrapper">
+                                <img class="card-img" [src]="item.icon" alt>
+                            </div>
+                            <p class="card-des">{{item.name}}</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                    <button class="btn" (click)="toggleExpand(contentRef)">{{
+                        isExpanded ? 'Show Less' : 'Show All'
+                        }}</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ------------------------------ quickLink config file check ------------------------  -->
+
+    <h4 class="heading02 poll-heading common-heading txt-center">LEADER
+        CONNECT</h4>
+    <!-- <section class="leader-section">
+        <div class="container">
+            <div class="leader-swiper-container">
+                <div class="swiper leader-swiper">
+                    <div class="swiper-wrapper">
+
+                        <owl-carousel-o [options]="leaderConnect">
+                            <ng-template carouselSlide>
+                                <div class="swiper-slide">
+                                    <div class="leader-slide">
+                                        <div class="leader-imgwrap">
+                                            <img
+                                                src="asset/images/save-energy-slider-img.webp"
+                                                alt="Sivakumar Sundaram">
+                                        </div>
+                                        <div class="leader-desc">
+                                            <h3 class="leader-title">Save
+                                                Energy<br> Today<br> For a <span
+                                                    style="color:#1dfd0c">Green</span>
+                                                Tomorrow</h3>
+                                            <p class="leader-info">An Intiative
+                                                by <span
+                                                    style="color:#fff100">LAKSHYA</span>
+                                                Hospitality & Support</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template carouselSlide>
+                                <div class="swiper-slide">
+                                    <div style="background-color: #0c4c27"
+                                        class="leader-slide">
+                                        <div class="leader-imgwrap">
+                                            <img
+                                                src="asset/images/mohit_jain_slider.webp"
+                                                alt>
+                                        </div>
+                                        <div class="leader-desc">
+                                            <h3 class="leader-title"><span
+                                                    style="color:#88c83e"> I
+                                                    Will <br>Save
+                                                    Power</span>
+                                                Because <br>The Future
+                                                <br>Deserve IT</h3>
+                                            <p class="leader-info">An Intiative
+                                                by <span
+                                                    style="color:#fff100">LAKSHYA</span>
+                                                Hospitality & Support</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </owl-carousel-o>
+                    </div>
+                </div>
+                <div class="swiper-pagination leader-swiper-pagination"></div>
+            </div>
+        </div>
+    </section> -->
+    <section class="leader-section tab-section">
+        <div class="container">
+            <div class="leader-swiper-container">
+                <div class="swiper leader-swiper">
+                    <div class="swiper-wrapper"
+                        *ngIf="leadStories.length !== 0">
+
+                        <owl-carousel-o [options]="leaderConnect" #owlCarousel>
+                            <ng-container *ngFor="let story of leadStories">
+                                <ng-template carouselSlide>
+                                    <div class="swiper-slide">
+                                        <div class="leader-slide"
+                                            [ngStyle]="{'background-color': story.bgColor || '#0c4c27'}">
+
+                                            <!-- <div class="leader-imgwrap">
+                                                <img [src]="AppSettings.LCCONTENTURL + 'published/' + story.fileName"
+                                                    [alt]="story.header">
+                                            </div> -->
+
+                                            <!-- <ng-container
+                                                                                            *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                                                                            <div class="leader-imgwrap" [autoAdaptiveGradient]="story.fileName">
+                                                                                                <app-universal-video [url]="story.fileName"></app-universal-video>
+                                                                                            </div>
+                                                                                        </ng-container>
+                                            
+                                                                                        <ng-template #localMedia>
+                                                                                            <ng-container *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                                                                <div class="leader-imgwrap"
+                                                                                                    [autoAdaptiveGradient]="AppSettings.LCCONTENTURL + 'published/' + story.fileName">
+                                                                                                    <video controls (play)="onVideoPlay(videoEl)"
+                                                                                                        style="width: 100%; height: 100%;" (pause)="onVideoPause()"
+                                                                                                        (ended)="onVideoPause()" #videoEl>
+                                                                                                        <source
+                                                                                                            [src]="AppSettings.LCCONTENTURL + 'published/' + story.fileName"
+                                                                                                            type="video/mp4" />
+                                                                                                    </video>
+                                                                                                </div>
+                                                                                            </ng-container>
+                                            
+                                                                                            <ng-template #imageTemplate>
+                                                                                                <div class="leader-imgwrap"
+                                                                                                    [style.cursor]="story.link !== 'NA' ? 'pointer' : 'default'"
+                                                                                                    [autoAdaptiveGradient]="AppSettings.LCCONTENTURL + 'published/' + story.fileName">
+                                                                                                    <img style="object-fit: contain;"
+                                                                                                        [src]="AppSettings.LCCONTENTURL + 'published/' + story.fileName" />
+                                                                                                </div>
+                                                                                            </ng-template>
+                                                                                        </ng-template>
+                                            
+                                                                                        <div class="leader-desc" style="min-height: 200px;">
+                                                                                            <h3 class="leader-title">
+                                                                                                {{ story.header }}
+                                                                                            </h3>
+                                                                                            <p class="leader-info">
+                                                                                                <span class="story-header"
+                                                                                                    style="color:#fff100">{{story.description}}
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </div> -->
+
+                                            <!-- ------------------------------ grid system use ---------------------------  -->
+
+                                            <div
+                                                [libDynamicGrid]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}"
+                                                [libGridGap]="'0px'">
+                                                <div
+                                                    [libCol]="{ xs: 12, sm: 12, md: 6, lg: 6 }">
+                                                    <ng-container
+                                                        *ngIf="story.fileName.startsWith('https://'); else localMedia">
+                                                        <div
+                                                            class="leader-imgwrap"
+                                                            [autoAdaptiveGradient]="story.fileName">
+                                                            <app-universal-video
+                                                                [url]="story.fileName"></app-universal-video>
+                                                        </div>
+                                                    </ng-container>
+
+                                                    <ng-template #localMedia>
+                                                        <ng-container
+                                                            *ngIf="isVideo(story.fileName); else imageTemplate">
+                                                            <div
+                                                                class="leader-imgwrap"
+                                                                [autoAdaptiveGradient]="AppSettings.LCCONTENTURL + 'published/' + story.fileName">
+                                                                <video controls
+                                                                    (play)="onVideoPlay(videoEl)"
+                                                                    style="width: 100%; height: 100%;"
+                                                                    (pause)="onVideoPause()"
+                                                                    (ended)="onVideoPause()"
+                                                                    #videoEl>
+                                                                    <source
+                                                                        [src]="AppSettings.LCCONTENTURL + 'published/' + story.fileName"
+                                                                        type="video/mp4" />
+                                                                </video>
+                                                            </div>
+                                                        </ng-container>
+
+                                                        <ng-template
+                                                            #imageTemplate>
+                                                            <div class
+                                                                [style.cursor]="story.link !== 'NA' ? 'pointer' : 'default'"
+                                                                [autoAdaptiveGradient]="AppSettings.LCCONTENTURL + 'published/' + story.fileName">
+                                                                <img
+                                                                    [src]="AppSettings.LCCONTENTURL + 'published/' + story.fileName" />
+                                                            </div>
+                                                        </ng-template>
+                                                    </ng-template>
+                                                </div>
+
+                                                <div
+                                                    [libCol]="{ xs: 12, sm: 12, md: 6, lg: 6 }"
+                                                    style="display: flex; justify-content: center; align-items: center;">
+                                                    <div class
+                                                        style="min-height: 200px; padding: 20px;">
+                                                        <h3 class="leader-title"
+                                                            style="margin-bottom: 30px;">
+                                                            {{ story.header }}
+                                                        </h3>
+                                                        <p class="leader-info">
+                                                            <span class
+                                                                style="color:#fff100"
+                                                                [innerHTML]="story.description">
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ------------------------------ grid system use ---------------------------  -->
+
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+
+                    </div>
+                    <div *ngIf="leadStories.length === 0">
+                        <div style="width: 100%; height: auto;">
+                            <img src="asset/images/dummy_leader.jpg" alt
+                                style="width: 100%; height: 100%;">
+                        </div>
+                    </div>
+                    <div class="leader-engage" *ngIf="isAdmin">
+                        <div class="content-box" id="notice-board">
+                            <div class="emp-detail">
+                                <a (click)="storyCat('admin', 'lead')"
+                                    class="read-btn">publish
+                                    content</a>
+                                <a (click)="storyCat('default', 'lead')"
+                                    class="read-btn">post
+                                    content</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination leader-swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <h4 class="heading02 poll-heading common-heading txt-center">Humour</h4>
+    <section class="humour-section" id="humour-section">
+
+        <div class="container">
+            <div class="swiper humour-slider">
+                <owl-carousel-o [options]="humourCarousel">
+                    <ng-container *ngFor="let image of carouselImages">
+                        <ng-template carouselSlide>
+                            <img [src]="image">
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- --------------------------------------------------------------------------- -->
+
+<ng-template #likes>
+    <div class="likesmodel">
+        <h4>Likes</h4>
+        <div class="user-list">
+            <div class="row" *ngFor="let user of likedUser">
+                <div class="col user-name"> {{ user.name }}</div>
+
+                <div class="col">
+                    <span class="col user-time">{{ user.likedOn }}</span>
+                    <i class="fa-solid fa-thumbs-up"></i>
+                </div>
+            </div>
+            <div *ngIf="!likedUser" class="no-data-center">
+                No Likes
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Popup -->
+<ng-container *ngIf="likeshowPopup">
+    <ng-container [libPopup]="likes" [popupWidth]="'350px'"
+        [popupHeight]="'40vh'" (closed)="likesPopupClose()">
+    </ng-container>
+</ng-container>
+<!-- popup -->
+<!-- <div class="popup-overlay" *ngIf="showPopup">
+    <div class="popup-box">
+        <h2>Modal</h2>
+        <div class="box-content">
+            <img class="popup-img"
+                src="https://images.unsplash.com/photo-1756460886124-fca30da074c4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt>
+        </div>
+        <p class="popup-description">Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Saepe autem tempore
+            aliquam, voluptatibus voluptate reprehenderit fugiat vero iure
+            laudantium officia?</p>
+        <button class="popup-close-btn" (click)="closePopup()">Close</button>
+    </div>
+</div> -->
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="Popup" [popupWidth]="'750px'"
+        [popupHeight]="'auto'" (closed)="closePopup()">
+    </ng-container>
+</ng-container>
+<ng-template #Popup>
+    <div class="popup-box">
+        <h3 class="popup-title">{{data.header}}</h3>
+        <!-- IMAGE -->
+        <div
+            class="box-content"
+            *ngIf="data.image && data.image !== 'NA'"
+            [ngClass]="{
+    'full-height': !data.description || data.description === 'NA',
+    'image-height': data.description && data.description !== 'NA'
+  }">
+            <img
+                class="img-format"
+                (click)="openLinkFor(data)"
+                [style.cursor]="data.link && data.link !== 'NA' ? 'pointer' : 'default'"
+                [src]="AppSettings.NOTICEBOARD + data.image" />
+        </div>
+
+        <!-- DESCRIPTION -->
+        <p
+            class="popup-description"
+            *ngIf="data.description && data.description !== 'NA'"
+            [ngClass]="{
+    'full-height': !data.image || data.image === 'NA',
+    'desc-height': data.image && data.image !== 'NA'
+  }"
+            [innerHTML]="this.data.description"></p>
+
+        <button class="popup-close-btn" (click)="closePopup()">Close</button>
+    </div>
+</ng-template>

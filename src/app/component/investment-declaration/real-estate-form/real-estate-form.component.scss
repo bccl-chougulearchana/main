@@ -1,0 +1,49 @@
+$brand: #01beff;
+$ink: #2d2f33;
+$border: #ececec;
+.input-style, .lib-date-wrapper {max-width: 250px;}
+.lib-date-input{padding-right: 0px;}
+.inv-form {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 1rem;
+
+  &__title { font-size: 1rem; font-weight: 600; color: $ink; margin: 0 0 1rem; }
+
+  &__card + &__card {
+    border-top: 1px solid $border;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__actions { display: flex; gap: 1rem; margin-top: 1rem; }
+}
+
+.btn {
+  min-width: 120px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &--primary { background: $brand; border: 1px solid $brand; color: #fff; }
+  &--outline { background: #fff; border: 1px solid $brand; color: $brand; }
+}
+.lib-label-wrapper:has(.add-astrix) .lib-label-text::after {
+    content: " *";
+    color: red;
+}
+@media only screen and (max-width: 768px) {
+   .input-style, .lib-date-wrapper {max-width: 100% !important;}
+  .inv-form__actions { flex-direction: column; .btn { width: 100%; } }
+}
+.inv-form__future-msg {
+  line-height: 1.3;
+  color: red;
+  font-size: 12px;
+  margin-top: 3px;
+}

@@ -1,0 +1,159 @@
+<owl-carousel-o [options]="employeeConnection" #owlCarousel>
+    <ng-container *ngFor="let slide of stories | slice:0:4; let i = index">
+        <ng-template carouselSlide>
+            <!-- <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title"> -->
+            <!-- <div class="slider-img">
+                <ng-container *ngIf="slide.fileName.endsWith('.mp4'); else imageTemplate">
+                    <div class="caro-img-wrap">
+                        <video class="vid-new" controls (play)="onVideoPlay(videoEl)" (pause)="onVideoPause()"
+                            (ended)="onVideoPause()" #videoEl>
+                            <source [src]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName" type="video/mp4">
+                        </video>
+                    </div>
+                </ng-container>
+                <ng-template #imageTemplate>
+                    <div class="caro-img-wrap">
+                        <img [src]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName" [alt]="slide.header"
+                            class="caro-img">
+                    </div>
+                </ng-template>
+            </div> -->
+
+            <div class="slider-img">
+                <!-- Case 1: if slide.link is a social/video platform link -->
+                <ng-container *ngIf="slide.fileName.startsWith('https://'); else localMedia">
+                    <div class="caro-img-wrap" [autoAdaptiveGradient]="slide.fileName">
+                        <app-universal-video [url]="slide.fileName" class="vid-new"></app-universal-video>
+                    </div>
+                </ng-container>
+
+                <!-- Case 2: if no platform link (local file or image/video) -->
+                <ng-template #localMedia>
+                    <ng-container *ngIf="isVideo(slide.fileName); else imageTemplate">
+                        <div class="caro-img-wrap"  [autoAdaptiveGradient]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName">
+                            <video class="vid-new" controls (play)="onVideoPlay(videoEl)" (pause)="onVideoPause()"
+                                (ended)="onVideoPause()" #videoEl style="height: 100%; width: 100%;">
+                                <source [src]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName"
+                                    type="video/mp4" />
+                            </video>
+                        </div>
+                    </ng-container>
+
+                    <ng-template #imageTemplate>
+                        <div class="caro-img-wrap" [autoAdaptiveGradient]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName"
+                         (touchstart)="touchMoved = false"  (touchmove)="touchMoved = true"  (touchend)="onBannerTap(slide)" (click)="openLink(slide);"
+                            [style.cursor]="slide.link !== 'NA' ? 'pointer' : 'default'">
+                            <img [src]="Appsettings.CCCONTENTURL + 'published/' + slide.fileName" 
+                                class="caro-img" />
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </div>
+
+            <!-- <div class="content-box" id="notice-board">
+                <div class="top-content">
+                    <h3 class="slider-title corp-cont-title story-header"
+                        (click)="empconnect(slide.id, stories , slide.category)">{{slide.header}}</h3>
+                    <div class="likes-content">
+                        <img [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                            alt="like image" (click)="toggleLike(slide)">
+                        <p class="likes-count" (click)="onLikeClick(slide.id)">{{slide.totalLikes}}</p>
+                    </div>
+                </div>
+
+                <div class="story-poster ">
+                    {{ (slide.description || '') | slice:0:120 }}
+                    <ng-container *ngIf="slide.description?.length > 120">...</ng-container>
+                    <span class="read-more" *ngIf="slide.description?.length > 120"
+                        (click)="empconnect(slide.id, stories , slide.category)">
+                        read more
+                    </span>
+
+                    <div>
+                        <p *ngIf="slide.type !== 'Video' || slide.link === 'NA'">&nbsp;</p>
+                        <p *ngIf="slide.link !== 'NA' && slide.type === 'Video'"> <b>Link:</b>&nbsp;<a
+                                [href]="slide.link" target="_blank" style="word-wrap: break-word;">{{slide.link}}</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="emp-detail">
+                    <div class="emp-img">
+                        <img src="asset/images/user_icon_30x30.png" alt="emp img">
+                        <div class="emp-name">
+                            <h6>{{slide.createdBy}}</h6>
+                            <p class="date-time dt">{{slide.createdOn}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="emp-action">
+                        <button *ngIf="isAdmin" (click)="storyCat('admin')" class="read-btn">publish content</button>
+                        <button *ngIf="isAdmin" class="read-btn" (click)="storyCat()">post story</button>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <!-- newbox -->
+            <!-- <div class="content-box" id="notice-board">
+                <div class="top-content">
+                    <div class="emp-detail">
+                        <img class="new-user-icon-change" src="asset/images/user_icon_30x30.png" alt="emp img">
+                        <div class="emp-name">
+                            <h6 class="slider-title corp-cont-title story-header new-sm-title">{{slide.createdBy}}</h6>
+                            <p class="date-time dt">{{slide.createdOn}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="likes-content">
+                        <img [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                            alt="like image" (click)="toggleLike(slide)">
+                        <p class="likes-count" (click)="onLikeClick(slide.id)">{{slide.totalLikes}}</p>
+                    </div>
+                </div>
+
+                <div class="emp-detail new-align-caro-btn">
+                    <div class="emp-action">
+                        <button *ngIf="isAdmin" (click)="storyCat('admin')" class="read-btn">publish content</button>
+                        <button *ngIf="isAdmin" class="read-btn" (click)="storyCat()">post story</button>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- ------------------------------------------------------------  -->
+
+            <div class="change-content-box">
+                <div class="change-user-section">
+                    <div class="user-details-change">
+                        <div class="user-icon-wrp">
+                            <img class="new-user-icon-change" src="asset/images/user_icon_30x30.png" alt="emp img">
+                        </div>
+                        <div class="change-user-text">
+                            <h6 class="story-header">{{slide.createdBy}}</h6>
+                            <p>{{slide.createdOn}}</p>
+                        </div>
+                    </div>
+
+                    <div class="likes-content">
+                        <img [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                            alt="like image" (click)="toggleLike(slide)">
+                            <p class="likes-count" >{{slide.totalLikes}}</p>
+                        <!-- <p class="likes-count" (click)="onLikeClick(slide.id)">{{slide.totalLikes}}</p> -->
+                    </div>
+                </div>
+
+                <div class="media-btn-wrp">
+                    <button *ngIf="isAdmin" (click)="storyCat('admin')" class="read-btn">publish content</button>
+                    <button *ngIf="isAdmin" class="read-btn" (click)="storyCat()">post content</button>
+                </div>
+            </div>
+
+            <!-- newbox -->
+
+
+
+
+        </ng-template>
+    </ng-container>
+</owl-carousel-o>

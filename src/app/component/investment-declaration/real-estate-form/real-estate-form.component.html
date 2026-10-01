@@ -1,0 +1,53 @@
+<div class="inv-form">
+  <h3 class="inv-form__title">{{ title }}</h3>
+
+  <div class="inv-form__card" *ngFor="let row of rows.controls; let i = index" [formGroup]="row">
+    <div libDynamicRow>
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Name of Owner']" libUiUnderline libRequired
+             formControlName="ownerName" maxlength="100" placeholder="Enter Owner Name" />
+
+      <select class="add-astrix" [libSelect]="dealingTypeOptions" [libLabelText]="['#000', 'Directly/Indirectly']"
+              libRequired formControlName="dealingType"></select>
+
+      <select class="add-astrix" [libSelect]="relationshipOptions" [libLabelText]="['#000', 'Relationship with Employee']"
+              libRequired formControlName="relationship"></select>
+
+      <select class="add-astrix" [libSelect]="transactionTypeOptions" [libLabelText]="['#000', 'Type of Transactions']"
+              libRequired formControlName="transactionType"></select>
+
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Property Type/Misc']" libUiUnderline libRequired
+             formControlName="propertyTypeMisc" maxlength="100" placeholder="Enter Property Type" />
+
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Name of Society']" libUiUnderline libRequired
+             formControlName="societyName" maxlength="100" placeholder="Enter Society Name" />
+
+      <input class="add-astrix" [libNumber]="[10, 2]" [libLabelText]="['#000', 'Built Up Area']" libUiUnderline libRequired
+             (input)="onNumberInput($event)" formControlName="builtUpArea" placeholder="Enter Built Up Area" />
+
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Developed By']" libUiUnderline libRequired
+             formControlName="developedBy" maxlength="150" placeholder="Enter Developer Name" />
+
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Location Name/State']" libUiUnderline libRequired
+             formControlName="locationState" maxlength="150" placeholder="Enter Location / State" />
+       <div>
+              <input class="add-astrix" libDateNU [libLabelText]="['#000', 'Date of Purchase/Sale']" libUiUnderline libRequired
+             formControlName="purchaseSaleDate" [max]="today" placeholder="dd / mm / yyyy"
+             (change)="onDateCheck(row)" (blur)="onDateCheck(row)"/>
+              <p class="inv-form__future-msg" *ngIf="dateErrorRows.has(row)">
+              Please select today’s date or an earlier date.
+              </p>
+       </div>
+       <input class="add-astrix"[libNumber]="[8, 2]" [libLabelText]="['#000', 'Actual Price/sq. ft in Rs.']" libUiUnderline
+             libRequired (input)="onNumberInput($event)" formControlName="pricePerSqFt" placeholder="Enter Price Per Sq. ft" />
+
+      <input class="add-astrix" [libNumber]="[18, 2]" [libLabelText]="['#000', 'Total Amount in Rs.']" libUiUnderline
+             formControlName="totalAmount" readonly placeholder="Auto-calculated" />
+    </div>
+
+
+    <div class="inv-form__actions">
+      <button type="button" class="btn btn--primary" *ngIf="showAdd(i)" (click)="addRow()">Add</button>
+      <button type="button" class="btn btn--outline" (click)="removeRow(i)">Delete</button>
+    </div>
+  </div>
+</div>

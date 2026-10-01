@@ -1,0 +1,138 @@
+<div class="questionnaire" *ngIf="loaded">
+  <!-- <h2 class="questionnaire__title">Questionnaire</h2> -->
+
+  <ng-container *ngFor="let q of questions; let i = index">
+    <!-- Gate question (i === 0) always shows; sub-questions only when gate = YES -->
+    <ng-container *ngIf="i === 0 || gateIsYes">
+      <div class="qd-card"
+           [attr.data-question]="q.key"
+           [class.qd-card--missing]="showUnanswered && !isAnswered(q.key)"
+           tabindex="-1">
+        <p class="qd-card__question">
+          {{ q.text }}
+          <span class="qd-info" *ngIf="i > 0" tabindex="0">
+            <span class="qd-info__icon" aria-hidden="true">i</span>
+            <span class="qd-info__tip" role="tooltip">
+              {{ tooltipText(q) }}
+              <ng-container *ngIf="hasPreviousRecord(q)">
+                <a href="javascript:void(0)" class="qd-info__link" (click)="goToHistory()">click here</a>
+              </ng-container>
+            </span>
+          </span>
+        </p>
+
+        <div class="qd-choices" role="radiogroup">
+          <button type="button"
+                  class="qd-choice qd-choice--yes"
+                  role="radio"
+                  [attr.aria-checked]="isSelected(q.key, YesNo.Yes)"
+                  [class.is-selected]="isSelected(q.key, YesNo.Yes)"
+                  (click)="onAnswer(q, i, YesNo.Yes)">
+            <span class="qd-box"></span>
+            <span class="qd-choice__label">Yes</span>
+          </button>
+
+          <button type="button"
+                  class="qd-choice qd-choice--no"
+                  role="radio"
+                  [attr.aria-checked]="isSelected(q.key, YesNo.No)"
+                  [class.is-selected]="isSelected(q.key, YesNo.No)"
+                  (click)="onAnswer(q, i, YesNo.No)">
+            <span class="qd-box"></span>
+            <span class="qd-choice__label">No</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub-question extras (records + form) — only for a confirmed YES -->
+      <ng-container *ngIf="i > 0 && showForm(q)">
+        <!-- Existing ACTIVE records for this quarter (read-only, cancellable) -->
+        <div class="qd-records" *ngIf="recordCountFor(q) > 0">
+          <button type="button" class="qd-records__toggle"
+                  [attr.aria-expanded]="recordsOpenFor(q)"
+                  (click)="toggleRecords(q)">
+            <span class="qd-records__label">
+              Previously added records for this Quarter ({{ recordCountFor(q) }})
+            </span>
+            <svg class="qd-records__chevron" [class.is-open]="recordsOpenFor(q)"
+                 width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="qd-records__body" *ngIf="recordsOpenFor(q)">
+            <app-stock-history
+              *ngIf="q.formType === InvestmentFormType.Listed"
+              [rows]="securitiesRecords(q)"
+              [showActions]="true"
+              (cancel)="onCancelRecord(q, $event)">
+            </app-stock-history>
+
+            <app-unlisted-history
+              *ngIf="q.formType === InvestmentFormType.Unlisted"
+              [rows]="securitiesRecords(q)"
+              [showActions]="true"
+              (cancel)="onCancelRecord(q, $event)">
+            </app-unlisted-history>
+
+            <app-real-estate-history
+              *ngIf="q.formType === InvestmentFormType.RealEstate"
+              [rows]="realEstateRecords(q)"
+              [showActions]="true"
+              (cancel)="onCancelRecord(q, $event)">
+            </app-real-estate-history>
+          </div>
+        </div>
+
+        <!-- New-record form: collapsed behind "Add new record" when records exist -->
+        <div class="qd-addnew" *ngIf="recordCountFor(q) > 0 && !formOpenFor(q)">
+          <button type="button" class="qd-addnew__btn" (click)="toggleForm(q)">
+            <span aria-hidden="true">+</span> Add new record
+          </button>
+        </div>
+
+        <div class="qd-newform" [attr.data-form]="q.key" *ngIf="isSecurities(q) && formOpenFor(q)">
+          <app-securities-form
+            [title]="titleFor(q)"
+            [investeeLabel]="investeeLabelFor(q)"
+            [rows]="securitiesRowsFor(q)">
+          </app-securities-form>
+          <div class="qd-newform__actions" *ngIf="recordCountFor(q) > 0">
+            <button type="button" class="qd-cancelnew" (click)="cancelAddNew(q)">Cancel</button>
+          </div>
+        </div>
+
+        <div class="qd-newform" [attr.data-form]="q.key" *ngIf="isRealEstate(q) && formOpenFor(q)">
+          <app-real-estate-form
+            [title]="titleFor(q)"
+            [rows]="realEstateRows">
+          </app-real-estate-form>
+          <div class="qd-newform__actions" *ngIf="recordCountFor(q) > 0">
+            <button type="button" class="qd-cancelnew" (click)="cancelAddNew(q)">Cancel</button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!-- Declaration -->
+  <section class="declaration" *ngIf="canSubmit">
+    <p class="declaration__text">{{ declarationText }}</p>
+
+    <p class="declaration__line"><strong>Name:</strong> {{ employee?.name }}</p>
+    <p class="declaration__line"><strong>SAP ID:</strong> {{ employee?.sapId }}</p>
+    <p class="declaration__line"><strong>Email ID:</strong> {{ employee?.email }}</p>
+
+    <p class="declaration__line pt-20"><strong>Note:</strong></p>
+    <ol class="declaration__notes">
+      <li *ngFor="let note of declarationNotes">{{ note }}</li>
+    </ol>
+    <p class="declaration__footnote">{{ declarationFootnote }}</p>
+
+    <div class="declaration__actions">
+      <button type="button" class="btn btn--primary" (click)="reset()">Reset</button>
+      <button type="button" class="btn btn--outline" (click)="submit()">Submit</button>
+    </div>
+  </section>
+</div>
