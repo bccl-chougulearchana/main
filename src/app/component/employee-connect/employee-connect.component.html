@@ -1,0 +1,173 @@
+<section class="section">
+    <div class="container main-container">
+
+        <div class="btn-head-wrap">
+            <h2 class="common-heading txt-center section-head">{{title}} <span class="txt-center section-subhead"
+                    *ngIf="subtitle">({{subtitle}})</span></h2>
+
+        </div>
+        <owl-carousel-o [options]="employeeConnection" #owlCarousel>
+            <ng-container *ngFor="let slide of storyList; let i = index">
+                <ng-template carouselSlide>
+                    <div [libDynamicGrid]="{ xs: 1, sm: 1, md: 2, lg: 12, xl: 12, xxl: 12 }">
+
+                        <div [libCol]="{ lg: 5, xl: 5, xxl: 5 }" style="padding: 10px;">
+                            <!-- <ng-container *ngIf="slide.fileName.endsWith('.mp4'); else imageTemplate">
+                                <div class="caro-img-wrap">
+                                    <video class="vid-new" controls (play)="onVideoPlay(videoEl)"
+                                        (pause)="onVideoPause()" (ended)="onVideoPause()" #videoEl>
+                                        <source [src]="url + slide.folder + '/' + slide.fileName" type="video/mp4">
+                                    </video>
+                                </div>
+                            </ng-container>
+                            <ng-template #imageTemplate>
+                                <img [src]="url + slide.folder + '/' + slide.fileName" [alt]="slide.header"
+                                    class="caro-img">
+                            </ng-template> -->
+
+
+                            <!-- Case 1: if slide.link is a social/video platform link -->
+                            <ng-container *ngIf="slide.fileName.startsWith('https://'); else localMedia">
+                                <div class="caro-img-wrap" [autoAdaptiveGradient]="slide.fileName">
+                                    <app-universal-video [url]="slide.fileName"></app-universal-video>
+                                </div>
+                            </ng-container>
+
+                            <!-- Case 2: if no platform link (local file or image/video) -->
+                            <ng-template #localMedia>
+                                <ng-container *ngIf="isVideo(slide.fileName); else imageTemplate">
+                                    <div class="caro-img-wrap" [autoAdaptiveGradient]="url + slide.folder + '/' + slide.fileName">
+                                        <video class="vid-new" controls (play)="onVideoPlay(videoEl)"
+                                            (pause)="onVideoPause()" (ended)="onVideoPause()" #videoEl>
+                                            <source [src]="url + slide.folder + '/' + slide.fileName" />
+                                        </video>
+                                    </div>
+                                </ng-container>
+
+                                <ng-template #imageTemplate>
+                                    <div class="caro-img-wrap" (click)="openLink(slide)" [autoAdaptiveGradient]="url + slide.folder + '/' + slide.fileName"
+                                        [style.cursor]="slide.link !== 'NA' ? 'pointer' : 'default'">
+                                        <img [src]="url + slide.folder + '/' + slide.fileName"
+                                            class="caro-img" />
+                                    </div>
+                                </ng-template>
+                            </ng-template>
+
+                            <!-- <img [src]="url + 'published/' + slide.fileName" [alt]="slide.header"> -->
+                        </div>
+
+                        <div [libCol]="{ lg: 7, xl: 7, xxl: 7 }" style="padding: 10px;">
+                            <h3 class="event-head">{{slide.header}}</h3>
+                            <p class="event-info">{{slide.description}}
+                                <br>
+                                <!-- <div> -->
+                                <!-- <p *ngIf="slide.type !== 'Video' || slide.link === 'NA'">&nbsp;</p> -->
+                                <span style="margin-bottom: 15px;"
+                                    *ngIf="slide.link !== 'NA' && slide.type === 'Video'">
+                                    <b>Link:</b>&nbsp;<a class="col-link" [href]="slide.link" target="_blank">
+                                        {{ slide.link }}
+                                    </a>
+
+                                </span>
+                                <!-- </div> -->
+                            </p>
+
+                            <div [libDynamicGrid]="{ xs: 2, sm: 2, md: 2, lg: 1, xl: 1, xxl: 1 }">
+                                <div class="event-manager">
+                                    <div class="event-date-wrap">
+                                        <div class="image-wrapper">
+                                            <img src="asset/images/user_icon_black.png" alt="">
+                                        </div>
+                                        <div class="connect-date">
+                                            <h5 class="manager-name">{{slide.createdBy}}</h5>
+                                            <p class="event-date">{{slide.createdOn}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(subtitle){
+                                     <div class="like-count-wrap" >
+                                    <div>
+                                        <img class="thumb-icon cursor-d" [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                                            alt="like image"/>
+                                    </div>
+                                    <p class="like-count" >{{slide.totalLikes}}</p>
+                                    <!-- <p class="like-count" (click)="getLikes(slide.id)">{{slide.totalLikes}}</p> -->
+                                    
+                                </div>
+                                } @else {
+                                     <div class="like-count-wrap">
+                                    <div>
+                                        <img class="thumb-icon" [src]="slide.self ? 'asset/images/like_30x30_fill_red.png' : 'asset/images/like_30x30_fill_grey.png'"
+                                            alt="like image" (click)="updateLikes(slide)" />
+                                    </div>
+                                    <p class="like-count" >{{slide.totalLikes}}</p>
+                                    <!-- <p class="like-count" (click)="getLikes(slide.id)">{{slide.totalLikes}}</p> -->
+                                </div>
+                                }
+                                
+                               
+                            </div>
+
+                            <div *ngIf="isAdmin && subtitle == 'Publish Content'" class="publish-action">
+                                <div class="btn-submit">
+
+                                    <p>Status :
+                                        <span>
+                                            {{ slide.status === 'L' ? 'Pending' : slide.status === 'P' ? 'Published' :
+                                            'Archived' }}
+                                        </span>
+                                    </p>
+
+                                    <!-- ✅ Hide button after actionSuccess -->
+                                    <button *ngIf="!slide.actionSuccess" type="button" class="reset" [ngClass]="{
+                                        'green-btn': slide.status === 'L',
+                                        'gray-btn': slide.status === 'P',
+                                        'red-btn': slide.status === 'X'
+                                    }" (click)="handleStoryAction(slide)">
+                                        {{ slide.status === 'L' ? 'Publish'
+                                        : slide.status === 'P' ? 'Archive'
+                                        : 'Republish' }}
+                                    </button>
+
+                                    <!-- ✅ Show Success Message -->
+                                    <p *ngIf="slide.actionSuccess" class="action-success-msg">
+                                        ✅ {{ slide.actionSuccess }}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</section>
+<!-- --------------------------------------------------------------------------- -->
+
+<ng-template #likes>
+    <div class="likesmodel">
+        <h4>Likes</h4>
+        <div class="user-list">
+            <div class="row" *ngFor="let user of likedUser">
+                <div class="col user-name"> {{ user.name }}</div>
+
+                <div class="col">
+                    <span class="col user-time">{{ user.likedOn }}</span>
+                    <i class="fa-solid fa-thumbs-up"></i>
+                </div>
+            </div>
+            <div class="row no-data-center" *ngIf="!likedUser">
+                No Likes
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Popup -->
+<ng-container *ngIf="likeshowPopup">
+    <ng-container [libPopup]="likes" [popupWidth]="'350px'" [popupHeight]="'40vh'" (closed)="likesPopupClose()">
+    </ng-container>
+</ng-container>
+<!-- popup -->

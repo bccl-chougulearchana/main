@@ -1,0 +1,109 @@
+/* Overlay (Backdrop) */
+.custom-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-modal-overlay.show {
+  opacity: 1;
+}
+
+/* Modal Box */
+.custom-modal {
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Header */
+.custom-modal-header {
+  position: relative;
+  padding: 1rem 2.5rem 1rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.custom-modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Close (X) button */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Body */
+.custom-modal-body {
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* Footer */
+.custom-modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+}
+
+/* Buttons */
+.btn-custom {
+  background-color: #ef0000;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 80px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-custom:hover {
+  background-color: #ef0000;
+}
+
+.btn-custom.cancel {
+  background-color: #000;
+}
+
+.btn-custom.cancel:hover {
+  background-color: #3b3a3a;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

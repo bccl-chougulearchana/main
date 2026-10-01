@@ -1,0 +1,295 @@
+.internal-app-content-form {
+    position: relative;
+}
+
+/* Title row: heading on the left, Related Links dropdown on the right */
+.internal-app-content-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.related-links {
+    position: relative;
+    flex-shrink: 0;
+    width: 273px;
+
+    &__trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        width: 100%;
+        min-height: 40px;
+        background: #F0F0F0;
+        border: 1px solid #E2E2E2;
+        border-radius: 4px;
+        padding: 0 20px 0 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111111;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        text-align: left;
+
+        &:hover { background: #F0F0F0; }
+    }
+
+    &__dots { display: none; font-size: 1.1rem; line-height: 1; }
+    &__label {text-transform: none;}
+    &__chevron {
+        width: 20px;
+        height: 17px;
+        color: #111111;
+        transition: transform 0.15s ease;
+        flex-shrink: 0;
+    }
+
+    &--open &__chevron { transform: rotate(180deg); }
+
+    &__menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        margin: 0;
+        padding: 4px 0 6px;
+        list-style: none;
+        background: #fff;
+        border: 1px solid #eeeeee;
+        border-top: 0;
+        border-radius: 0 0 2px 2px;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
+        z-index: 20;
+    }
+
+    &__item {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        padding: 8px 10px;
+        font-size: 14px;
+        line-height: 1.25;
+        color: #111111;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover { background: #F0F0F0; color: #111111; }
+    }
+}
+
+// Mobile: collapse the trigger to a compact "..." button (Figma mobile header)
+@media only screen and (max-width: 768px) {
+    .related-links__label,
+    .related-links__chevron { display: none; }
+    .related-links__dots { display: inline; }
+    .related-links {
+        width: auto;
+    }
+    .related-links__trigger {
+        width: auto;
+        min-height: 24px;
+        padding: 0.25rem 0.6rem;
+    }
+    .related-links__menu {
+        width: 170px;
+        min-width: 170px;
+    }
+    .internal-app-content-title h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 14px;
+    }
+}
+
+.tabs-wrapper {
+    margin: 30px 0px;
+}
+
+.tabs-header {
+    justify-content: flex-start;
+    border-bottom: 1px solid #a1a1a1;
+    margin: 0 0 20px 0;
+}
+
+.tabs-header li {
+    font-size: 13px;
+    padding: 20px;
+}
+
+.tabs-header li.active {
+    border-bottom: 3px solid #01beff;
+    font-weight: 600;
+}
+
+.tabs-body {
+    padding: 0px;
+
+    background: #fff;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+}
+
+.app-title {
+    background-color: #01beff;
+    color: white;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.p-2 {
+    padding: 10px;
+}
+
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+.col {
+    flex: 1 0 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.app-container {
+    width: 80vw;
+    padding-right: 25px;
+    padding-left: 25px;
+}
+.content-part {
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px;
+    // box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.10);
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.input-box{position: relative;}
+.content-part .tab-content {
+    padding: 10px 0;
+}
+#internal-app-main{
+    min-height: 75vh;
+}
+@media only screen and (max-width: 768px)
+{
+ .app-container {
+    width: 100vw;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+}
+@media only screen and (min-width: 768px)
+{
+#internal-app-main{
+    min-height: 90vh;
+}
+}
+#internal-app-main {
+    background: #F2F2F2;
+}
+
+.modal-data{
+    position: relative;
+    padding: 15px 20px 15px;
+    margin: 10px 0 0;
+    max-height: calc(100vh - 120px);
+    overflow: auto;
+    ol{
+    padding-left: 20px;
+    li{
+        padding-bottom: 4px;
+    }
+}
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+.modalheader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+ .ocaCompList ul {list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap;}
+ .ocaCompList li {flex-basis: 50%;}
+ .ocaCompListBox {width: 20px; height: 20px; margin-right: 15px; border-radius: 50%;}
+ .ocaCompListSingle {display: flex; margin-left: auto;}
+ 
+  .ocaCompList{
+   background-color:#f5f5f5;
+ }
+
+   .ocaCompListTxt {
+    font-weight: 600;
+}
+
+.ocaCompList .ocaCompListSingle {
+  margin-bottom: 10px;
+  }
+}  
+
+ @media screen and (max-width: 350px) {
+   .ocaCompListBox {width: 15px; height: 15px; margin-right: 8px; margin-bottom: 10px;border-radius: 50%;}
+ }
+// -------------------------  css internal apps -------------------------
+
+#internal-app-header {
+    .title-text-padding {
+        padding: 15px;
+    }
+
+    h3 {
+        font-size: 1rem;
+        margin: 0px;
+    }
+}
+
+.internal-app-content-title h3 {
+    margin-bottom: 16px;
+}
+
+#internal-app-content-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.not-authorised {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 2rem;
+
+  p {
+    margin: 0;
+    color: #2d2f33;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,15 @@
+.inner-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logotxt {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  /* margin: -21px auto !important; */
+  line-height:1;
+  margin-top: 21.28px;
+  margin-bottom: 21.25px;
+}

@@ -1,0 +1,12 @@
+<div class="min-window">
+   <div class="header">
+      <div class="logo">
+         <a [routerLink]="['/portal/scholarship']" routerLinkActive="router-link-active">
+         <img src="logo/new_logo.jpeg" alt="">
+         </a> 
+      </div>
+      <div [libMenuBar]="['right', menu]"></div>
+   </div>
+   <router-outlet></router-outlet>
+</div>
+<app-popup></app-popup> 

@@ -1,0 +1,16 @@
+{
+  "heroBanner": [
+    "asset/images/Desktop_banner.png"
+  ],
+  "heroBannerSM": [
+    "asset/images/Mobile_banner.png"
+  ],
+  "admin": [
+    "lavina.furtado@timesofindia.com",
+    "ananya.pathak@timesofindia.com",
+    "alok.ranjan@timesofindia.com",
+    "divya.jauhri@timesofindia.com",
+    "abhinav.kaushal@timesofindia.com",
+    "pratika.shetty@timesofindia.com"
+  ]
+}

@@ -1,0 +1,35 @@
+<div id="internal-app-main">
+
+  <!-- Header -->
+  <div id="internal-app-header">
+    <div class="d-flex align-items-center p-2 app-title">
+      <div class="col">
+        <h5 class="text-center">{{ pageTitle }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div id="internal-app-content-box">
+    <div class="app-container">
+
+      <div
+        class="content-part d-flex align-items-start clickable"
+        *ngFor="let item of serviceDeskList"
+        (click)="openLinkTest(item)"
+      >
+        <!-- Icon -->
+        <div class="icon-box">
+          <img [src]="item.icon" alt="{{ item.name }}" />
+        </div>
+
+        <!-- Text -->
+        <div class="content-text">
+            <strong class="title-link inline-title">{{ item.title }}: </strong>
+            <p class="inline-desc" [innerHTML]="item.des"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

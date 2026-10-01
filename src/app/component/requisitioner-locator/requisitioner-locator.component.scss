@@ -1,0 +1,230 @@
+.fa-search{
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  cursor: pointer;
+}
+
+.input-style{
+  padding: 6px 42px 6px 4px;
+}
+
+.fa-times{
+  position: absolute;
+  bottom: 10px;
+  right: 18px;
+  cursor: pointer;
+}
+.noData{
+   font-size: 14px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+.suggestion-list{
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px; /* ✅ added */
+}
+
+.suggestion-list li{
+  cursor: pointer;
+  padding: 12px 14px;              /* ✅ added */
+  border-radius: 4px;              /* ✅ added */
+  margin-bottom: 6px;              /* ✅ added */
+}
+
+/* alternating blue rows – already exists, kept */
+.People-locations .suggestion-list li:nth-child(odd){
+  background:#ccf2ff;
+}
+
+/* even rows – added to match design */
+.People-locations .suggestion-list li:nth-child(even){
+  background:#d9f4ff; /* ✅ added */
+}
+
+.user-email{
+  margin-top: 5px;
+  display: block;
+  color: #007bff; /* ✅ added */
+}
+ .fa-user-o{
+  font-size: 16px;
+  vertical-align: middle;
+  margin-right: 5px;
+  position: relative;
+  top: -2px;
+  margin-left: 7px;
+}
+
+ .fa-angle-down{
+  font-size: 20px;
+  color: #000000;
+  float: right;
+  margin-right: 10px;
+  margin-top: 2px; /* ✅ adjusted */
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: 0.5s;
+}
+.rotate.down {
+  -moz-transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+  transform:rotate(180deg);
+}
+
+
+ .fa-angle-up{
+  font-size: 25px;
+  color: #01beff;
+  float: right;
+  cursor: pointer;
+  position: absolute; /* ✅ added */
+  right: 10px;        /* ✅ added */
+  top: 10px;          /* ✅ added */
+  z-index: 2;
+  transition: 0.5s;
+}
+
+.people-details{
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ----------sk-css-------------- */
+
+.people-loc-row{
+  width: 100%;
+  display: flex;      /* ✅ added */
+  align-items: center;/* ✅ added */
+}
+
+.p-heading{
+  float: left;
+  width: 10%;
+}
+
+.p-heading img{
+  width: 25px; /* ✅ added */
+}
+
+.p-details{
+  float: right;
+  width: 90%;
+  line-height: 1.4; /* ✅ added */
+  a{
+    cursor: pointer;
+          color: #337ab7;
+  }
+  a:hover, a:focus {
+    color: #23527c;
+  }
+
+}
+/* profile image – enhanced */
+.profile-img{
+  width: 30px;
+}
+
+/* center profile image properly */
+.left-image {
+  width: 70px;                 /* ✅ updated */
+  height: 70px;                /* ✅ updated */
+  border: 3px solid #fff;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.15); /* ✅ improved */
+  cursor: pointer;
+  display: block;
+  margin: 0 auto 10px;
+}
+.emailPOC {
+    cursor: default;
+    margin-bottom: 10px;
+}
+.user-email-details{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  margin-top: 10px; 
+}
+.suggestion-list li:nth-child(odd) {
+    background: #ccf2ff;
+}
+.partner-email{
+    margin-top: 0;
+    display: block ruby;
+    font-weight: 700;
+}
+.people-name{
+  position: relative;
+  top: 2px;
+  font-size: 14px;
+  // display: block;   /* ✅ added */
+  text-align: left; /* default */
+}
+
+/* center email when expanded */
+.user-email-details .people-name{
+  text-align: center; /* ✅ added */
+  font-weight: 500;   /* ✅ added */
+}
+
+/* divider – kept */
+hr{
+  margin-top: 11px;
+  margin-bottom: 10px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(0,0,0,0.75),
+    rgba(0,0,0,0)
+  );
+}
+
+/* ---------- responsive (kept + safe additions) ---------- */
+
+@media(max-width:768px){
+  .suggestion-list li{
+    position: relative;
+  }
+
+  .People-locations .fa-angle-down{
+    position: absolute;
+    right: 8px; /* ✅ adjusted */
+    font-size: 16px;
+  }
+}
+
+@media(max-width:425px){
+  .p-details{
+    width: 87% !important;
+    margin-top: 4px;
+  }
+}
+
+@media(max-width:375px){
+  .p-details{
+    width: 85% !important;
+  }
+}
+
+@media(max-width:320px){
+  .p-heading{
+    width: 16%;
+  }
+
+  .user-email{
+    font-size: 11px;
+    word-break: break-all;
+  }
+
+  .p-details{
+    width: 77% !important;
+  }
+}

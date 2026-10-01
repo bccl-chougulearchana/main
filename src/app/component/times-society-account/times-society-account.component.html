@@ -1,0 +1,317 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center app-title">
+            <div class="col">
+                <h3 class="text-center title-text-padding">TIMES SOCIETY ACCOUNT</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="internal-app-content-form">
+                    <div [formGroup]="societyForm">
+                        <div [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}" [libGridGap]="'1.5rem'">
+                            <h6 class="sociey-head">Society Account</h6>
+                            <select [libSelect]="accountList" formControlName="socityType" #societySelect
+                                (change)="selectSocity($event)"></select>
+                        </div>
+                    </div>
+
+                    <div class="tabs-wrapper" *ngIf="switchTabBySocietyWrapper">
+                        <div libTabs (tabChanged)="onTabChange($event)" *ngIf="switchTabBySociety">
+                            <ng-template [libTab]="'SAVING ACCOUNT'" [libTabActive]="activeTab === 'SAVING ACCOUNT'">
+                                <div class="date-seletion">
+
+                                    <h6 *ngFor="let item of lasttransactionsList" class="balance-text">Your Savings
+                                        Account Balance as of {{item[0]}} is
+                                        <span class="prize-color">{{item[1] | currency:'INR'}}</span>
+                                    </h6>
+
+                                    <form [formGroup]="mumbaiSocietySavingAccForm"
+                                        (ngSubmit)="mumbaiSocietySavingAccFormSubmit()">
+                                        <div class="date-section"
+                                            [libDynamicGrid]="{xs: 1, sm: 1, md: 3, lg: 3, xl: 3, xxl: 3}"
+                                            [libGridGap]="'1.5rem'">
+                                            <input formControlName="fromDate" libUiUnderline [attr.max]="maxDate"
+                                                [libLabelText]="['#a1a1a1', 'From date']" libDate class="add-astrix">
+                                            <input formControlName="toDate" libUiUnderline [attr.max]="maxDate"
+                                                [libLabelText]="['#a1a1a1', 'To date']" libDate class="add-astrix">
+                                            <button type="submit" class="submit-btn"
+                                                [disabled]="!mumbaiSocietySavingAccForm.valid"
+                                                [ngClass]="{'btn-enable': mumbaiSocietySavingAccForm.valid, 'btn-disable': !mumbaiSocietySavingAccForm.valid}">submit</button>
+                                        </div>
+                                    </form>
+                                    <div class="account-data-wrapper">
+                                        <div class="account-data" *ngFor="let item of transactionsList">
+                                            <div [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                                [libGridGap]="'1.5rem'">
+                                                <h6 class="account-label">Date : <span
+                                                        class="account-value">{{item[0]}}</span></h6>
+                                                <h6 class="account-label">Particulars : <span
+                                                        class="account-value">{{item[4]}}</span></h6>
+                                                <h6 class="account-label" *ngIf="item[6] === '0'">Debit : <span class="account-value debit-txt">
+                                                        - {{item[5] |
+                                                        currency:'INR'}}</span></h6>
+                                                <h6 class="account-label" *ngIf="item[5] === '0'">Credit : <span
+                                                        class="account-value credit-txt"> + {{item[6] |
+                                                        currency:'INR'}}</span></h6>
+                                                <h6 class="account-label">Closing Balance : <span
+                                                        class="account-value">{{item[7] | currency:'INR'}}</span></h6>
+                                            </div>
+                                        </div>
+
+                                        <div class="account-data" *ngIf="transactionsList.length === 0">
+                                            <h6 class="account-value text-center no-data-found">Sorry ! <br> There
+                                                are no records available !</h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div libTabs (tabChanged)="onTabChange($event)" *ngIf="!switchTabBySociety">
+                            <ng-template [libTab]="'VIEW A/C BALANCE'"
+                                [libTabActive]="activeTab === 'VIEW A/C BALANCE'">
+                                <div *ngFor="let item of transitionMonthList">
+                                    <h6 class="account-label mb-two">A/C Balance of {{getEmployeeDetails.sapNumber}} as
+                                        on <span>{{item[4]}}
+                                            is</span></h6>
+                                    <h6 class="account-label" *ngIf="getMembrBalListTotalDebitAmt > 0">Total Debit :
+                                        <span class="credit-txt">{{getMembrBalListTotalDebitAmt | currency:'INR'}}
+                                            Dr</span>
+                                    </h6>
+                                    <h6 class="account-label">Total Credit : <span
+                                            class="credit-txt">{{getMembrBalListTotalCreditAmt | currency:'INR'}}
+                                            Cr</span></h6>
+                                </div>
+
+                                <div class="account-data-wrapper">
+                                    <div *ngIf="!detailsOfLedgerAccountShow">
+                                        <div class="account-data" *ngFor="let item of memberbalancelist"
+                                            (click)="ledgerAccountInfo(item[1])">
+                                            <div class="cursonr-p"
+                                                [libDynamicGrid]="{xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1}"
+                                                [libGridGap]="'1.5rem'">
+                                                <h6 class="account-label">Ref No : <span
+                                                        class="account-value">{{item[0]}}</span></h6>
+                                                <h6 class="account-label">Ledger Account : <span
+                                                        class="account-value">{{item[1]}}</span></h6>
+                                                <h6 class="account-label" *ngIf="item[2] < 0">Current Balance : <span
+                                                        class="account-value debit-txt">{{item[2] * (-1) |
+                                                        currency:'INR'}}
+                                                        Dr</span></h6>
+                                                <h6 class="account-label" *ngIf="item[2] > 0">Current Balance : <span
+                                                        class="account-value credit-txt">{{item[2] | currency:'INR'}}
+                                                        Cr</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="detailsOfLedgerAccountShow" class="date-seletion">
+
+                                        <div class="ledger-account-details">
+                                            <button class="back-btn"
+                                                (click)="delhiBackBtn()">Back</button>
+                                            <p class="note-txt">Please provide From Date and To Date for the details of
+                                                ledger account - {{ledgerAccountType}}</p>
+                                        </div>
+
+                                        <form [formGroup]="delhiSocietyAccStatementForm" (ngSubmit)="getmembertrans()">
+                                            <div class="date-section"
+                                                [libDynamicGrid]="{xs: 1, sm: 1, md: 3, lg: 3, xl: 3, xxl: 3}"
+                                                [libGridGap]="'1.5rem'">
+                                                <input formControlName="fromDate" [attr.max]="maxDate" libUiUnderline
+                                                    [libLabelText]="['#a1a1a1', 'From date']" libDate
+                                                    class="add-astrix">
+                                                <input formControlName="toDate" [attr.max]="maxDate" libUiUnderline
+                                                    [libLabelText]="['#a1a1a1', 'To date']" libDate class="add-astrix">
+                                                <button type="submit" class="submit-btn"
+                                                    [disabled]="!delhiSocietyAccStatementForm.valid"
+                                                    [ngClass]="{'btn-enable': delhiSocietyAccStatementForm.valid, 'btn-disable': !delhiSocietyAccStatementForm.valid}">submit</button>
+                                            </div>
+                                        </form>
+
+                                        <div class="account-data-wrapper">
+                                            <h5 class="balance-text text-center">{{ledgerAccountType}} Transaction List
+                                            </h5>
+                                            <div class="account-data" *ngFor="let item of transactionsListByLedger">
+                                                <div [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                                    [libGridGap]="'1.5rem'">
+                                                    <h6 class="account-label">Voucher No :
+                                                        <span class="account-value">{{item[0]}}</span>
+                                                    </h6>
+                                                    <h6 class="account-label">Ledger Type :
+                                                        <span class="account-value">{{item[2]}}</span>
+                                                    </h6>
+
+                                                    <h6 class="account-label">Date :
+                                                        <span class="account-value">{{item[1]}}</span>
+                                                    </h6>
+                                                    <h6 class="account-label">Particulars :
+                                                        <span class="account-value">{{item[8]}}</span>
+                                                    </h6>
+
+                                                    <h6 class="account-label">Credit :
+                                                        <span class="account-value credit-txt"> + {{item[5] |
+                                                            currency:'INR'}}</span>
+                                                    </h6>
+                                                    <!-- <h6 class="account-label"
+                                                        *ngIf="item[7] + item[5] - item[4] * (-1) < 0">Closing Bal :
+                                                        <span class="account-value">{{(item[7] + item[5] - item[4]) *
+                                                            (-1) |
+                                                            currency:'INR'}} Dr</span>
+                                                    </h6>
+                                                    <h6 class="account-label" *ngIf="item[7] + item[5] - item[4] > 0">
+                                                        Closing Bal :
+                                                        <span class="account-value">{{(item[7] + item[5] - item[4]) |
+                                                            currency:'INR'}} Cr</span>
+                                                    </h6> -->
+
+                                                    <!-- ------------------------------------------------------------  -->
+                                                    <ng-container *ngIf="getNet(item) as net">
+
+                                                        <h6 class="account-label" *ngIf="net < 0">
+                                                            Closing Bal :
+                                                            <span class="account-value">
+                                                                {{ -net | currency:'INR' }} Dr
+                                                            </span>
+                                                        </h6>
+
+                                                        <h6 class="account-label" *ngIf="net > 0">
+                                                            Closing Bal :
+                                                            <span class="account-value">
+                                                                {{ net | currency:'INR' }} Cr
+                                                            </span>
+                                                        </h6>
+
+                                                    </ng-container>
+                                                    <!-- ------------------------------------------------------------  -->
+
+                                                </div>
+                                            </div>
+
+                                            <div class="account-data" *ngIf="transactionsListByLedger.length === 0">
+                                                <h6 class="account-value text-center no-data-found">Sorry ! <br> There
+                                                    are no records available !</h6>
+                                            </div>
+
+                                            <p class="note">Note: Any discrepancies in this statement may kindly be
+                                                brought
+                                                to the notice of the Society within 10 days</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="account-data" *ngIf="memberbalancelist.length === 0">
+                                        <h6 class="account-value text-center no-data-found">Sorry ! <br> There
+                                            are no records available !</h6>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <ng-template [libTab]="'VIEW A/C STATEMENT'"
+                                [libTabActive]="activeTab === 'VIEW A/C STATEMENT'">
+                                <div class="date-seletion">
+                                    <form [formGroup]="delhiSocietyAccStatementForm" (ngSubmit)="getmembertrans()">
+                                        <div class="date-section"
+                                            [libDynamicGrid]="{xs: 1, sm: 1, md: 3, lg: 3, xl: 3, xxl: 3}"
+                                            [libGridGap]="'1.5rem'">
+                                            <input formControlName="fromDate" [attr.max]="maxDate" libUiUnderline
+                                                [libLabelText]="['#a1a1a1', 'From date']" libDate class="add-astrix">
+                                            <input formControlName="toDate" [attr.max]="maxDate" libUiUnderline
+                                                [libLabelText]="['#a1a1a1', 'To date']" libDate class="add-astrix">
+                                            <button type="submit" class="submit-btn"
+                                                [disabled]="!delhiSocietyAccStatementForm.valid"
+                                                [ngClass]="{'btn-enable': delhiSocietyAccStatementForm.valid, 'btn-disable': !delhiSocietyAccStatementForm.valid}">submit</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="account-statement">
+                                        <h6 class="account-label">A/C Statement of {{getEmployeeDetails.sapNumber}}</h6>
+                                    </div>
+
+                                    <div class="account-data-wrapper">
+                                        <div class="account-data" *ngFor="let item of delhiSAccStatList">
+                                            <div [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                                [libGridGap]="'1.5rem'">
+                                                <h6 class="account-label">Voucher No :
+                                                    <span class="account-value">{{item[0]}}</span>
+                                                </h6>
+                                                <h6 class="account-label">Ledger Type :
+                                                    <span class="account-value">{{item[2]}}</span>
+                                                </h6>
+
+                                                <h6 class="account-label">Date :
+                                                    <span class="account-value">{{item[1]}}</span>
+                                                </h6>
+                                                <h6 class="account-label">Particulars :
+                                                    <span class="account-value">{{item[8]}}</span>
+                                                </h6>
+
+                                                <h6 class="account-label">Credit :
+                                                    <span class="account-value credit-txt"> + {{item[5] |
+                                                        currency:'INR'}}</span>
+                                                </h6>
+                                                <!-- <h6 class="account-label"
+                                                    *ngIf="item[7] + item[5] - item[4] * (-1) < 0">Closing Bal :
+                                                    <span class="account-value">{{(item[7] + item[5] - item[4]) * (-1) |
+                                                        currency:'INR'}} Dr</span>
+                                                </h6>
+                                                <h6 class="account-label" *ngIf="item[7] + item[5] - item[4] > 0">
+                                                    Closing Bal :
+                                                    <span class="account-value">{{(item[7] + item[5] - item[4]) |
+                                                        currency:'INR'}} Cr</span>
+                                                </h6> -->
+
+                                                <!-- ------------------------------------------------------------  -->
+                                                <ng-container *ngIf="getNet(item) as net">
+
+                                                    <h6 class="account-label" *ngIf="net < 0">
+                                                        Closing Bal :
+                                                        <span class="account-value">
+                                                            {{ -net | currency:'INR' }} Dr
+                                                        </span>
+                                                    </h6>
+
+                                                    <h6 class="account-label" *ngIf="net > 0">
+                                                        Closing Bal :
+                                                        <span class="account-value">
+                                                            {{ net | currency:'INR' }} Cr
+                                                        </span>
+                                                    </h6>
+
+                                                </ng-container>
+                                                <!-- ------------------------------------------------------------  -->
+
+                                            </div>
+                                        </div>
+
+                                        <div class="account-data" *ngIf="delhiSAccStatList.length === 0">
+                                            <h6 class="account-value text-center no-data-found">Sorry ! <br> There
+                                                are no records available !</h6>
+                                        </div>
+                                    </div>
+
+                                    <p class="note">Note: Any discrepancies in this statement may kindly be brought
+                                        to the notice of the Society within 10 days</p>
+                                </div>
+                            </ng-template>
+
+                            <ng-template [libTab]="'DOWNLOAD'" [libTabActive]="activeTab === 'DOWNLOAD'">
+                                <div *ngFor="let item of fileList">
+                                    <div class="document-wrapper cursonr-p" (click)="file(item[0])">
+                                        <img class="doc-img"
+                                            src="https://timescape.timesofindia.com/timescape/employeeapps/assets/images/pdf.png"
+                                            alt="">
+                                        <p class="doc-text">{{item[0]}}</p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

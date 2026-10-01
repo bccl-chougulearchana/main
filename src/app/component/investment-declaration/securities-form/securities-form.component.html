@@ -1,0 +1,48 @@
+<div class="inv-form">
+  <h3 class="inv-form__title">{{ title }}</h3>
+
+  <div class="inv-form__card" *ngFor="let row of rows.controls; let i = index" [formGroup]="row">
+    <div libDynamicRow>
+      <input class="add-astrix" libText [libLabelText]="['#000', 'Name of Share Owner']" libUiUnderline libRequired
+             formControlName="ownerName" maxlength="100" placeholder="Enter Owner Name" />
+
+      <select class="add-astrix" [libSelect]="dealingTypeOptions" [libLabelText]="['#000', 'Directly/Indirectly']"
+              libRequired formControlName="dealingType"></select>
+
+      <select class="add-astrix" [libSelect]="relationshipOptions" [libLabelText]="['#000', 'Relationship with Employee']"
+              libRequired formControlName="relationship"></select>
+
+      <select class="add-astrix" [libSelect]="transactionTypeOptions" [libLabelText]="['#000', 'Type of Transaction']"
+              libRequired formControlName="transactionType"></select>
+
+      <input class="add-astrix" [libNumber]="[10, 0]" [libLabelText]="['#000', 'No of Shares']" libUiUnderline libRequired
+             (input)="onNumberInput($event)" formControlName="noOfShares" placeholder="Enter Number of Shares" />
+
+      <input class="add-astrix" libText [libLabelText]="['#000', investeeLabel]" libUiUnderline libRequired
+             formControlName="investeeCompany" maxlength="50" placeholder="Enter Company Name" />
+
+       <div>
+       <input class="add-astrix" libDateNU [libLabelText]="['#000', 'Date of Transaction']" libUiUnderline libRequired
+             formControlName="transactionDate" [max]="today" placeholder="dd / mm / yyyy"
+             (change)="onDateCheck(row)" (blur)="onDateCheck(row)"/>
+              <p class="inv-form__future-msg"  *ngIf="dateErrorRows.has(row)">
+              Please select today’s date or an earlier date.
+              </p>
+       </div>
+    
+
+      <input class="add-astrix" [libNumber]="[8, 2]" [libLabelText]="['#000', 'Rate per Share']" libUiUnderline libRequired
+             (input)="onNumberInput($event)" formControlName="ratePerShare" placeholder="Enter Rate Per Share" />
+
+      <input class="add-astrix" [libNumber]="[18, 2]" [libLabelText]="['#000', 'Total Amount']" libUiUnderline
+             formControlName="totalAmount" readonly placeholder="Auto-calculated" />
+    </div>
+
+   
+
+    <div class="inv-form__actions">
+      <button type="button" class="btn btn--primary" *ngIf="showAdd(i)" (click)="addRow()">Add</button>
+      <button type="button" class="btn btn--outline" (click)="removeRow(i)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,527 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center app-title">
+            <div class="col">
+                <h3 class="text-center title-text-padding">OCA</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="internal-app-content-form">
+                    <div [libDynamicGrid]="{xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1}" [libGridGap]="'1.5rem'">
+                        <div libTabs (tabChanged)="onTabChange($event)">
+                            <ng-template [libTab]="'MY COMPLIANCE'" [libTabActive]="activeTab === 'MY COMPLIANCE'">
+                                <div id="my-compliance-one" *ngIf="!detailsByDate">
+                                    <div [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                        [libGridGap]="'0.5rem'">
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons green-clr"></div>
+                                            <h6>COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons red-clr"></div>
+                                            <h6>NON-COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img src="asset/internal-app-imgs/not_acted_icon.png" alt="">
+                                            </div>
+                                            <h6>NO ACTION REQUIRED</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img src="asset/internal-app-imgs/take_action_icon.png" alt="">
+                                            </div>
+                                            <h6>TAKE ACTION</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img src="asset/internal-app-imgs/checkmark-grey.png" alt="">
+                                            </div>
+                                            <h6>REVIEWED BY SUPERVISOR</h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- --------------------------------------------------- -->
+
+                                    <!-- <h3>{{ ocaHeadText }}</h3> -->
+
+                                    <div class="date-pettern-box" *ngFor="let item of mycompfreqListWithIcons">
+
+                                        <!-- -------------------- Dynamic Way -------------------  -->
+                                        <div class="date-pettern-box-content" (click)="viewpolicies(item.value[0])">
+                                            <div class="date-pettern-box-content-row"
+                                                [class.inactive-row]="!isFrequencyActive(item.value[0])"
+                                                [class.active-row]="isFrequencyActive(item.value[0])"
+                                                [libDynamicGrid]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}">
+                                                <div [libCol]="{ xs: 7, sm: 7, md: 7, lg: 7 }">
+                                                    <div class="left-content-box">
+                                                        <div class="date-name-box"
+                                                            [class.inactive-box]="!isFrequencyActive(item.value[0])"
+                                                            [class.active-box]="isFrequencyActive(item.value[0])"
+                                                            [class.active]="isFrequencyActive(item.value[0])">
+                                                            {{item.value[1].charAt(0)}}</div>
+                                                        <div class="date-title-side">{{item.value[1]}}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div [libCol]="{ xs: 5, sm: 5, md: 5, lg: 5 }">
+
+                                                    <div class="right-content-box">
+
+                                                        <!-- <div class="icon"
+                                                            *ngIf="frequencyIcons[item[0]]?.showGreenIcons && isFrequencyActive(item[0])">
+                                                            <div class="cond-base-gree-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="frequencyIcons[item[0]]?.showRedIcons && isFrequencyActive(item[0])">
+                                                            <div class="cond-base-red-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="frequencyIcons[item[0]]?.showActionIcons && isFrequencyActive(item[0])">
+                                                            <div class="cond-base-action"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="frequencyIcons[item[0]]?.showNoActionIcons || !isFrequencyActive(item[0])">
+                                                            <div class="cond-base-notacted"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="frequencyIcons[item[0]]?.showReviewByManager && !isFrequencyActive(item[0])">
+                                                            <div class="cond-base-checkmark-grey"></div>
+                                                        </div> -->
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[0]">
+                                                            <div class="cond-base-gree-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[1]">
+                                                            <div class="cond-base-red-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[2]">
+                                                            <div class="cond-base-action"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons[3]">
+                                                            <div class="cond-base-notacted"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[4]">
+                                                            <div class="cond-base-checkmark-grey"></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- -------------------- Dynamic Way -------------------  -->
+                                    </div>
+                                    <!-- --------------------------------------------------- -->
+
+                                    <div class="panel-message-wrp" *ngIf="mycompfreqListWithIcons.length === 0">
+                                        <p class="panel-message">You do not have any controls assigned for the current
+                                            period.</p>
+                                    </div>
+                                </div>
+
+                                <div id="my-compliance-two" *ngIf="detailsByDate">
+                                    <div class="by-name-content-details-wrp">
+                                        <div [libDynamicGrid]="{xs: 7, sm: 7, md: 7, lg: 7, xl: 7, xxl: 7}"
+                                            [libGridGap]="'0rem'">
+                                            <div *ngFor="let item of mycompfreqListWithIcons">
+                                                <div class="week-box-fst-ltr"
+                                                    [ngClass]="{ active: activeFreq === item.value[0] }"
+                                                    (click)="viewpolicies(item.value[0])">
+                                                    {{item.value[1].charAt(0)}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <form [formGroup]="complianceForm" (ngSubmit)="insertfeedback()">
+
+                                        <div formArrayName="questions" class="oca-comp-form-wrapper-by-date">
+
+                                            <div class="oca-comp-wrp-by-que"
+                                                *ngFor="let q of questionsArray.controls; let i = index"
+                                                [formGroupName]="i">
+
+                                                <h6 class="que-title">{{ q.value.questionTitle }}</h6>
+
+                                                <div class="quetion-wrp">
+                                                    <ol>
+                                                        <li [attr.value]="i + 1" class="que-txt">{{ q.value.questionText
+                                                            }}</li>
+                                                    </ol>
+                                                </div>
+
+                                                <div class="file-section" *ngIf="isFrequencyActive(activeFreq)">
+                                                    <label *ngIf="!q.value.backendFile" class="upload-wrapper">
+                                                        <input libFileuploadNU [allowedExtensions]="allowedExtensions"
+                                                            [enableDownload]="false" [maxFileSizeMB]="10"
+                                                            class="file-input" (fileSelected)="eurekafile($event, i)" />
+                                                        <img src="asset/internal-app-imgs/attach.png" alt="Upload"
+                                                            class="upload-icon" />
+                                                    </label>
+
+                                                    <div class="download-file-wrp" *ngIf="q.value.backendFile"
+                                                        (click)="downloadFile(q.value.backendFile)">
+                                                        <i class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                    </div>
+
+                                                    <div class="delete-file-wrp" *ngIf="q.value.backendFile"
+                                                        (click)="deleteFile(i)">
+                                                        <img src="asset/internal-app-imgs/delete.png" alt="Delete"
+                                                            class="delete-icon" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="option-group">
+                                                    <label class="custom-radio yes">
+                                                        <input type="radio" formControlName="answer" value="Yes" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Yes</span>
+                                                    </label>
+
+                                                    <label class="custom-radio no">
+                                                        <input type="radio" formControlName="answer" value="No" />
+                                                        <span class="box"></span>
+                                                        <span class="text">No</span>
+                                                    </label>
+
+                                                    <label class="custom-radio na">
+                                                        <input type="radio" formControlName="answer" value="NA" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Not Applicable</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="remark-wrp">
+
+                                                    <p class="textbx-remark">
+                                                        Remark
+                                                        <sup class="sup">
+                                                            *
+                                                        </sup>
+                                                    </p>
+
+                                                    <textarea formControlName="remark" libAddressLine
+                                                        [libLabelText]="['#000', 'Type here']"
+                                                        [libTextarea]="100"></textarea>
+                                                </div>
+
+                                                <hr />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="by-name-btn-wrp">
+                                            <button class="btn btn-grey" (click)="backBtn()">Back</button>
+                                            <button *ngIf="isFrequencyActive(activeFreq)" type="submit" class="btn btn-submit">Submit</button>
+                                        </div>
+                                    </form> -->
+
+
+                                    <form [formGroup]="complianceForm" (ngSubmit)="insertfeedback()">
+
+                                        <div formArrayName="questions">
+
+                                            <div class="oca-comp-form-wrapper-by-date"
+                                                *ngFor="let q of questionsFA.controls; let i = index"
+                                                [formGroupName]="i">
+
+                                                <div class="oca-comp-wrp-by-que">
+                                                    <!-- TITLE -->
+                                                    <h6 class="que-title">Policy Question</h6>
+
+                                                    <!-- QUESTION -->
+                                                    <div class="quetion-wrp">
+                                                        <ol>
+                                                            <li class="que-txt">{{ q.get('questionText')?.value }}</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+
+                                                <div class="file-section" *ngIf="isFrequencyActive(activeFreq)">
+                                                    <label *ngIf="!q.get('file')?.value" class="upload-wrapper">
+                                                        <input libFileuploadNU [allowedExtensions]="allowedExtensions"
+                                                            [enableDownload]="false" [maxFileSizeMB]="10"
+                                                            class="file-input" (fileSelected)="eurekafile($event, i)" />
+                                                        <img src="asset/internal-app-imgs/attach.png" alt="Upload"
+                                                            class="upload-icon" />
+                                                    </label>
+
+                                                    <div class="download-file-wrp" *ngIf="q.get('file')?.value"
+                                                        (click)="downloadFile(q.value.userAttachment)">
+                                                        <i class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                    </div>
+
+                                                    <div class="delete-file-wrp" *ngIf="q.get('file')?.value"
+                                                        (click)="deleteFile(i)">
+                                                        <img src="asset/internal-app-imgs/delete.png" alt="Delete"
+                                                            class="delete-icon" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="option-group">
+                                                    <label class="custom-radio yes">
+                                                        <input type="radio" formControlName="answer" value="Yes" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Yes</span>
+                                                    </label>
+
+                                                    <label class="custom-radio no">
+                                                        <input type="radio" formControlName="answer" value="No" />
+                                                        <span class="box"></span>
+                                                        <span class="text">No</span>
+                                                    </label>
+
+                                                    <label class="custom-radio na">
+                                                        <input type="radio" formControlName="answer" value="NA" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Not Applicable</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="remark-wrp"
+                                                    *ngIf="isFrequencyActive(activeFreq) && q.get('answer')?.value">
+                                                    <p class="textbx-remark">
+                                                        Remark
+                                                        <sup class="sup"
+                                                            *ngIf="q.get('answer')?.value === 'No' || q.get('answer')?.value === 'NA'">*</sup>
+                                                    </p>
+
+                                                    <textarea formControlName="remark" libAddressLine
+                                                        [libLabelText]="['#000', 'Type here']"
+                                                        [libTextarea]="100"></textarea>
+
+                                                    <small class="error"
+                                                        *ngIf="q.get('remark')?.touched && q.get('remark')?.hasError('required')">
+                                                        Remark is required
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="by-name-btn-wrp">
+                                            <button class="btn btn-grey" (click)="backBtn()">Back</button>
+                                            <button type="submit" class="btn btn-submit"
+                                                *ngIf="isFrequencyActive(activeFreq)"
+                                                [disabled]="!canSubmit()">Submit</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </ng-template>
+
+                            <ng-template [libTab]="'DASHBOARD'" [libTabActive]="activeTab === 'DASHBOARD'">
+                                 <div [libDynamicGrid]="{xs: 1, sm: 1, md: 12, lg: 12, xl: 12, xxl: 12}"
+                                        [libGridGap]="'0.5rem'">
+                                    <div class="dash-box" [libCol]="{lg: 6, xl: 6, xxl: 6 }">
+                                        <div class="selectbox">
+                                        <select [libSelect]="companyOptions" [(ngModel)]="selectedCompany" name="company"
+                                        [libLabelText]="['#000', 'Company']" >
+                                        </select>
+                                        </div>
+                                         <div class="selectbox">
+                                         <select [libSelect]="functionOptions" [(ngModel)]="selectedFunction" name="Function"
+                                        [libLabelText]="['#000', 'Function']" >
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="dash-box" [libCol]="{lg: 6, xl: 6, xxl: 6 }">
+                                         <div class="selectbox">
+                                          <select [libSelect]="departmentOptions" [(ngModel)]="selectedDepartment" name="Department"
+                                        [libLabelText]="['#000', 'Department']" ></select>
+                                        </div>
+                                         <div class="selectbox">
+                                            <input class="input-style" libText [libLabelText]="['#000', 'Period']" libUiUnderline value="LAST CLOSED PERIOD" disabled/>
+                                         </div>
+                                    </div>
+                                     <div class="panel-group" [libCol]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}" >
+                                        <label> No data found for the selected period</label>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <div class="info-i">
+                                <img src="https://timescape.timesofindia.com/timescape/employeeapps/assets/images/info-ic.png"
+                                    alt="" (click)="openInfo()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------------- PDF Submit Modal -----------------------  -->
+<ng-container *ngIf="showInfo">
+    <ng-container [libPopup]="Info" [popupWidth]="'600px'" [popupHeight]="'auto'" (closed)="closeInfo()">
+    </ng-container>
+</ng-container>
+
+<ng-template #Info>
+        <div class="modal-data">
+          <h5 class="pb-2">Coloured Indicators</h5>
+          <ul class="modalcompList pb-2">
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgGreen">&nbsp;</div>
+                <div class="ocaCompListTxt">COMPLIANT</div>
+              </div>
+              <div class="ocaListText">Green: You have submitted ‘YES’ against
+                all controls in that frequency.</div>
+            </li>
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgRed">&nbsp;</div>
+                <div class="ocaCompListTxt">NON-COMPLIANT</div>
+              </div>
+              <div class="ocaListText">Red: You have submitted ‘NO’ against at
+                least one of the controls in that frequency.</div>
+            </li><li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgNotActed">&nbsp;</div>
+                <div class="ocaCompListTxt">NO ACTION REQUIRED</div>
+              </div>
+              <div class="ocaListText">Frequency not active/No action taken from
+                your end</div>
+            </li><li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgWhiteheader">&nbsp;</div>
+                <div class="ocaCompListTxt">TAKE ACTION</div>
+              </div>
+              <div class="ocaListText">Blue Arrow: Action required from your
+                end.</div>
+            </li>
+
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgGreyCheckmark ">&nbsp;</div>
+                <div class="ocaCompListTxt"> REVIEWED BY SUPERVISOR</div>
+              </div>
+              <div class="ocaListText">Tick: Your OCA Supervisor has reviewed
+                your feedback.</div>
+            </li>
+
+          </ul>
+
+          <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/userimg.png"
+                alt="userIcon"></div>
+            <h5>Subordinate Help Info:</h5>
+          </div>
+          <ol  class="pb-2">
+            <li>Grey band/background on a frequency indicates either of the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window is not open.</li>
+              <li>Your OCA Supervisor has reviewed your feedback.</li>
+              <li>No action required from your end. Although, details can be
+                viewed by clicking on the frequency band.
+              </li>
+            </ol>
+            <li>White band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window for this frequency is open.</li>
+              <li>Your OCA Supervisor hasn’t yet reviewed your feedback.</li>
+              <li>Action is pending from your end.</li>
+            </ol>
+
+            <li>Blue box + white band for a frequency means action required from
+              your end.</li>
+            <li>Date Range/Month/Year etc., mentioned besides the frequency,
+              indicates the period for which feedback is
+              being submitted by you. Date Range if not displayed, indicates the
+              submission window is not open.</li>
+            <li>Feedback box with Grey band shows your Supervisor’s feedback
+              against the respective controls, in non-editable mode.</li>
+            <li>Click on Attachment icon to attach a file against the respective
+              controls. For deletion, click on Delete
+              icon.</li>
+          </ol>
+          <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/managerimg.png"
+                alt="managerimg"></div>
+            <h5>Supervisor Help Info:</h5>
+          </div>
+          <ol  class="pb-2">
+            <li> Grey band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window is not open.</li>
+              <li>You have reviewed all your team’s feedback for the respective
+                frequency.</li>
+              <li>No action required from your end. Although, details can be
+                viewed by clicking on the frequency band.
+              </li>
+            </ol>
+            <li> White band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window for this frequency is open.</li>
+              <li>Action is either pending or available for modification.</li>
+            </ol>
+            <li> Blue box + white band for a frequency means action required or
+              available for modification.</li>
+            <li> Date Range/Month/Year etc., mentioned besides the frequency,
+              indicates the period for which feedback is
+              being submitted by you. Date Range if not displayed, indicates the
+              submission window is not open.</li>
+            <li> Feedback box with Grey band shows your team member’s feedback
+              against the respective controls, in
+              non-editable mode.</li>
+            <li> Default selected feedback would be same as that of your team
+              member’s feedback for the respective
+              control.</li>
+            E.g. If team member has selected as YES, you will see YES as
+            selected by default which can be modified by
+            you on this screen.
+            <li> Click on Attachment icon (if available) to view the attached
+              file.</li>
+
+          </ol>
+        </div>
+</ng-template>
+
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="Popup" [popupWidth]="'400px'" [popupHeight]="'auto'" (closed)="closePopup()">
+    </ng-container>
+</ng-container>
+<ng-template #Popup>
+    <div class="popup-box">
+        <h3 class="popup-title">Note</h3>
+        <div class="box-content">
+            <img src="asset/internal-app-imgs/Leave_Form_error.png" alt="">
+        </div>
+        <p *ngIf="eurekafileSuccessMsg" class="popup-description">Your Controls have been <br> submitted successfully.
+        </p>
+        <p *ngIf="eurekafileErrorMsg" class="popup-description">Your Controls have been <br> not submitted successfully.
+        </p>
+        <button *ngIf="eurekafileSuccessMsg" class="popup-close-btn" (click)="closePopup()">BACK</button>
+        <button *ngIf="eurekafileErrorMsg" class="popup-close-btn" (click)="closePopup()">CLOSE</button>
+    </div>
+</ng-template>

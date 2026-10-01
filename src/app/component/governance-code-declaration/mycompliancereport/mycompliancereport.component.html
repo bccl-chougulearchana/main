@@ -1,0 +1,27 @@
+<div class="container" id="reportPage" style="display: none;">
+  <div class="content-part leave-page bgGrayCont">
+    <!-- <div class="navWrapper__hasicon"> -->
+      <ul class="nav nav-tabs nav-bgWhite">
+        <li routerLinkActive="active" (click)="govcodetabclick(role[2])"
+        *ngFor="let role of roleList; let k = index" id="govcodeId{{k}}">
+        <a  data-toggle="tab" 
+        >{{role[2]}}
+        </a></li>
+      </ul>
+      <div class="titlediv"  style="margin-bottom: 15px;margin-top: 15px;">
+        <b>Total Count Report</b>
+      </div>
+      <div class="panel body" *ngFor="let countdata of tempcountlist;let i = index" style="margin-bottom: 15px; padding-left: 15px; margin-left: 0px;box-shadow: 0 1px 4px rgba(102, 110, 101, 0.69)">
+        <div style="background-color: white;" class="rep-list-data" >
+          <h5 style="margin-bottom: 15px;"><b>Functions : </b>{{countdata.functions}}</h5>
+          <!-- <h5><b>Function Head : </b>{{countdata.functionHead}}</h5> -->
+          <h5 style="margin-bottom: 15px; margin-top: 15px;"><b>Total No. of Users : </b> {{countdata.totalnoofusers}}</h5>
+          <h5 style="margin-bottom: 15px;"><b>Signed Off : </b> {{countdata.signedOff}}</h5>
+          <h5 style="margin-bottom: 15px;"><b>Not Signed Of : </b>{{countdata.notsignedOff}}</h5>
+          <h5 style="margin-bottom: 15px;"><b>Complied : </b>{{countdata.complied}}</h5>
+         <h5 style="margin-bottom: 15px;"><b>Not Complied : </b>{{countdata.notcomplied}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  

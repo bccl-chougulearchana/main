@@ -1,0 +1,199 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center app-title">
+            <div class="col">
+                <h3 class="text-center title-text-padding">Equity Investment/Trading Disclosure</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="not-authorised" *ngIf="authorized === false">
+                    <p>You are not authorised to access this application.</p>
+                </div>
+                <ng-container *ngIf="authorized === true">
+                <app-investment-success *ngIf="submitted" (viewHistory)="onViewHistory()"></app-investment-success>
+                <ng-container *ngIf="!submitted">
+                <div class="internal-app-content-title">
+                    <h3>Current Quarter/Year: {{ currentQuarter }} - {{ currentYear }}</h3>
+
+                    <div class="related-links" [class.related-links--open]="relatedLinksOpen" *ngIf="relatedLinks.length">
+                        <button type="button" class="related-links__trigger"
+                                (click)="toggleRelatedLinks($event)"
+                                aria-haspopup="true" [attr.aria-expanded]="relatedLinksOpen">
+                            <span class="related-links__label">Related Links</span>
+                            <span class="related-links__dots" aria-hidden="true">&#8943;</span>
+                            <svg class="related-links__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+
+                        <ul class="related-links__menu" *ngIf="relatedLinksOpen" (click)="$event.stopPropagation()">
+                            <li *ngFor="let link of relatedLinks">
+                                <a href="javascript:void(0)" role="menuitem" class="related-links__item" (click)="downloadResource(link)">
+                                    {{ link.label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="internal-app-content-form">
+                    <div [libDynamicGrid]="{xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1}" [libGridGap]="'1.5rem'">
+                        <div style="overflow: auto;" libTabs (tabChanged)="onTabChange($event)" *ngIf="tabsVisible">
+                            <ng-template [libTab]="'Questionnaire'" [libTabActive]="activeTab === 'Questionnaire'">
+                                <app-questionnaire [currentQuarter]="currentQuarter" (submitted)="onSubmitted()" (viewHistory)="onViewHistory()"></app-questionnaire>
+                            </ng-template>
+
+                            <ng-template  [libTab]="'History'" [libTabActive]="activeTab === 'History'">
+                                 
+                                    <app-history></app-history>
+                                
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="Popup" [popupWidth]="'750px'"
+        [popupHeight]="'auto'" (closed)="closePopup()">
+    </ng-container>
+</ng-container>
+<ng-template #Popup>
+</ng-template>
+
+<ng-container *ngIf="showInfo">
+    <ng-container [libPopup]="Info" [popupWidth]="'600px'" [popupHeight]="'auto'" (closed)="closeInfo()">
+    </ng-container>
+</ng-container>
+<ng-template #Info>
+        <div class="modal-data">
+          <h5 class="pb-2">Coloured Indicators</h5>
+          <ul class="modalcompList pb-2">
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgGreen">&nbsp;</div>
+                <div class="ocaCompListTxt">COMPLIANT</div>
+              </div>
+              <div class="ocaListText">Green: You have submitted ‘YES’ against
+                all controls in that frequency.</div>
+            </li>
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgRed">&nbsp;</div>
+                <div class="ocaCompListTxt">NON-COMPLIANT</div>
+              </div>
+              <div class="ocaListText">Red: You have submitted ‘NO’ against at
+                least one of the controls in that frequency.</div>
+            </li><li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgNotActed">&nbsp;</div>
+                <div class="ocaCompListTxt">NO ACTION REQUIRED</div>
+              </div>
+              <div class="ocaListText">Frequency not active/No action taken from
+                your end</div>
+            </li><li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgWhiteheader">&nbsp;</div>
+                <div class="ocaCompListTxt">TAKE ACTION</div>
+              </div>
+              <div class="ocaListText">Blue Arrow: Action required from your
+                end.</div>
+            </li>
+
+            <li>
+              <div class="ocaCompListSingle">
+                <div class="ocaCompListBox bgGreyCheckmark ">&nbsp;</div>
+                <div class="ocaCompListTxt"> REVIEWED BY SUPERVISOR</div>
+              </div>
+              <div class="ocaListText">Tick: Your OCA Supervisor has reviewed
+                your feedback.</div>
+            </li>
+
+          </ul>
+
+          <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/userimg.png"
+                alt="userIcon"></div>
+            <h5>Subordinate Help Info:</h5>
+          </div>
+          <ol  class="pb-2">
+            <li>Grey band/background on a frequency indicates either of the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window is not open.</li>
+              <li>Your OCA Supervisor has reviewed your feedback.</li>
+              <li>No action required from your end. Although, details can be
+                viewed by clicking on the frequency band.
+              </li>
+            </ol>
+            <li>White band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window for this frequency is open.</li>
+              <li>Your OCA Supervisor hasn’t yet reviewed your feedback.</li>
+              <li>Action is pending from your end.</li>
+            </ol>
+
+            <li>Blue box + white band for a frequency means action required from
+              your end.</li>
+            <li>Date Range/Month/Year etc., mentioned besides the frequency,
+              indicates the period for which feedback is
+              being submitted by you. Date Range if not displayed, indicates the
+              submission window is not open.</li>
+            <li>Feedback box with Grey band shows your Supervisor’s feedback
+              against the respective controls, in non-editable mode.</li>
+            <li>Click on Attachment icon to attach a file against the respective
+              controls. For deletion, click on Delete
+              icon.</li>
+          </ol>
+          <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/managerimg.png"
+                alt="managerimg"></div>
+            <h5>Supervisor Help Info:</h5>
+          </div>
+          <ol  class="pb-2">
+            <li> Grey band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window is not open.</li>
+              <li>You have reviewed all your team’s feedback for the respective
+                frequency.</li>
+              <li>No action required from your end. Although, details can be
+                viewed by clicking on the frequency band.
+              </li>
+            </ol>
+            <li> White band/background on a frequency indicates the
+              following:</li>
+            <ol type="a" class="modalheader-sublist">
+              <li>The submission window for this frequency is open.</li>
+              <li>Action is either pending or available for modification.</li>
+            </ol>
+            <li> Blue box + white band for a frequency means action required or
+              available for modification.</li>
+            <li> Date Range/Month/Year etc., mentioned besides the frequency,
+              indicates the period for which feedback is
+              being submitted by you. Date Range if not displayed, indicates the
+              submission window is not open.</li>
+            <li> Feedback box with Grey band shows your team member’s feedback
+              against the respective controls, in
+              non-editable mode.</li>
+            <li> Default selected feedback would be same as that of your team
+              member’s feedback for the respective
+              control.</li>
+            E.g. If team member has selected as YES, you will see YES as
+            selected by default which can be modified by
+            you on this screen.
+            <li> Click on Attachment icon (if available) to view the attached
+              file.</li>
+
+          </ol>
+        </div>
+</ng-template>

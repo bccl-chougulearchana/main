@@ -1,0 +1,11 @@
+<section class="history-block">
+  <h3 class="history-block__title">{{ title }}</h3>
+
+  <div *ngIf="tableData.length; else empty"
+       [libCustomTableNU]="tableData"
+       [columns]="tableColumns"></div>
+
+  <ng-template #empty>
+    <p class="history-block__empty">No records found.</p>
+  </ng-template>
+</section>

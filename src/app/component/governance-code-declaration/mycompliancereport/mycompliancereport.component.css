@@ -1,0 +1,13 @@
+
+.titlediv{
+font-size: 18px;
+color: #000;
+font-weight: 600;
+font-family: 'Open Sans', sans-serif;
+background: rgb(204,242,255);
+}
+.rep-list-data{
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+  }

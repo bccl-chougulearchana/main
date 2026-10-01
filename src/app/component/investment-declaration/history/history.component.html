@@ -1,0 +1,46 @@
+<div class="history">
+  <!-- Collapsible "Search by" bar — click anywhere on it (or the chevron) to toggle -->
+  <button type="button"
+          class="history__searchbar"
+          [attr.aria-expanded]="filtersOpen"
+          (click)="toggleFilters()">
+    <span>{{ filterSummary }}</span>
+    <span class="history__chevron" [class.is-open]="filtersOpen">&#9662;</span>
+  </button>
+
+  <!-- Filters: library libSelect + libLabelText, laid out with libDynamicRow -->
+  <form class="history__filters" [formGroup]="filterForm" [class.is-collapsed]="!filtersOpen">
+    <div libDynamicRow>
+      <select [libSelect]="quarterOptions"
+              [libLabelText]="['#000', 'Quarter']"
+              formControlName="quarter"></select>
+
+      <select [libSelect]="yearOptions"
+              [libLabelText]="['#000', 'Year']"
+              formControlName="year"></select>
+
+      <select [libSelect]="statusOptions"
+              [libLabelText]="['#000', 'Status']"
+              formControlName="status"></select>
+    </div>
+  </form>
+
+  <!-- Stacked history tables — always visible; each shows its own
+       "No records found." until a search returns data -->
+  <div class="history__tables">
+    <app-stock-history
+      [rows]="stock"
+      [showActions]="canCancel"
+      (cancel)="onCancelStock($event)"></app-stock-history>
+
+    <app-unlisted-history
+      [rows]="unlisted"
+      [showActions]="canCancel"
+      (cancel)="onCancelUnlisted($event)"></app-unlisted-history>
+
+    <app-real-estate-history
+      [rows]="realEstate"
+      [showActions]="canCancel"
+      (cancel)="onCancelReal($event)"></app-real-estate-history>
+  </div>
+</div>

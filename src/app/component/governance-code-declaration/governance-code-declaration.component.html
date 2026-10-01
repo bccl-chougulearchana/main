@@ -1,0 +1,127 @@
+<!-- <div class="container">
+  <div class="content-part leave-page bgGrayCont"> -->
+<!-- <div class="navWrapper__hasicon">
+      <ul class="nav nav-tabs nav-bgWhite">
+        <li id="myComplTab" routerLinkActive="active"><a [routerLink]="['mycompliancecode']" data-toggle="tab" >MY COMPLIANCE CODE</a></li>
+      </ul>
+    </div> -->
+<div class="InsideSecDiv" *ngIf="startPage">
+  <div class="login-back1">
+    <!-- <div class="QuizQuesMainDiv row">
+          <div class="videoIconDiv">
+            <img src="assets/images/video_icon.png" alt="" class="videoIcon">
+          </div>
+          <div class="QuizQuesDiv">
+            <a class="QuizQuesText" target="_blank" (click)="openGCodeVideoIframe()">watch this video on Governance code - Declaration</a>
+          </div>
+        </div> -->
+    <div class="">
+      <p class="QuizQuesInnerText">Following are the links to the documents which needs to be read before attempting
+        this Governance Code</p>
+      <div class="Quiz-menu-post ">
+        <ul class="">
+          <div id="mCSB_1" class="" tabindex="0">
+            <div id="" class="mCSB_container">
+              <li style="cursor: pointer;"><a (click)="commonRedirect('GP')">Gift Policy</a></li>
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode == '1001'"><a
+                  (click)="commonRedirect('WBP')">Whistle Blower Policy</a></li>
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode == '1001'"><a
+                  (click)="commonRedirect('PIT')">Prevention of Insider Trading</a></li>
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode == '1001'"><a
+                  (click)="commonRedirect('CBP')">Code of Ethics & Business Principles</a></li>
+
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode != '1001'"><a
+                  (click)="commonRedirect('COE')">Code of Conduct & Ethics</a></li>
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode != '1001'"><a
+                  (click)="commonRedirect('BCE')">Buying Code of Ethics</a></li>
+
+
+              <li style="cursor: pointer;" *ngIf="empDetail.companyCode == '1000'"><a
+                  (click)="commonRedirect('POSH')">POSH Policy</a></li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div>
+        <br>
+        <p class="QuizQuesInnerText">I would like to continue with the Governance Code - Declaration.</p>
+        <div class="buttonWrapper">
+          <div class="ocasumbitBox" id="startQuizBtn">
+
+            <button class="btn-ocasubmit" type="submit" (click)="Continue()">Continue</button>
+          </div>
+
+
+        </div>
+      </div>
+      <br>
+      <!-- <div class="errMsgText" *ngIf="errorMsgBool">
+            {{errorMsg}}
+          </div> -->
+      <!-- <div *ngIf="!sucessEmptyList && errorMsgBool==false">
+            <div style="font-weight: 600;" class="QuizQuesInnerText" id="reappearMsg">You have already answered the Governance Code - Quiz!</div>
+              <div style="font-weight: 600;" class="QuizQuesInnerText">Your score is : {{scoreValue}} / 100</div>
+              <div style="font-weight: 600;" *ngIf="scoreValue == 100" class="QuizQuesInnerText">
+                You can re-appear for the  Governance Code - Quiz from 1<sup>st</sup> of April in the next financial year.
+              </div>
+              <div *ngIf="scoreValue == 100" class="buttonWrapper">
+                <div class="ocasumbitBox" id="ocasumbitButton">
+                    <button class="btn-ocasubmit1" type="submit" (click)="downloadPdf()"><img src="assets/images/download.png" alt="" class="downloadICon">
+                      <label style="padding-left: 0px;" style="cursor: pointer;">DOWNLOAD CERTIFICATE</label> 
+                    </button>
+                </div>
+              </div>
+              <div style="font-weight: 600;" class="QuizQuesInnerText" *ngIf="scoreValue != 100"> You can re-appear for the Governance Code - Quiz on or after "{{reappearDate}}" </div>
+            </div> -->
+
+    </div>
+  </div>
+</div>
+
+<!-- <router-outlet></router-outlet>
+   </div> 
+</div> -->
+<div class="modal fade my-modals are-you-popup confirmModal" id="confirm_Policy" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- <img  class="close-modal" data-dismiss="modal" src="assets/images/closeb.png"> -->
+        <div class="text-center">
+          <!-- <p>Assumed that you have read all the policy documents.</p> -->
+          <p>I have read all the policy documents.</p>
+          <br>
+          <button class="btn btn-primary mr-3" style="width: 120px;font-weight: 700;background-color: rgb(55, 160, 240);"
+            (click)="readPolicy()">Yes</button>
+          <button class="btn btn-primary" style="width: 120px;font-weight: 700;background-color: rgb(55, 160, 240);" (click)="cancelBox()">No</button>
+          <!-- <div class="buttonWrapper">
+            <div class="ocasumbitBox">
+              <button  class="btn-readPolicy" type="button" (click)="readPolicy()">
+                Yes
+              </button>
+              <button  class="btn-readPolicy" type="buttn" (click)="cancelBox()">
+               Cancel
+              </button>
+          </div> 
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model for Video-->
+<div class="modal fade my-modals" id="showGCodeVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body modal-popup-1">
+        <img data-dismiss="modal" aria-label="Close" class="close-modal" src="assets/images/closeb.png">
+        <!-- <iframe  id="bannerVideo" [src]="sanitizer.bypassSecurityTrustResourceUrl(homepageNewPageDetails.topBannerVideoLink)"  webkitallowfullscreen mozallowfullscreen allowfullscreen style="height: 520px;width: 720px;" ></iframe> -->
+        <video controls id="GCodeVideo" controls controlsList="nodownload" style="width: 100%;">
+          <source src="" type="video/mp4">
+        </video>
+      </div>
+
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,81 @@
+<div *ngIf="story" class="preview-layout"
+    [libDynamicGrid]="{ xs: 1, sm: 1, md: 2, lg: 12, xl: 12, xxl: 12 }"
+    [libGridGap]="'18px'">
+    <div [libCol]="{ md: 6, lg: 5, xl: 5, xxl: 5 }" class="preview-media-col">
+        <ng-container *ngIf="isTextStory(story); else previewMedia">
+            <div class="preview-media-wrap text-preview-media">
+                <img class="preview-image text-preview-image" [src]="textStoryPlaceholder" [alt]="story.header || 'Text post'">
+            </div>
+        </ng-container>
+        <ng-template #previewMedia>
+            <ng-container *ngIf="story.fileName.startsWith('https://'); else previewLocalMedia">
+                <div class="preview-media-wrap">
+                    <app-universal-video [url]="story.fileName"></app-universal-video>
+                </div>
+            </ng-container>
+            <ng-template #previewLocalMedia>
+                <ng-container *ngIf="isVideo(story.fileName); else previewImageTemplate">
+                    <div class="preview-media-wrap" [autoAdaptiveGradient]="getStoryMediaSrc(story)">
+                        <video class="preview-video" controls playsinline preload="metadata">
+                            <source [src]="getStoryMediaSrc(story)" />
+                        </video>
+                    </div>
+                </ng-container>
+                <ng-template #previewImageTemplate>
+                    <div class="preview-media-wrap" [autoAdaptiveGradient]="getStoryMediaSrc(story)">
+                        <img (click)="onImageOpen()" class="preview-image" [src]="getStoryMediaSrc(story)" [alt]="story.header">
+                    </div>
+                </ng-template>
+            </ng-template>
+        </ng-template>
+    </div>
+    <div [libCol]="{ md: 6, lg: 7, xl: 7, xxl: 7 }" class="preview-content-col">
+        <div class="preview-user-wrap">
+            <div class="image-wrapper">
+                <span class="story-avatar" [ngStyle]="getStoryAvatarStyle(story.name)">
+                    {{ getStoryAvatarText(story.name) }}
+                </span>
+            </div>
+            <div class="connect-date">
+                <h5 class="manager-name">{{ story.name }}</h5>
+                <p class="manager-post">{{ story.department }}</p>
+                 <p class="manager-post">{{story.createdOn}}</p>
+            </div>
+        </div>
+        <h3 class="preview-title">{{ getStoryHeaderText(story.header, 120) }}</h3>
+        <p class="preview-description">{{ story.description || 'NA' }}</p>
+        <div class="story-bottom-row">
+             <div class="preview-likes">
+                <img (click)="onLikeToggle()"
+                    [src]="story.self ? 'asset/images/Like%20Active.svg' : 'asset/images/Like%20Unactive.svg'"
+                    alt="like image" />
+                <p class="stroy-likes-count" (click)="onLikesOpen()">{{ formatLikeCount(story.totalLikes) }}</p>
+                <p class="views-count">total Views: <span>{{formatLikeCount(story.totalViews)}}</span></p>
+            </div>
+        </div>
+       
+        <div *ngIf="isAdmin && previewSourceTab === 'Publish Content'" class="publish-wrapper preview-publish-wrapper">
+            <div class="btn-submit">
+                <button type="button" class="status-btn" disabled><span class="status-label">status :</span>
+                    <span class="status-value">
+                        {{ story.status === 'L' ? 'pending' : story.status === 'P' ? 'published' : 'archived' }}
+                    </span>
+                </button>
+                <button *ngIf="!story.actionSuccess"
+                    type="button"
+                    class="reset"
+                    [ngClass]="{
+                        'green-btn': story.status === 'L',
+                        'gray-btn': story.status === 'P',
+                        'red-btn': story.status === 'X'
+                    }"
+                    (click)="onStoryAction()">
+                    {{ story.status === 'L' ? 'Publish' : story.status === 'P' ? 'Archive' : 'Republish' }}
+                </button>
+                <p *ngIf="story.actionSuccess" class="action-success-msg">
+                    {{ story.actionSuccess }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,314 @@
+<!-- <div class="header">
+<div class="logo" [routerLink]="['/toi-education']" routerLinkActive="router-link-active" >
+    <img src="logo/new_logo.jpeg" alt="">
+</div>
+<div [libMenuBar]="['right', menu]"></div>
+</div> -->
+
+  <div class="d-flex align-items-center p-2 form-title">
+    <div class="col">
+      <h5 class="text-center">INFORMATION OF THE STUDENT</h5>
+    </div>
+  </div>
+@if (enableScholarUI) {
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()"  class="form-style">
+  <div libDynamicRow>
+    <input libText [libLabelText]="['#000', 'Name of the Student']" libUiUnderline libRequired formControlName="childName" maxlength="100"/>
+    <div>
+        <input libDate [libLabelText]="['#000', 'Date of Birth of Student']" libUiUnderline libRequired formControlName="childDob" (change)="handleDOB()"/>
+    <div class="errorMsg" *ngIf="dobTooRecent">
+        Please enter a valid DOB.
+      </div>
+    </div>
+  
+    <select [libSelect]="genderOptions" [libLabelText]="['#000', 'Gender of Student']" libRequired formControlName="childGender"></select>
+    <div>
+      <input libEmail [libLabelText]="['#000', 'Student Email ID']" libUiUnderline libRequired formControlName="childEmailId" maxlength="100" />
+   
+      <!-- <div class="errorMsg" *ngIf="studentForm.get('childEmailId')?.errors?.['invalidEmailFormat'] 
+                && studentForm.get('childEmailId')?.touched">
+      Enter a valid email with a proper domain
+      (e.g. name&#64;example.com)
+    </div> -->
+
+    <div class="errorMsg"
+        *ngIf="studentForm.get('childEmailId')?.errors?.['invalidChars'] 
+                && studentForm.get('childEmailId')?.touched">
+      Email contains invalid special characters: {{ invalidChars }}
+    </div>
+    </div>
+  </div>
+
+  <div libDynamicRow>
+    <select [libSelect]="maritalStatuses" [libLabelText]="['#000', 'Marital Status of Student']" libRequired formControlName="childMarritalStatus"></select>
+    <div>
+      <input libMobile [libLabelText]="['#000', 'Student Mobile Number']" libUiUnderline libRequired formControlName="childMobile" />
+  <div class="errorMsg"
+     *ngIf="studentForm.get('childMobile')?.touched &&
+            studentForm.get('childMobile')?.value &&
+            studentForm.get('childMobile')?.errors?.['pattern']">
+      Please enter a valid mobile number <br />
+      (must start with 6–9 and be 10 digits).
+    </div>
+
+    </div>
+    
+    <input libText [libLabelText]="['#000', 'Name of the Employee (Parent)']" libUiUnderline libRequired formControlName="parentName" />
+    <div>
+      <input libMobile [libLabelText]="['#000', 'Employee Mobile Number']" libUiUnderline libRequired formControlName="childContactNo" />
+     <div class="errorMsg"
+     *ngIf="studentForm.get('childContactNo')?.touched &&
+            studentForm.get('childContactNo')?.value &&
+            studentForm.get('childContactNo')?.errors?.['pattern']">
+        Please enter a valid mobile number <br />
+        (must start with 6–9 and be 10 digits).
+      </div>
+
+    </div>
+    
+  </div>
+
+  <div libDynamicRow>
+    <input libText [libLabelText]="['#000', 'Exam Passed (e.g. B.Sc., B.E., MBBS)']" libUiUnderline libRequired formControlName="examPassed" maxlength="100"/>
+    <select [libSelect]="attempts" [libLabelText]="['#000', 'Passed in First Attempt']" libRequired formControlName="firstAttempt"></select>
+
+      <div>
+      <input
+        libDate
+        [libLabelText]="['#000', 'Result Date']"
+        libUiUnderline
+        libRequired
+        formControlName="passedYear"
+      />
+      <div *ngIf="isResultDateOutOfRange" class="errorMsg">
+        Date should be within the past year (excluding today and future).
+      </div>
+    </div>
+
+
+    <input libText [libLabelText]="['#000', 'Name of the college/University admitted to']" libUiUnderline libRequired formControlName="nameOfCollege" maxlength="100" />
+  </div>
+
+<div libDynamicRow>
+  <!-- Marks Section -->
+  <div>
+    <div
+      [libDualInputField]="['a.', 'out of']"
+      [libLabelText]="['#000', 'Marks obtained in all subjects (fill either a or b)']"
+    >
+      <input
+        [libNumber]="[4, 0]"
+        libUiUnderline
+        formControlName="marksObtained"
+      />
+      <input
+        [libNumber]="[4, 0]"
+        libUiUnderline
+        formControlName="marksTotal"
+      />
+    </div>
+
+    <!-- Error messages for Marks -->
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('marksObtained')?.touched &&
+        studentForm.hasError('requiredPair') &&
+        studentForm.get('marksObtained')?.value
+      "
+    > Total marks is required
+      
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('marksTotal')?.touched &&
+        studentForm.hasError('requiredPair') &&
+       studentForm.get('marksTotal')?.value
+      "
+    >
+     Marks obtained is required
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('marksTotal')?.errors?.['maxZero'] &&
+        (studentForm.get('marksTotal')?.touched || studentForm.get('marksTotal')?.dirty)
+      "
+    >
+      Maximum Marks cannot be zero.
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.hasError('totalLessThanObtained') &&
+        (studentForm.get('marksObtained')?.touched || studentForm.get('marksTotal')?.touched) &&
+        (studentForm.get('marksObtained')?.value || studentForm.get('marksTotal')?.value)
+      "
+    >
+      Total marks should be greater than the marks obtained.
+    </div>
+  </div>
+
+  <!-- CGPA Section -->
+  <div>
+    <div
+      [libDualInputField]="['b.', 'out of']"
+      [libLabelText]="['#000', 'Cumulative Grade Point Average (CGPA)']"
+    >
+      <input
+        [libFloatNumber]="[2, 2]"
+        libUiUnderline
+        formControlName="cgpaA"
+      />
+      <input
+        [libFloatNumber]="[2, 2]"
+        libUiUnderline
+        formControlName="cgpaB"
+      />
+    </div>
+
+    <!-- Error messages for CGPA -->
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('cgpaA')?.touched &&
+        studentForm.hasError('requiredPair') &&
+        studentForm.get('cgpaA')?.value 
+      "
+    > Total CGPA is required
+     
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('cgpaB')?.touched &&
+        studentForm.hasError('requiredPair') &&
+         studentForm.get('cgpaB')?.value
+      "
+    > CGPA obtained is required
+     
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.get('cgpaB')?.errors?.['maxZero'] &&
+        (studentForm.get('cgpaB')?.touched || studentForm.get('cgpaB')?.dirty)
+      "
+    >
+      Maximum CGPA cannot be zero.
+    </div>
+    <div
+      class="errorMsg"
+      *ngIf="
+        studentForm.hasError('totalLessThanObtained') &&
+        (studentForm.get('cgpaA')?.touched || studentForm.get('cgpaB')?.touched) &&
+        (studentForm.get('cgpaA')?.value || studentForm.get('cgpaB')?.value)
+      "
+    >
+      Total CGPA should be greater than the CGPA obtained.
+    </div>
+  </div>
+
+  <!-- Read-only Aggregate -->
+  <input
+    libText
+    formControlName="aggregate"
+    [libLabelText]="['#000', 'Aggregate%']"
+    libUiUnderline
+    [readonly]="true"
+  />
+</div>
+
+
+  <div libDynamicRow>
+    <select [libSelect]="schemes" [libLabelText]="['#000', 'Scheme applied for']" libRequired formControlName="schemeApplied" (change)="onSchemeChange($event)"></select>
+    <div>
+      <select [libSelect]="currentCourseOptions" [libLabelText]="['#000', 'Course applied for']" libRequired formControlName="courseApplied" (change)="onCourseChange($event)"></select>
+      <input *ngIf="showOtherCourseInput" libText placeholder="Enter Course Name" formControlName="otherCourse" libUiUnderline maxlength="100" class="custom-input "/>
+       <div class="errorMsg" style="margin: 6px 0;" *ngIf="showOtherCourseInput && studentForm.get('otherCourse')?.errors?.['required'] 
+            && studentForm.get('otherCourse')?.touched">
+        Please fill this required field
+        </div>
+    </div>
+    <select [libSelect]="durationYears" [libLabelText]="['#000', 'Duration of the course']" libRequired formControlName="durationOfCourse"></select>
+    <select [libSelect]="years" [libLabelText]="['#000', 'Current Year of the course']" libRequired formControlName="schemeYears"></select>
+  </div>
+
+  <div style="font-family: open sans; font-weight: bold; padding-bottom: 15px;" class="title-attach">Attachments</div>
+
+  <div libDynamicRow>
+    <div><input 
+      libFileuploadNU 
+      libRequired
+      class="textBlack"  
+      [allowedExtensions]="['.svg', '.pdf', '.jpg' , '.jpeg', '.png']"
+      [labelConfig]="['#000', 'Student Marksheet - Class X/XII/Degree']" 
+      formControlName="attachment1" 
+      (fileSelected)="onFileChange($event, 'attachment1')" 
+      (fileDownload)="onFileDownload($event)"
+      (fileCleared)="onRemove('attachment1')" />
+      <div class="errorMsg" style="margin: 6px 0;" *ngIf="studentForm.get('attachment1')?.errors?.['uploadFailed'] 
+          && studentForm.get('attachment1')?.touched">
+          This is a required field.
+      </div>
+      </div>
+      <div>
+      <input 
+      libFileuploadNU
+      libRequired
+      class="textBlack"  
+      [allowedExtensions]="['.svg', '.pdf', '.jpg' , '.jpeg', '.png']"
+       [labelConfig]="['#000', 'Letter of Admission from the institute OR Receipt of fees Paid']" formControlName="attachment2" 
+      (fileSelected)="onFileChange($event, 'attachment2')"
+      (fileDownload)="onFileDownload($event)"
+      (fileCleared)="onRemove('attachment2')" />
+      <div class="errorMsg" style="margin: 6px 0;" *ngIf="studentForm.get('attachment2')?.errors?.['uploadFailed'] 
+          && studentForm.get('attachment2')?.touched">
+          This is a required field.
+      </div>
+      </div>
+      
+
+    <div *ngIf="special">
+         <input libFileuploadNU class="textBlack" [allowedExtensions]="['.svg', '.pdf', '.jpg' , '.jpeg', '.png']" [labelConfig]="['#000', 'Special Student supporting document']" formControlName="attachment3" (fileSelected)="onFileChange($event, 'attachment3')" (fileDownload)="onFileDownload($event)" (fileCleared)="onRemove('attachment3')"/>
+           <div class="errorMsg" *ngIf="special 
+            && studentForm.get('attachment3')?.touched && studentForm.get('attachment3')?.value && studentForm.get('attachment3')?.errors?.['required'] || studentForm.get('attachment3')?.errors?.['uploadFailed'] ">
+        Please fill this required field
+      </div>
+    </div>
+    <div *ngIf="achiver">
+      <input libFileuploadNU class="textBlack" [allowedExtensions]="['.svg', '.pdf', '.jpg' , '.jpeg', '.png']" [labelConfig]="['#000', 'National / State Level Achievement Certificate']" formControlName="attachment4" (fileSelected)="onFileChange($event, 'attachment4')" (fileDownload)="onFileDownload($event)" (fileCleared)="onRemove('attachment4')"/>
+         <div class="errorMsg" *ngIf="achiver 
+            && studentForm.get('attachment4')?.touched && studentForm.get('attachment4')?.value && studentForm.get('attachment4')?.errors?.['required'] || studentForm.get('attachment4')?.errors?.['uploadFailed']">
+        Please fill this required field
+      </div>
+    </div>
+  </div>
+
+  <div style="font-family: open sans;">
+    <p>
+      <span class="fw-semibold"><span class="errorMsg">*</span>Note:</span>
+      <span style="font-size: 14px;">
+        Both the Semester Marksheets as per the academic year should be scanned in one page and attached - next to marksheet attachment column
+      </span>
+    </p>
+  </div>
+
+  <div>
+    <button type="submit" libPrimaryButton="center,UPDATE" *ngIf="flag === 'edit'"></button>
+    <button type="button" libPrimaryButton="center,BACK" *ngIf="flag === 'edit'" (click)="onBack()"></button>
+    <button type="submit" libPrimaryButton="center,SUBMIT" *ngIf="flag !== 'edit'" ></button>
+    <button type="button" libPrimaryButton="center,RESET" (click)="onReset()" *ngIf="flag !== 'edit'">RESET</button>
+  </div>
+</form>
+} @else {
+  <div class="container">
+	<div style="padding-top: 100px; height: calc( 99vh - 162px);text-align: center;font-size: 18px;">
+		{{Msg}}
+	</div>
+</div>
+}
+
+
+<router-outlet></router-outlet>

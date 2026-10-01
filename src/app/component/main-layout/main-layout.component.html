@@ -1,0 +1,238 @@
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="header-sticky">
+            <app-header (toggle)="toggleDiv()"
+                (urlSelected)="hamburgerNavUrl($event)"></app-header>
+            <app-mini-header class="dynamic-mini-header"
+                (urlSelected)="onLinkChange($event)"></app-mini-header>
+        </div>
+        <div class="main-container fixed-header">
+            <section class="head-marqee marq-bord-radius">
+                <div class="marq-container">
+                    <!-- <div class="marq-main-cont">
+                        <marquee behavior="scroll" direction="left" scrollamount="5"
+                                 onmouseover="this.stop();" onmouseout="this.start();">
+                               
+                            <a class="marquee-link">
+                                <span class="insidelinks" *ngIf="notificationsList.length !== 0">
+                                    <img src="asset/images/bell_icon.png" alt="alert Icon" width="20" height="20"
+                                        (click)="onClick('notification-section')">
+                                        
+                                        &nbsp;<span class="notif-title"
+                                        (click)="onClick('notification-section')">Notifications:</span>
+                                    <span class="notif-para"
+                                        *ngFor="let n of topTwoNotifications ; let last = last">&nbsp;
+                                        <span (click)="setnotification(n)">{{n.title}}</span>&nbsp;
+                                        <span *ngIf="!last">;</span>
+                                        <span *ngIf="last && notificationsList.length > 2">;<span (click)="onClick('notification-section')">...more</span>
+                                        </span>
+                                    </span>
+                                </span>
+                                &nbsp;&nbsp;
+                                <span class="notif-title" style="margin:0 10px 0 30px;"
+                                    *ngIf="notificationsList.length !== 0 && alertsList.length !== 0">|</span>
+                                &nbsp;&nbsp;
+                                <span class="insidelinks" 
+                                    *ngIf="alertsList.length !== 0">
+                                     
+                                    <img src="asset/images/bell_icon.png" alt="alert Icon" width="20" height="20" (click)="onClick('alerts-section')">
+                                        &nbsp;<span class="notif-title"
+                                        (click)="onClick('alerts-section')">Alerts <span>({{alertsList.length}} New)</span> :</span>
+                                    <span class="notif-para" *ngFor="let alert of topTwoAlerts ; let last = last">&nbsp;
+                                        <span (click)="setalert(alert)">{{alert.text}}</span>&nbsp;<span
+                                            *ngIf="!last">;</span>
+                                        <span *ngIf="last && alertsList.length > 2">;<span (click)="onClick('alerts-section')">...more</span>
+                                        </span>
+                                    </span>
+                                </span>
+
+                              
+                                <span *ngIf="vcoquote" class="notif-title" 
+                                    style="color: #6293bb; margin-left: 50px;" >VCO
+                                    Inspiration:&nbsp;&nbsp;
+                                </span><span class="notif-para"
+                                    style="color: #6293bb;">{{vcoquote}}</span>&nbsp;&nbsp;<span class="notif-para"
+                                    style="color: #6293bb;" *ngIf="vcoauthor">
+                                    {{vcoauthor}}</span>&nbsp;&nbsp;<span *ngIf="vcolink"
+                                    class="notif-title vco-link-clr">
+                                </span>
+                               
+                                &nbsp;&nbsp;&nbsp;<span><a class="vco-link-text" [href]="vcolink" target="_blank"
+                                        style="color: #6293bb;">{{vcolinkText}}</a></span>
+                            </a>
+                        </marquee>
+                    </div> -->
+                    <div class="marq-main-cont">
+                        <div class="marquee"
+                            (mouseenter)="pauseMarquee = true"
+                            (mouseleave)="pauseMarquee = false">
+
+                            <div class="marquee-track"
+                                [class.paused]="pauseMarquee">
+
+                                <div class="marquee-content">
+                                    <a class="marquee-link">
+                                        <span class="insidelinks"
+                                            *ngIf="notificationsList.length !== 0">
+                                            <img
+                                                src="asset/images/bell_icon.png"
+                                                alt="alert Icon" width="20"
+                                                height="20"
+                                                (click)="onClick('notification-section')">
+                                            &nbsp;<span class="notif-title"
+                                                (click)="onClick('notification-section')">Notifications:</span>
+                                            <span class="notif-para"
+                                                *ngFor="let n of topTwoNotifications ; let last = last">&nbsp;
+                                                <span
+                                                    (click)="setnotification(n)">{{n.header}}</span>&nbsp;
+                                                <span *ngIf="!last">;</span>
+                                                <span
+                                                    *ngIf="last && notificationsList.length > 2">;<span
+                                                        (click)="onClick('notification-section')">...more</span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        &nbsp;&nbsp;
+                                        <span class="notif-title"
+                                            style="margin:0 10px 0 30px;"
+                                            *ngIf="notificationsList.length !== 0 && alertsList.length !== 0">|</span>
+                                        &nbsp;&nbsp;
+                                        <span class="insidelinks"
+                                            *ngIf="alertsList.length !== 0">
+                                            <img
+                                                src="asset/images/bell_icon.png"
+                                                alt="alert Icon" width="20"
+                                                height="20"
+                                                (click)="onClick('alerts-section')">
+                                            &nbsp;<span class="notif-title"
+                                                (click)="onClick('alerts-section')">Alerts
+                                                <span>({{alertsList.length}}
+                                                    New)</span> :</span>
+                                            <span class="notif-para"
+                                                *ngFor="let alert of topTwoAlerts ; let last = last">&nbsp;
+                                                <span
+                                                    (click)="setalert(alert)">{{alert.text}}</span>&nbsp;<span
+                                                    *ngIf="!last">;</span>
+                                                <span
+                                                    *ngIf="last && alertsList.length > 2">;<span
+                                                        (click)="onClick('alerts-section')">...more</span>
+                                                </span>
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="vcoquote"
+                                            class="notif-title"
+                                            style="color: #6293bb; margin-left: 50px;">VCO
+                                            Inspiration:&nbsp;&nbsp;
+                                        </span><span class="notif-para"
+                                            style="color: #6293bb;">{{vcoquote}}</span>&nbsp;&nbsp;<span
+                                            class="notif-para"
+                                            style="color: #6293bb;"
+                                            *ngIf="vcoauthor">
+                                            {{vcoauthor}}</span>&nbsp;&nbsp;<span
+                                            *ngIf="vcolink"
+                                            class="notif-title vco-link-clr">
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;<span><a
+                                                class="vco-link-text"
+                                                [href]="vcolink" target="_blank"
+                                                style="color: #6293bb;">{{vcolinkText}}</a></span>
+                                    </a>
+                                </div>
+
+                                <div class="marquee-content">
+                                    <a class="marquee-link">
+                                        <span class="insidelinks"
+                                            *ngIf="notificationsList.length !== 0">
+                                            <img
+                                                src="asset/images/bell_icon.png"
+                                                alt="alert Icon" width="20"
+                                                height="20"
+                                                (click)="onClick('notification-section')">
+                                            &nbsp;<span class="notif-title"
+                                                (click)="onClick('notification-section')">Notifications:</span>
+                                            <span class="notif-para"
+                                                *ngFor="let n of topTwoNotifications ; let last = last">&nbsp;
+                                                <span
+                                                    (click)="setnotification(n)">{{n.header}}</span>&nbsp;
+                                                <span *ngIf="!last">;</span>
+                                                <span
+                                                    *ngIf="last && notificationsList.length > 2">;<span
+                                                        (click)="onClick('notification-section')">...more</span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        &nbsp;&nbsp;
+                                        <span class="notif-title"
+                                            style="margin:0 10px 0 30px;"
+                                            *ngIf="notificationsList.length !== 0 && alertsList.length !== 0">|</span>
+                                        &nbsp;&nbsp;
+                                        <span class="insidelinks"
+                                            *ngIf="alertsList.length !== 0">
+                                            <img
+                                                src="asset/images/bell_icon.png"
+                                                alt="alert Icon" width="20"
+                                                height="20"
+                                                (click)="onClick('alerts-section')">
+                                            &nbsp;<span class="notif-title"
+                                                (click)="onClick('alerts-section')">Alerts
+                                                <span>({{alertsList.length}}
+                                                    New)</span> :</span>
+                                            <span class="notif-para"
+                                                *ngFor="let alert of topTwoAlerts ; let last = last">&nbsp;
+                                                <span
+                                                    (click)="setalert(alert)">{{alert.text}}</span>&nbsp;<span
+                                                    *ngIf="!last">;</span>
+                                                <span
+                                                    *ngIf="last && alertsList.length > 2">;<span
+                                                        (click)="onClick('alerts-section')">...more</span>
+                                                </span>
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="vcoquote"
+                                            class="notif-title"
+                                            style="color: #6293bb; margin-left: 50px;">VCO
+                                            Inspiration:&nbsp;&nbsp;
+                                        </span><span class="notif-para"
+                                            style="color: #6293bb;">{{vcoquote}}</span>&nbsp;&nbsp;<span
+                                            class="notif-para"
+                                            style="color: #6293bb;"
+                                            *ngIf="vcoauthor">
+                                            {{vcoauthor}}</span>&nbsp;&nbsp;<span
+                                            *ngIf="vcolink"
+                                            class="notif-title vco-link-clr">
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;<span><a
+                                                class="vco-link-text"
+                                                [href]="vcolink" target="_blank"
+                                                style="color: #6293bb;">{{vcolinkText}}</a></span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section *ngIf="currentUrl" class="iframeStyle">
+                <!-- <div *ngIf="isLoading" class="loader">
+                    Loading application...
+                </div> -->
+                <div *ngIf="isIframeLoading" class="local-spinner-overlay">
+                    <div class="local-spinner"></div>
+                </div>
+                <iframe class="iframe-style" [src]="currentUrl" width="100%"
+                    height="600px"
+                    onload="window.parent.scrollTo(0,0);"
+                    (load)="onIframeLoad()"></iframe>
+            </section>
+
+            <!-- Angular child routes -->
+            <div *ngIf="!currentUrl">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

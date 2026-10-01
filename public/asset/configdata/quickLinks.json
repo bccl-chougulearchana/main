@@ -1,0 +1,795 @@
+{
+    "status": "success",
+    "data": {
+        "navigationLinks": [
+            {
+                "name": "MY-HR",
+                "url": "https://toi.uknowva.cloud/",
+                "companyUrls": {
+                    "1009": "",
+                    "1010": "https://company1010-policy.com",
+                    "1011": "https://company1011-policy.com",
+                    "1012": "https://company1012-policy.com"
+                },
+                "icon": "asset/images/MY-HR.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "MY-ESS",
+                "url": "https://smartpay.buzzily.com/timespayroll/",
+                "icon": "asset/images/MY-ESS.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "SAP",
+                "url": "https://tstest.timesofindia.com",
+                "icon": "asset/images/SAP.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Rewards & Recognition",
+                "url": "https://api.hifives.in/login/azure",
+                "icon": "asset/images/Rewards & Recognition.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Operational Controls (OCA)",
+                "url": "http://localhost:4200/#/portal/oca",
+                "icon": "asset/images/Operational Controls (OCA).svg",
+                "internalExternalCon": true,
+                "route": "/portal/oca",
+                "quickName": "oca",
+                "visible": true
+            },
+            {
+                "name": "My Learning",
+                "url": "https://bennett.plateau.com/learning/user/personal/landOnPortalHome.do?fromSF=Y&fromDeepLink=true&pageID=",
+                "icon": "asset/images/My Learning.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "IJP",
+                "url": "https://careers.timesgroup.com/cw/bccl/jobs?isIJP=true",
+                "icon": "asset/images/IJP.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "HR Policies",
+                "url": "https://zing.timesofindia.com/bccl/hr_policies/",
+                "icon": "asset/images/HR Policies.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Quest 2 Travel",
+                "url": "https://www.quest2travel.in/bccl",
+                "icon": "asset/images/Quest 2 Travel.svg",
+                "internalExternalCon": false,
+                "quickName": "quest2travel",
+                "visible": true
+            },
+            {
+                "name": "Travel Hub",
+                "url": "https://www.quest2travel.in/bccl",
+                "icon": "asset/images/Travel Hub.svg",
+                "internalExternalCon": false,
+                "quickName": "travelHub",
+                "visible": true
+            },
+            {
+                "name": "Wall of Fame",
+                "url": "https://zing.timesofindia.com/wof/",
+                "icon": "asset/images/Wall of frame.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Hospitalization",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Hospitalization.svg",
+                "internalExternalCon": true,
+                "quickName": "hospitalization",
+                "visible": true
+            },
+            {
+                "name": "Capex Approval",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Capex Approval.svg",
+                "internalExternalCon": true,
+                "quickName": "capexApproval",
+                "visible": true
+            },
+            {
+                "name": "Purchase Approval (PAR)",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/priceapprovalController.jsp",
+                "icon": "asset/images/Purchase Approval (PAR).svg",
+                "internalExternalCon": true,
+                "quickName": "purchaseApproval",
+                "visible": true
+            },
+            {
+                "name": "PAR Approval",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/PAR Approval.svg",
+                "internalExternalCon": true,
+                "quickName": "purchaseApproval",
+                "visible": true
+            },
+            {
+                "name": "Video Channel",
+                "url": "https://m365.cloud.microsoft/launch/Stream/?auth=2&home=1",
+                "icon": "asset/images/Video Channel.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Gatepass Approval",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Gatepass Approval.svg",
+                "internalExternalCon": true,
+                "quickName": "gatepassApproval",
+                "visible": true
+            },
+            {
+                "name": "Gatepass",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/gatePassController.jsp",
+                "icon": "asset/images/Gatepass.svg",
+                "internalExternalCon": true,
+                "quickName": "gatepass",
+                "visible": true
+            },
+            {
+                "name": "Equity Investment/Trading Disclosure",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/disclosureController.jsp",
+                "icon": "asset/images/EquityInvestment.svg",
+                "internalExternalCon": true,
+                "route": "/portal/EquityInvestment",
+                "quickName": "equityinvestment",
+                "visible": true
+            },
+            {
+                "name": "ERVM",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/ervmController.jsp",
+                "icon": "asset/images/ERVM.svg",
+                "internalExternalCon": true,
+                "quickName": "ervm",
+                "visible": true
+            },
+            {
+                "name": "Insurance Claim",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/insuranceClaimController.jsp",
+                "icon": "asset/images/Insurance Claim.svg",
+                "internalExternalCon": true,
+                "quickName": "insuranceclaim",
+                "visible": true
+            },
+            {
+                "name": "Governance Reports",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/governanceReportsController.jsp",
+                "icon": "asset/images/Governance Reports.svg",
+                "internalExternalCon": true,
+                "quickName": "governancereports",
+                "visible": true
+            },
+            {
+                "name": "IT Policies",
+                "url": "https://zing.timesofindia.com/bccl/it_policies/",
+                "icon": "asset/images/IT Policies.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "TGIT Dialogue",
+                "url": "https://zing.timesofindia.com/bccl/tgit-dialogue/",
+                "icon": "asset/images/TGIT Dialogue.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "BCCL PartnerDX",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/vpViewApproveInvoicesController.jsp",
+                "icon": "asset/images/BCCL PartnerDX.svg",
+                "internalExternalCon": true,
+                "quickName": "bcclPartnerDx",
+                "visible": true
+            },
+            {
+                "name": "E-Learning Hub",
+                "url": "https://timesgroup.asia.crossknowledge.com/interfaces/login2.php",
+                "icon": "asset/images/E-Learning Hub.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "GenAI & Data Viz",
+                "url": "https://zing.timesofindia.com/bccl/tools_templates/",
+                "icon": "asset/images/GenAI & Data Viz.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "My Documents",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/My Documents.svg",
+                "internalExternalCon": true,
+                "quickName": "documentHub",
+                "visible": true
+            },
+            {
+                "name": "Partner Locator",
+                "url": "",
+                "icon": "asset/images/Partner Locator.svg",
+                "internalExternalCon": true,
+                "route": "/portal/partnerLocator",
+                "quickName": "partnerLocator",
+                "visible": true
+            },
+            {
+                "name": "People Locator",
+                "url": "http://localhost:4200/#/portal/peopleLocator",
+                "icon": "asset/images/People Locator.svg",
+                "internalExternalCon": true,
+                "route": "/portal/peopleLocator",
+                "quickName": "peopleLocator",
+                "visible": true
+            },
+            {
+                "name": "PF Account",
+                "url": "https://trustportal.buzzily.com/TOI_PFTRUSTESS/Authenticate/HomePage.aspx",
+                "icon": "asset/images/PF Account.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Reimbursements",
+                "url": "https://smartpay.buzzily.com/Timespayroll/Reimbursement/Reimbursement_Bookings.aspx",
+                "icon": "asset/images/Reimbursements.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Requisitioner Locator",
+                "url": "http://localhost:4200/#/portal/requisitionerLocator",
+                "icon": "asset/images/Requistioner Locator.svg",
+                "internalExternalCon": true,
+                "route": "/portal/requisitionerLocator",
+                "quickName": "requisitionerLocator",
+                "visible": true
+            },
+            {
+                "name": "Times Society Account",
+                "url": "http://localhost:4200/#/portal/timesSocietyAccount",
+                "icon": "asset/images/Times Society Account.svg",
+                "internalExternalCon": true,
+                "route": "/portal/timesSocietyAccount",
+                "quickName": "societyAccount",
+                "visible": true
+            },
+            {
+                "name": "Field/Night Allowance",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/rmdAllowanceClaimController.jsp",
+                "icon": "asset/images/Field night Allowance.svg",
+                "internalExternalCon": true,
+                "quickName": "fieldNightAllowance",
+                "visible": true
+            },
+            {
+                "name": "H&S Support Desk",
+                "url": "https://hospitalitysupport.timesofindia.com/app/adminhelpdesk/HomePage.do",
+                "icon": "asset/images/H&S Helpdesk.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "SAR",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/wastesalesapprovalController.jsp",
+                "icon": "asset/images/SAR.svg",
+                "internalExternalCon": true,
+                "quickName": "sar",
+                "visible": true
+            },
+            {
+                "name": "Surplus Assets",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/assetManagementController.jsp",
+                "icon": "asset/images/Surplus Asset.svg",
+                "internalExternalCon": true,
+                "quickName": "surplusAssets",
+                "visible": true
+            },
+            {
+                "name": "TGIT Service Desk",
+                "url": "https://itservicedesk.timesofindia.com",
+                "icon": "asset/images/TGIT Service Desk.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Audit Tracker",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Audit Tracker.svg",
+                "internalExternalCon": true,
+                "quickName": "auditTracker",
+                "visible": true
+            },
+            {
+                "name": "Audit Tracker Reports",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/otaController.jsp",
+                "icon": "asset/images/Audit Tracker Report.svg",
+                "internalExternalCon": true,
+                "quickName": "audittrackerReports",
+                "visible": true
+            },
+            {
+                "name": "Compliance Policies",
+                "url": "https://zing.timesofindia.com/bccl/compliance_policies/",
+                "icon": "asset/images/Compliance Policies.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Compliance Training Module",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Compliance Training Modules.svg",
+                "internalExternalCon": false,
+                "quickName": "complianceTrainingModule",
+                "visible": true
+            },
+            {
+                "name": "Governance Code - Quiz",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/Governance Code - Quiz.svg",
+                "internalExternalCon": true,
+                "quickName": "governanceCodeQuiz",
+                "visible": true
+            },
+            {
+                "name": "Governance Code - Declaration",
+                "url": "http://localhost:4200/#/portal/governacecodedeclaration",
+                "icon": "asset/images/Governance Code - Declaration.svg",
+                "internalExternalCon": true,
+                 "route": "/portal/governacecodedeclaration",
+                "quickName": "governancecodedeclaration",
+                "visible": true
+            },
+              {
+                "name": "viewcompliancecode",
+                "url": "http://localhost:4200/#/governance-code-declaration/viewcompliancecode",
+                "icon": "asset/images/Governance Code - Declaration.svg",
+                "internalExternalCon": true,
+                 "route": "/governance-code-declaration/viewcompliancecode",
+                "quickName": "Viewcompliancecode",
+                "visible": true
+            },
+             {
+                "name": "govdeclarationmycompliancecode",
+                "url": "http://localhost:4200/#/governance-code-declaration/govdeclarationmycompliancecode",
+                "icon": "asset/images/Governance Code - Declaration.svg",
+                "internalExternalCon": true,
+                 "route": "/governance-code-declaration/govdeclarationmycompliancecode",
+                "quickName": "govdeclarationmycompliancecode",
+                "visible": true
+            },
+            {
+                "name": "Mycompliancereport",
+                "url": "http://localhost:4200/#/governance-code-declaration/govdeclarationmycompliancecode",
+                "icon": "asset/images/Governance Code - Declaration.svg",
+                "internalExternalCon": true,
+                 "route": "/governance-code-declaration/MycompliancereportComponent",
+                "quickName": "govdeclarationmycompliancecode",
+                "visible": true
+            },
+            {
+                "name": "TOI Education Excellence Awards",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/TOI Education Excellence Awards.svg",
+                "internalExternalCon": true,
+                "quickName": "scholarship",
+                "visible": true
+            },
+            {
+                "name": "Car Parking Allotment",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/carParkingAllotmentController.jsp",
+                "icon": "asset/images/Car Parking Allotment.svg",
+                "internalExternalCon": true,
+                "quickName": "carparkingallotment",
+                "visible": true
+            },
+            {
+                "name": "IT Policies (TGIT)",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/jiffyAppsController2.jsp",
+                "icon": "asset/images/IT Policies (TGIT).svg",
+                "internalExternalCon": false,
+                "quickName": "itpoliciestgit",
+                "visible": true
+            },
+            {
+                "name": "Timescape Exchange",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/tsexchangeController.jsp",
+                "icon": "asset/images/Timescape Exchange.svg",
+                "internalExternalCon": true,
+                "quickName": "timescapeexchange",
+                "visible": true
+            },
+            {
+                "name": "Password Reset",
+                "url": "https://transmutesanction.timesofindia.com/",
+                "icon": "asset/images/Password Reset.svg",
+                "internalExternalCon": true,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Travel Expense Statement",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/travelstatementController.jsp",
+                "icon": "asset/images/Travel Expense Statement.svg",
+                "internalExternalCon": true,
+                "quickName": "travelstatement",
+                "visible": true
+            },
+            {
+                "name": "Annual Operation Plan",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/budgetController.jsp",
+                "icon": "asset/images/Annual Operation Plan.svg",
+                "internalExternalCon": true,
+                "quickName": "AOP",
+                "visible": true
+            },
+            {
+                "name": "Asset Possession Form",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/assetFormController.jsp",
+                "icon": "asset/images/Asset Possession Form.svg",
+                "internalExternalCon": true,
+                "quickName": "APF",
+                "visible": true
+            },
+            {
+                "name": "Project Approval",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/projectapprovalsController.jsp",
+                "icon": "asset/images/Project Approval.svg",
+                "internalExternalCon": true,
+                "quickName": "projectapproval",
+                "visible": true
+            },
+            {
+                "name": "White Goods Claim",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://b4b4debae69793834f205719e51976ed",
+                "icon": "asset/images/White Goods Claim.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Submit Parked Claim",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://89477f2dbca2acb876965cf0719be51e",
+                "icon": "asset/images/Submit Parked Claim.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "White Goods Statement",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://9abb7176f2e72fb6e5db782fc3aa28e6&NavMode=10",
+                "icon": "asset/images/White Goods Statement.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "White Goods Details",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://bc545a65e724b4f2babd3939e772f833&NavMode=10",
+                "icon": "asset/images/White Goods Details.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Employee Other Claim",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://3a8d60b05abbbeff95442b6281818776&NavMode=10",
+                "icon": "asset/images/Employee Other Claim.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Bandhan",
+                "url": "https://timescape.timesgroup.com/irj/portal?NavigationTarget=navurl://ec6b0a86f56a2db640aac3d16645e757",
+                "icon": "asset/images/Bandhan.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "CartDX",
+                "url": "https://tstest.timesofindia.com/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fevery_user!2fgeneral!2fdefaultAjaxframeworkContent!2fcom.sap.portal.standalonecontentarea?NavigationTarget=navurl%3A%2F%2F6a08f56b407c730745968a35cb180ff2&PrevNavTarget=navurl%3A%2F%2Fc12b6864159afb3661cf29e1eeb8129f&TarTitle=CartDX&NavMode=1&CurrentWindowId=WID1763708470892",
+                "icon": "asset/images/CartDX.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Computer & Peripherals Reimbursement",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://c53e6e50c45fdbf4bb0406b6e1e9502c&NavMode=10",
+                "icon": "asset/images/Computer & Peripherals Reimbursement.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Salary Statement (till Mar2025)",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://7f0c1860fe787e5d98e12d76220c0574",
+                "icon": "asset/images/SalaryStatement.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Form 16 (2021 - 2024)",
+                "url": "https://tstest.timesofindia.com/irj/portal?NavigationTarget=navurl://e2b990116c80299f429d29910145b0ae",
+                "icon": "asset/images/Form 16 (2021 - 2024).svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "SAP PORTAL",
+                "url": "https://tstest.timesofindia.com/irj/portal",
+                "icon": "asset/images/SAP PORTAL.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "TiVA",
+                "url": "https://web.leena.ai/?clientId=EUiVM7NgGLjaxpiJ3hYJH",
+                "icon": "asset/images/tiva.png",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "E-Catalogue",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/staplesController.jsp",
+                "icon": "asset/images/E-Catalogue.svg",
+                "internalExternalCon": false,
+                "quickName": "ecatalogue",
+                "visible": true
+            },
+            {
+                "name": "Medical Insurance",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/profileController.jsp",
+                "icon": "asset/images/Medical Insurance.svg",
+                "internalExternalCon": false,
+                "quickName": "medicalinsurance",
+                "visible": true
+            },
+            {
+                "name": "Month End Procedure",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/plantActivityController.jsp",
+                "icon": "asset/images/Month End Procedure.svg",
+                "internalExternalCon": true,
+                "quickName": "monthend",
+                "visible": true
+            },
+            {
+                "name": "Capex",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/ capexController.jsp",
+                "icon": "asset/images/Capex.svg",
+                "internalExternalCon": true,
+                "quickName": "capex",
+                "visible": true
+            },
+            {
+                "name": "Commit",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/ssoLegatrixController.jsp",
+                "icon": "asset/images/Commit.svg",
+                "internalExternalCon": true,
+                "quickName": "commit",
+                "visible": true
+            },
+            {
+                "name": "Governance Consolidated Report",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/consolidatedReportController.jsp",
+                "icon": "asset/images/Governance Consolidated Report.svg",
+                "internalExternalCon": true,
+                "quickName": "governanceconsolidatedreport",
+                "visible": true
+            },
+            {
+                "name": "Environment Health & Safety Guidelines",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/environmentHealthAndSafetyGuidelinesController.jsp",
+                "icon": "asset/images/Environment Health & Safety Guidelines.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "International Tour Approval",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/internationalTravelController.jsp",
+                "icon": "asset/images/International Tour Approval.svg",
+                "internalExternalCon": false,
+                "quickName": "internationalTourApproval",
+                "visible": true
+            },
+            {
+                "name": "BCCL - LetterHeads",
+                "url": "https:///timescapenuuat.timesofindia.com/timescape/login2/letterHeadController.jsp",
+                "icon": "asset/images/letterheads.svg",
+                "internalExternalCon": true,
+                "quickName": "LetterHeads",
+                "visible": true
+            },
+            {
+                "name": "Know Your IT Asset",
+                "url": "https://timescapenuuat.timesofindia.com/timescape/login2/knowItAssetController.jsp",
+                "icon": "asset/images/letterheads.svg",
+                "internalExternalCon": true,
+                "quickName": "KnowItAsset",
+                "visible": true
+            },
+            {
+                "name": "Applaud",
+                "url": "https://api.hifives.in/login/azure",
+                "icon": "asset/images/Rewards & Recognition.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "BCCL Compensation Review Documents",
+                "url": "https://sapnw.timesofindia.com/irj/portal?NavigationTarget=navurl://652f46b36506cc337a49a10c3c73004b",
+                "icon": "asset/images/BCCL Compensation Review Documents.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            },
+            {
+                "name": "Visitor Management",
+                "url": "https://app.happy-visitor.com/visitor_management/saml/login?idp=https://sts.windows.net/b77f2a95-9999-468a-821a-4c4635621304/",
+                "icon": "asset/images/Icons/visitor management 01.svg",
+                "internalExternalCon": false,
+                "quickName": "asset/images/Icons/visitor management 01.svg",
+                "visible": true
+            },
+            {
+                "name": "PF Statement",
+                "url": "https://bcclepf.e-providence.in/",
+                "icon": "asset/images/PF Statement.svg",
+                "internalExternalCon": false,
+                "quickName": "",
+                "visible": true
+            }
+        ],
+        "menu": {
+            "APPLICATION SERVICES": [
+                "Annual Operation Plan",
+                "Asset Possession Form",
+                "Capex Approval",
+                "Field/Night Allowance",
+                "Gatepass",
+                "Gatepass Approval",
+                "H&S Support Desk",
+                "Project Approval",
+                "Purchase Approval (PAR)",
+                "PAR Approval",
+                "SAR",
+                "Surplus Assets",
+                "TGIT Service Desk",
+                "Password Reset",
+                "Response Applications",
+                "Month End Procedure",
+                "Capex",
+                "Commit",
+                "BCCL - LetterHeads",
+                "Know Your IT Asset",
+                "Visitor Management",
+                "PF Statement"
+            ],
+            "COMPLIANCE": [
+                "Audit Tracker",
+                "Audit Tracker Reports",
+                "Compliance Policies",
+                "Equity Investment/Trading Disclosure",
+                "ERVM",
+                "Governance Code - Declaration",
+                "Governance Code - Quiz",
+                "Governance Reports",
+                "Operational Controls (OCA)",
+                "Governance Consolidated Report",
+                "Environment Health & Safety Guidelines"
+            ],
+            "MY HR/ESSENTIALS": [
+                "BCCL Compensation Review Documents",
+                "MY-HR",
+                "MY-ESS",
+                "Insurance Claim",
+                "IT Policies",
+                "HR Policies",
+                "Times Society Account",
+                "TOI Education Excellence Awards",
+                "Travel Hub",
+                "Travel Expense Statement",
+                "E-Catalogue",
+                "Medical Insurance",
+                "My Documents",
+                "International Tour Approval"
+            ],
+            "CORPORATE LOUNGE": [
+                "Car Parking Allotment",
+                "Timescape Exchange",
+                "Wall of Fame",
+                "Applaud",
+                "Partner locator",
+                "People locator",
+                "Requisitioner locator"
+            ],
+            "My SAP": [
+                "SAP PORTAL",
+                "BCCL PartnerDX"
+            ],
+            "OTHER CLAIMS": [
+                "White Goods Claim",
+                "Submit Parked Claim",
+                "White Goods Statement",
+                "White Goods Details",
+                "Employee Other Claim",
+                "Computer & Peripherals Reimbursement",
+                "Salary Statement (till Mar2025)",
+                "Form 16 (2021 - 2024)"
+            ]
+        },
+        "quickLinks": [
+            "MY-HR",
+            "MY-ESS",
+            "SAP",
+            "BCCL PartnerDX",
+            "Operational Controls (OCA)",
+            "My Learning",
+            "Rewards & Recognition",
+            "IJP",
+            "HR Policies",
+            "TGIT Dialogue",
+            "Travel Hub",
+            "Wall of Fame",
+            "Hospitalization",
+            "Capex Approval",
+            "Purchase Approval (PAR)",
+            "PAR Approval",
+            "Video Channel",
+            "Gatepass Approval",
+            "IT Policies",
+            "E-Learning Hub",
+            "GenAI & Data Viz",
+            "My Documents",
+            "Partner Locator",
+            "People Locator",
+            "PF Account",
+            "Reimbursements",
+            "Requisitioner Locator",
+            "Society Account"
+        ]
+    }
+}

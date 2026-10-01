@@ -1,0 +1,100 @@
+// Brand cyan used for table headers (matches the app banner). Adjust if needed.
+$header-cyan: #01BEFE;
+
+.history-block {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  // NOTE: no overflow-x here — the directive's own wrapper scrolls the table.
+  // Adding it here created a second scrollbar far below the table (past the padding).
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #2d2f33;
+    margin: 0 0 1rem;
+  }
+
+  &__empty {
+    margin: 0;
+    color: #6b7178;
+    font-size: 0.9rem;
+  }
+
+  // The table is generated at runtime by CustomTableDirective, so it lives
+  // outside this component's style scope — ::ng-deep is required to reach it.
+  ::ng-deep {
+    // The scroll container the directive wraps around the table.
+    // :has(> table) targets exactly that wrapper (not the action-cell divs).
+    div:has(> table) {
+      overflow-x: auto;
+      // Firefox: always show a thin, styled bar.
+      scrollbar-width: thin;
+      scrollbar-color: #9aa0a6 #e9ecef;
+    }
+
+    // WebKit/Blink: force a visible slim scrollbar right under the table.
+    div:has(> table)::-webkit-scrollbar {
+      height: 8px;
+      -webkit-appearance: none;
+    }
+    div:has(> table)::-webkit-scrollbar-track {
+      background: #e9ecef;
+      border-radius: 4px;
+    }
+    div:has(> table)::-webkit-scrollbar-thumb {
+      background: #9aa0a6;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    thead th {
+      background: $header-cyan;
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      white-space: nowrap;
+      border: none;
+    }
+
+    tbody td {
+      padding: 0.75rem 1rem;
+      color: #2d2f33;
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background: #f7fbfd;
+    }
+
+    // Action cell (Cancel) — render as a subtle link/button
+    tbody td button,
+    tbody td a {
+      color: $header-cyan;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      padding: 0;
+      // text-decoration: underline;
+    }
+  }
+}

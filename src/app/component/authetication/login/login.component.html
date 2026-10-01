@@ -1,0 +1,154 @@
+<!-- <div [libDynamicGrid]="{ xs: 1, sm: 1, md: 1, lg: 12, xl: 12, xxl: 12}" [libGridGap]="'0px'">
+    <div [libCol]="{ lg: 6, xl: 6, xxl: 6 }" class="bg_img">
+         <div class="container_login_image ">
+            <img class="login_image" src="asset/images/login_Image.jpg" alt="">
+         </div>
+    </div>
+    <div [libCol]="{ lg: 6, xl: 6, xxl: 6 }" height="100%">
+        <div class="container">
+            <div class="sm_login_image">
+                <img class="login_image1" src="asset/images/top_loginimage.jpg" alt="">
+            </div>
+            <div class="loginBlock">
+                <div class="head">
+                    <img src="logo/timeslogo.png" alt="timeslogo">
+                </div>
+
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="form">
+
+                    <input class="input" placeholder="Enter Email ID" libEmail
+                        libUiUnderline libRequired
+                        formControlName="emailid" maxlength="99" />
+
+                    <input class="input" libRequired formControlName="password"
+                        libPassword placeholder="Enter Password" />
+                    
+                    <div class="text-danger "
+                        *ngIf="loginForm.get('password')?.errors?.['passwordErrors'] as errs">
+                        <div class="errorMsg" *ngFor="let msg of errs">
+                            {{ msg }}
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="forgot-password">
+                      
+                        <div class="cntr" *ngIf="showCheckbox">
+                        <input type="checkbox" id="cbx" class="hidden-xs-up" formControlName="checked">
+                        <label for="cbx" class="cbx"></label>
+                        <label for="cbx" class="text-grey">Keep Me Signed In</label>
+                        </div> 
+                        <a (click)="openPopup()">Forgot Password ?</a>
+                    </div>
+
+                    <button type="submit" class="login-button" [disabled]="false"
+                        [class.disabled]="loginForm.invalid">
+                        SIGN IN
+                    </button>
+                </form>
+
+                <div class="help-container">
+                    <button _ngcontent-c7 class="helpdesk-btn">
+                        <label _ngcontent-c7>Help Desk</label>
+                        <a _ngcontent-c7 href="mailto:tgit.helpdesk@timesofindia.com">{{helpdesk}}</a>
+                          <a _ngcontent-c7 href="tel:1800 11 0021"> 1800 11 0021</a>  
+                    </button>
+                </div>
+                <span class="agreement"> Copyright &#169; 2025 BCCL. All rights reserved.</span>
+            </div>
+            <div class="sm_login_image ">
+            <img class="login_image2" src="asset/images/lower_loginimage.jpg" alt="">
+         </div>
+        </div>
+    </div>
+</div> -->
+
+<div [libDynamicGrid]="{ xs: 1, sm: 1, md: 1, lg: 12, xl: 12, xxl: 12}" [libGridGap]="'0px'">
+    <div [libCol]="{lg: 6, xl: 6, xxl: 6 }" class="bg_img">
+         <div class="container_login_image">
+            <div class="red-img">
+                 <img class="login_image1" src="asset/images/timesInternet.png" alt="">
+            </div>
+            <div class="white-img">
+                 <img class="login_image2" src="asset/images/lower_loginimage.jpg" alt="">
+            </div>
+         </div>
+         <!-- <div class="container_login_image">
+            <img class="login_image" src="asset/images/login_Image.jpg" alt="">
+         </div> -->
+    </div>
+    <div [libCol]="{ lg: 6, xl: 6, xxl: 6 }" height="100%">
+        <div class="container">
+            <div class="sm_login_image red-img">
+                <img class="login_image1" src="asset/images/timesInternet.png" alt="">
+            </div>
+            <div class="loginBlock ">
+                <div class="head">
+                    <img src="logo/timeslogo.png" alt="timeslogo">
+                </div>
+
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="form">
+
+                    <input class="input" placeholder="Enter Email ID" libEmail
+                        libUiUnderline libRequired
+                        formControlName="emailid" maxlength="99" />
+
+                    <input class="input" libRequired formControlName="password"
+                        libPassword placeholder="Enter Password" />
+                    
+                    <div class="text-danger "
+                        *ngIf="loginForm.get('password')?.errors?.['passwordErrors'] as errs">
+                        <div class="errorMsg" *ngFor="let msg of errs">
+                            {{ msg }}
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="forgot-password">
+                    
+                        <div class="cntr" *ngIf="showCheckbox">
+                        <input type="checkbox" id="cbx" class="hidden-xs-up" formControlName="checked">
+                        <label for="cbx" class="cbx"></label>
+                        <label for="cbx" class="text-grey">Keep Me Signed In</label>
+                        </div> 
+                        <a (click)="openPopup()">Forgot Password ?</a>
+                    </div>
+
+                    <button type="submit" class="login-button" [disabled]="false"
+                        [class.disabled]="loginForm.invalid">
+                        SIGN IN
+                    </button>
+                </form>
+
+                <div class="help-container">
+                    <button _ngcontent-c7 class="helpdesk-btn">
+                        <label _ngcontent-c7>Help Desk</label>
+                        <a _ngcontent-c7 href="mailto:tgit.helpdesk@timesofindia.com">{{helpdesk}}</a>
+                       
+                    </button>
+                </div>
+                <span class="agreement"> Copyright &#169; 2025 BCCL. All rights reserved.</span>
+            </div>
+            <div class="sm_login_image white-img">
+                <img class="login_image2" src="asset/images/lower_loginimage.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Template for Forgot Password -->
+    <ng-template #forgotPassword>
+        <app-forgot-pass></app-forgot-pass>
+    </ng-template>
+
+    <!-- Popup -->
+    <ng-container *ngIf="showPopup">
+        <ng-container
+            [libPopup]="forgotPassword"
+            [popupWidth]="'600px'"
+            [popupHeight]="'97vh'"
+            (closed)="onPopupClosed()">
+        </ng-container>
+    </ng-container>

@@ -1,0 +1,38 @@
+{
+"serviceDeskConfig": {
+    "pageTitle": "SERVICE DESK"
+  },
+  "serviceDesk": [
+   
+    {
+        "name": "IT Service Desk",
+        "url": "https://itservicedesk.timesofindia.com",
+        "icon": "asset/images/itservice.png",
+        "internalExternalCon": false,
+        "quickName": "",
+        "visible": true,
+        "title": "IT Service Desk",
+        "des": "IT Service DeskProvides centralized support for IT systems, applications, devices and access ensuring uninterrupted digital operations"
+    },
+    {
+        "name": "TIVA",
+        "url": "https://web.leena.ai/?clientId=EUiVM7NgGLjaxpiJ3hYJH",
+        "icon": "asset/images/tiva.png",
+        "internalExternalCon": false,
+        "quickName": "",
+        "visible": true,
+        "title": "TIVA",
+        "des": "<strong>HR Related Queries</strong> Supports employees with HR-related queries, policies, onboarding, benefits and people processes across the employee lifecycle."
+    }, 
+    {
+        "name": "H&S Support Desk",
+        "url": "https://hospitalitysupport.timesofindia.com/app/adminhelpdesk/HomePage.do",
+        "icon": "asset/images/hands.png",
+        "internalExternalCon": false,
+        "quickName": "",
+        "visible": true,
+        "title": "H&S Support Desk",
+        "des": "Handles werkplace facilities, infrastructure, and administrative support requests to enable a smooth and efficient office environment"
+    }
+  ]
+}

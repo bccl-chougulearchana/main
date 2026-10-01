@@ -1,0 +1,9 @@
+<nav class="mini-header fixed-mini-header">
+  <div class="container">
+    <ul class="nav-list">
+      <li *ngFor="let menu of menuList">
+        <div [libDynamicDropdown]="menu.items" [dropdownLabel]="menu.label"></div>
+      </li>
+    </ul>
+  </div>
+</nav>

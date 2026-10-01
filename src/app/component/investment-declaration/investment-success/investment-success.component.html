@@ -1,0 +1,20 @@
+<div class="success">
+  <div class="success__card">
+    <div class="success__icon" aria-hidden="true">
+      <svg viewBox="0 0 80 80" width="80" height="80">
+        <circle cx="40" cy="40" r="40" fill="#34a853"></circle>
+        <path d="M24 41 L35 52 L57 30" fill="none" stroke="#fff"
+              stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <p class="success__message">{{ message }}</p>
+
+    <p class="success__links">
+      <a class="success__link" role="button" (click)="viewHistory.emit()">Click here</a>
+      to view Investments History
+      <!-- <a class="success__link" role="button" (click)="viewHistory.emit()">Click here</a>
+      to view Real Estate Investment History. -->
+    </p>
+  </div>
+</div>

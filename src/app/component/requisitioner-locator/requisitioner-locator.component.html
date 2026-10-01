@@ -1,0 +1,139 @@
+
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center p-2 app-title">
+            <div class="col">
+                <h5 class="text-center">Requisitioner Locator</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="internal-app-content-form">
+
+                    <form [formGroup]="locatorForm">
+                        <div class="input-box">
+                            <input
+                                class="input-style add-astrix"
+                                [libNumber]="[10, 0]"
+                                libUiUnderline
+                                [libLabelText]="['#333', 'Search Requisitioner']"
+                                formControlName="queryString"
+                                placeholder="Please enter PO Number"
+                                (keyup)="onSearchKeyUp(true)"
+                                (keydown.enter)="callDynamicData()" />
+
+                            <i class="fa fa-search"
+                                (click)="callDynamicData()"></i>
+
+                            <i
+                                class="fa fa-times"
+                                *ngIf="locatorForm.value.queryString"
+                                (click)="clearSearchData()">
+                            </i>
+                        </div>
+                    </form>
+
+                    <!-- No data found -->
+                    <div *ngIf="show && !colleaguesList?.length">
+                        <h5 class="noData" *ngIf="locatorForm.value.queryString">
+                            {{ locatorForm.value.queryString }} Details Not
+                            Found
+                        </h5>
+                    </div>
+
+                    <ul
+                        class="suggestion-list teamSelector"
+                        *ngIf="show && colleaguesList?.length">
+
+                        <li
+                            class="suggestionlistli leave-history-box approved"
+                            *ngFor="let item of colleaguesList; let i = index">
+
+                            <div class="people-details">
+                             
+                                <!-- PO NUMBER -->
+                                <div class="emailPOC">
+                                    <div class="people-loc-row clearfixx"
+                                        style="cursor: default;">
+                                        <div class="p-heading">
+                                            <img
+                                                src="asset/images/people/PO_number_icon.png"
+                                                />
+                                        </div>
+                                        <div class="p-details">
+                                            <span class="partner-email">PO
+                                                Number</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="people-loc-row clearfixx">
+                                        <div class="p-heading"></div>
+                                        <div class="p-details">
+                                            <span>{{ item.ponumber }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- VENDOR CODE -->
+                                <div class="emailPOC">
+                                    <div class="people-loc-row clearfixx"
+                                        style="cursor: default;">
+                                        <div class="p-heading">
+                                            <img
+                                                src="asset/images/people/user.png"
+                                                />
+                                        </div>
+                                        <div class="p-details">
+                                            <span class="partner-email">Vendor
+                                                Code</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="people-loc-row clearfixx">
+                                        <div class="p-heading"></div>
+                                        <div class="p-details">
+                                            <span>{{ item.vendorCode }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- REQUISITIONER EMAIL -->
+                                <div class="emailPOC">
+                                    <div class="people-loc-row clearfixx"
+                                        style="cursor: default;">
+                                        <div class="p-heading">
+                                            <img
+                                                src="asset/images/people/Email.png"
+                                                />
+                                        </div>
+                                        <div class="p-details">
+                                            <span
+                                                class="partner-email">Requisitioner
+                                                Email ID</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="people-loc-row clearfixx">
+                                        <div class="p-heading"></div>
+                                        <div class="p-details">
+                                            <a
+                                                class="partner-email"
+                                                (click)="openMail(item.requisitioneremailid!)">
+                                                {{ item.requisitioneremailid }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

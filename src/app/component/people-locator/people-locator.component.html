@@ -1,0 +1,111 @@
+<div id="internal-app-main">
+  <div id="internal-app-header">
+    <div class="d-flex align-items-center p-2 app-title">
+      <div class="col">
+        <h5 class="text-center">People Locator</h5>
+      </div>
+    </div>
+  </div>
+
+  <div id="internal-app-content-box">
+    <div class="app-container">
+      <div class="content-part">
+        <div class="internal-app-content-form">
+
+          <form [formGroup]="locatorForm">
+            <div class="input-box">
+              <input
+                class="input-style add-astrix"
+                libTextSpecial
+                libUiUnderline
+                [libLabelText]="['#333', 'Search People']"
+                formControlName="queryString"
+                placeholder="Please enter Name/Email ID"
+                (keyup)="onSearchKeyUp(true)"
+                (keydown.enter)="callDynamicData()"
+              />
+
+              <i class="fa fa-search" (click)="callDynamicData()"></i>
+
+              <i
+                class="fa fa-times"
+                *ngIf="locatorForm.value.queryString"
+                (click)="clearSearchData()">
+              </i>
+            </div>
+          </form>
+
+          <!-- No data found -->
+          <div *ngIf="show && !colleaguesList?.length">
+            <h5 class="noData" *ngIf="locatorForm.value.queryString">
+              {{ locatorForm.value.queryString }} Details Not Found
+            </h5>
+          </div>
+
+          
+          <ul
+            class="suggestion-list teamSelector"
+            *ngIf="show && colleaguesList?.length">
+
+            <li
+              class="suggestionlistli leave-history-box approved"
+              *ngFor="let item of colleaguesList; let i = index"
+              (click)="toggleDetails(i)">
+              <i  class="fa fa-angle-down rotate"  [class.down]="currentIndex === i"></i>
+
+              <span class="people-name" *ngIf="currentIndex !== i"> {{ item.email }}</span>
+
+              <!-- Expanded content -->
+              <div *ngIf="currentIndex === i">
+
+                <div class="user-email-details">
+                  <img
+                    class="left-image"
+                    [src]="item.imagecheck ? item.individualImage : 'asset/images/profile4.png'" />
+
+                  <span class="people-name">{{ item.email }}</span>
+                </div>
+                
+
+                <div class="people-details">
+                  <hr />
+                  
+                    <div class="people-loc-row" >
+                    <div class="p-heading">
+                      <img src="asset/images/people/user.png" width="30" />
+                    </div>
+                    <div class="p-details">
+                      <span>{{ item.name }}</span>
+                    </div>
+                  </div>
+                   <div class="people-loc-row">
+                    <div class="p-heading">
+                      <img src="asset/images/people/Email.png" width="30" />
+                    </div>
+                    <div class="p-details">
+                      <a (click)="openMail(item.email)" class="user-email">
+                        {{ item.email }}
+                      </a>
+                    </div>
+                  </div>
+                  <div class="people-loc-row" *ngFor="let field of detailFields(item)">
+                    <div class="p-heading">
+                      <img [src]="field.icon" width="30" />
+                    </div>
+                    <div class="p-details">
+                      <span>{{ field.value }}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

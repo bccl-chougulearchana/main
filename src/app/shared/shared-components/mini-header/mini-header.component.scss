@@ -1,0 +1,196 @@
+.static-mini-header {
+  position: static;
+  width: 100%;
+  z-index: 900;
+}
+
+/* Sticky mode (when scrolled) */
+.fixed-mini-header {
+  position: fixed;
+  top: 100.05px;
+  left: 0;
+  width: 100%;
+  z-index: 998;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  //   animation: slideMiniDown 0.3s ease;
+}
+
+/* Slide-in animation */
+@keyframes slideMiniDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ================================================
+   Existing styles
+   ================================================ */
+.nav-list {
+  align-items: center;
+}
+
+
+// /* Detect touch devices */
+// @media (hover: none) and (pointer: coarse) {
+//   .lib-dropdown:hover .lib-dropdown-menu {
+//     display: none !important;
+//   }
+
+//   .lib-dropdown:active .lib-dropdown-menu,
+//   .lib-dropdown:focus-within .lib-dropdown-menu {
+//     display: block !important;
+//   }
+
+//   .lib-dropdown:active .lib-dropdown-icon,
+//   .lib-dropdown:focus-within .lib-dropdown-icon {
+//     transform: rotate(180deg);
+//   }
+// }
+
+// .lib-dropdown-toggle {
+//   outline: none;
+// }
+
+/* desktop: keep hover */
+// @media (hover: hover) and (pointer: fine) {
+//   .lib-dropdown:hover .lib-dropdown-menu {
+//     display: block !important;
+//   }
+
+//   .lib-dropdown:hover .lib-dropdown-icon {
+//     transform: rotate(180deg);
+//   }
+// }
+
+// /* touch: disable hover, use focus/click */
+// @media (hover: none) and (pointer: coarse) {
+//   .lib-dropdown:hover .lib-dropdown-menu {
+//     display: none !important;
+//   }
+
+//   /* main fixes */
+//   .lib-dropdown:focus-within .lib-dropdown-menu,
+//   .lib-dropdown-toggle:focus+.lib-dropdown-menu,
+//   .lib-dropdown-toggle:active+.lib-dropdown-menu,
+//   .lib-dropdown:active .lib-dropdown-menu {
+//     display: block !important;
+//   }
+
+//   .lib-dropdown:focus-within .lib-dropdown-icon,
+//   .lib-dropdown-toggle:focus+.lib-dropdown-icon,
+//   .lib-dropdown-toggle:active+.lib-dropdown-icon,
+//   .lib-dropdown:active .lib-dropdown-icon {
+//     transform: rotate(180deg);
+//   }
+// }
+
+// /* ancestor-focused list items */
+// li:focus-within .lib-dropdown .lib-dropdown-menu,
+// .nav-item:focus-within .lib-dropdown .lib-dropdown-menu {
+//   display: block !important;
+// }
+
+// li:focus-within .lib-dropdown .lib-dropdown-icon,
+// .nav-item:focus-within .lib-dropdown .lib-dropdown-icon {
+//   transform: rotate(180deg);
+// }
+
+// /* transitions */
+// .lib-dropdown-icon {
+//   transition: transform 0.2s ease;
+// }
+
+// /* accessibility */
+// .lib-dropdown-toggle:focus-visible {
+//   outline: 2px solid #5b9cff;
+//   outline-offset: 2px;
+// }
+
+
+
+// ----------------------------------------------------------------------------- 
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+
+
+.lib-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button */
+.lib-dropdown-toggle {
+  background: transparent;
+  color: #fff;
+  padding: 12px 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* Icon */
+.lib-dropdown-icon {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.lib-dropdown-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* Menu */
+.lib-dropdown-menu {
+  position: absolute;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  list-style: none;
+  padding: 8px 0;
+  z-index: 999;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Item */
+.lib-dropdown-item {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.lib-dropdown-item:hover {
+  background: #f4f4f4;
+}
+
+
+@media screen and (min-width: 789px) and (max-width: 820px) {
+  .lib-dropdown-toggle {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 821px) and (max-width: 992px) {
+  .lib-dropdown-toggle {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1024px) {
+  .lib-dropdown-toggle {
+    font-size: 12px;
+  }
+}

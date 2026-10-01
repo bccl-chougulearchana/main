@@ -1,0 +1,244 @@
+.fixed-header {
+    padding-top: 140px;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    flex: 1;
+    /* THIS IS THE MISSING KEY */
+    display: flex;
+    flex-direction: column;
+}
+
+.static-header {
+    // padding-top: 2px;
+    padding-top: 0px;
+}
+
+.iframeStyle {
+    margin-bottom: 20px;
+}
+
+.marq-main-cont {
+    padding: 10px;
+}
+
+.marq-container {
+    // margin-bottom: 5px;
+    background: #F6F6F6;
+    padding-top: 4px;
+}
+
+
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    /* your choice */
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    //   background: rgba(255,255,255,0.8);
+    background: red;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.iframe-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.insidelinks {
+    display: flex;
+    cursor: pointer;
+}
+
+.notif-title {
+    color: #333333;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.vco-link-clr {
+    color: #6293bb;
+}
+
+.notif-para {
+    color: #777777;
+    font-size: 1rem;
+}
+
+.vco-link-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #007bff;
+    list-style: none;
+    text-decoration: none;
+}
+
+
+// --------------------------------------- Loader css -------------------------------------- 
+
+/* Wrapper */
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* adjust if needed */
+    overflow: hidden;
+}
+
+/* Iframe */
+.iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Loader overlay */
+.local-spinner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Red ring spinner */
+.local-spinner {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 5px solid rgba(244, 102, 14, 0.3);
+    border-top-color: #f4660e;
+    animation: local-spin 1s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes local-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// --------------------------------------- Loader css -------------------------------------- 
+
+
+@media only screen and (min-width: 770px) {
+    .head-marqee {
+        display: block;
+    }
+
+    .marquee-link {
+        text-decoration: none;
+        color: #333333;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .fixed-header {
+        padding-top: 57px;
+    }
+
+    // .static-header {
+    //     // padding-top: 10px;
+    // }
+
+    .head-marqee {
+        display: block;
+        margin-top: 0px;
+    }
+
+    .marquee-link {
+        text-decoration: none;
+        color: #333333;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+    }
+
+
+
+    // ------------------- Marque ------------------ 
+    .marq-bord-radius {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        // margin-top: -25px;
+    }
+
+    .marq-container {
+        // margin-bottom: 20px;
+        background: red;
+        padding-top: 4px;
+    }
+
+    .marq-main-cont {
+        background: #F6F6F6;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 7px;
+    }
+
+}
+.marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 50s linear infinite;
+}
+
+.marquee-track.paused {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-right: 50px; /* spacing between loops */
+}
+
+/* Smooth infinite scroll */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
