@@ -19,8 +19,7 @@ export class ErrorExitComponent  implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(params => {
-      let val = params['val'];
-      val= val.trim();
+      let val = (params['val'] ?? '').trim();
 
       if(val == '1' || val == undefined || val == '' || val == null){
         this.errorMsg = 'You are not authorised to access this application.';

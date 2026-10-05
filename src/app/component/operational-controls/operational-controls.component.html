@@ -1,0 +1,1228 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center app-title">
+            <div class="col">
+                <h3 class="text-center title-text-padding">OCA</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="internal-app-content-form">
+                    <div
+                        [libDynamicGrid]="{xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1}"
+                        [libGridGap]="'1.5rem'">
+                        <div libTabs (tabChanged)="onTabChange($event)"
+                            *ngIf="apiLoaded">
+                            <ng-template [libTab]="'MY COMPLIANCE'"
+                                [libTabActive]="activeTab === 'MY COMPLIANCE'">
+                                <div id="my-compliance-one"
+                                    *ngIf="!detailsByDate">
+                                    <div
+                                        [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                        [libGridGap]="'0.5rem'">
+                                        <div class="complience-wrp">
+                                            <div
+                                                class="comp-icons green-clr"></div>
+                                            <h6>COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/take_action_icon.png"
+                                                    alt>
+                                            </div>
+                                            <h6>TAKE ACTION</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div
+                                                class="comp-icons red-clr"></div>
+                                            <h6>NON-COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/checkmark-grey.png"
+                                                    alt>
+                                            </div>
+                                            <h6>REVIEWED BY SUPERVISOR</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/not_acted_icon.png"
+                                                    alt>
+                                            </div>
+                                            <h6>NO ACTION REQUIRED</h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- --------------------------------------------------- -->
+
+                                    <!-- <h3>{{ ocaHeadText }}</h3> -->
+
+                                    <div class="date-pettern-box"
+                                        *ngFor="let item of mycompfreqListWithIcons">
+
+                                        <!-- -------------------- Dynamic Way -------------------  -->
+                                        <div class="date-pettern-box-content"
+                                            (click)="viewpolicies(item.value[0])">
+                                            <div
+                                                class="date-pettern-box-content-row"
+                                                [class.inactive-row]="!isFrequencyActive(item.value[0])"
+                                                [class.active-row]="isFrequencyActive(item.value[0])"
+                                                [libDynamicGrid]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}">
+                                                <div
+                                                    [libCol]="{ xs: 7, sm: 7, md: 7, lg: 7 }">
+                                                    <div
+                                                        class="left-content-box">
+                                                        <div
+                                                            class="date-name-box"
+                                                            [class.inactive-box]="!isFrequencyActive(item.value[0])"
+                                                            [class.active-box]="isFrequencyActive(item.value[0])"
+                                                            [class.active]="isFrequencyActive(item.value[0])">
+                                                            {{item.value[1].charAt(0)}}</div>
+                                                        <div
+                                                            class="date-title-side">{{item.value[1]}}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    [libCol]="{ xs: 5, sm: 5, md: 5, lg: 5 }">
+
+                                                    <!-- <div
+                                                        class="right-content-box">
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[0]">
+                                                            <div
+                                                                class="cond-base-gree-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[1]">
+                                                            <div
+                                                                class="cond-base-red-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[2]">
+                                                            <div
+                                                                class="cond-base-action"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons[3]">
+                                                            <div
+                                                                class="cond-base-notacted"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf=" item.icons[4]">
+                                                            <div
+                                                                class="cond-base-checkmark-grey"></div>
+                                                        </div>
+
+                                                    </div> -->
+                                                    <div
+                                                        class="right-content-box">
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons.compliant">
+                                                            <div
+                                                                class="cond-base-gree-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons.nonCompliant">
+                                                            <div
+                                                                class="cond-base-red-circle"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons.takeAction">
+                                                            <div
+                                                                class="cond-base-action"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons.notActed">
+                                                            <div
+                                                                class="cond-base-notacted"></div>
+                                                        </div>
+
+                                                        <div class="icon"
+                                                            *ngIf="item.icons.reviewed">
+                                                            <div
+                                                                class="cond-base-checkmark-grey"></div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- -------------------- Dynamic Way -------------------  -->
+                                    </div>
+                                    <!-- --------------------------------------------------- -->
+
+                                    <div class="panel-message-wrp"
+                                        *ngIf="mycompfreqListWithIcons.length === 0">
+                                        <p class="panel-message">You do not have
+                                            any controls assigned for the
+                                            current
+                                            period.</p>
+                                    </div>
+                                </div>
+
+                                <div id="my-compliance-two"
+                                    *ngIf="detailsByDate">
+                                    <div class="by-name-content-details-wrp">
+                                        <div
+                                            [libDynamicGrid]="{xs: 7, sm: 7, md: 7, lg: 7, xl: 7, xxl: 7}"
+                                            [libGridGap]="'0rem'">
+                                            <div
+                                                *ngFor="let item of mycompfreqListWithIcons">
+                                                <div class="week-box-fst-ltr"
+                                                    [ngClass]="{ active: activeFreq === item.value[0] }"
+                                                    (click)="viewpolicies(item.value[0])">
+                                                    {{item.value[1].charAt(0)}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class id="ocaHeadTextDate"
+                                        style="font-size: 16px;">{{
+                                        ocaHeadTextDate }}</div>
+
+                                    <form [formGroup]="complianceForm"
+                                        (ngSubmit)="insertfeedback()">
+
+                                        <div formArrayName="questions"
+                                            class="questionCard">
+
+                                            <!-- <div class="oca-comp-form-wrapper-by-date"
+                                                *ngFor="let q of questionsFA.controls; let i = index"
+                                                [formGroupName]="i">
+
+                                                <div class="oca-comp-wrp-by-que">
+                                                    
+                                                    <h6 class="que-title">Policy Question</h6>
+
+                                                   
+                                                    <div class="que-txt">
+                                                        {{i+1}}. {{ q.get('questionText')?.value }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="file-section"
+                                                    *ngIf="isFrequencyActive(activeFreq) && !q.disabled">
+                                                    <label *ngIf="!q.get('file')?.value" class="upload-wrapper">
+                                                        <input libFileuploadNU [allowedExtensions]="allowedExtensions"
+                                                            [enableDownload]="false" [maxFileSizeMB]="10"
+                                                            class="file-input" (fileSelected)="eurekafile($event, i)" />
+                                                        <img src="asset/internal-app-imgs/attach.png" alt="Upload"
+                                                            class="upload-icon" />
+                                                    </label>
+
+                                                    <div class="download-file-wrp" *ngIf="q.get('file')?.value"
+                                                        (click)="downloadFile(q.value.userAttachment)">
+                                                        <i class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                    </div>
+
+                                                    <div class="delete-file-wrp" *ngIf="q.get('file')?.value"
+                                                        (click)="deleteFile(i)">
+                                                        <img src="asset/internal-app-imgs/delete.png" alt="Delete"
+                                                            class="delete-icon" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="option-group">
+                                                    <label class="custom-radio yes">
+                                                        <input type="radio" formControlName="answer" value="Yes" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Yes</span>
+                                                    </label>
+
+                                                    <label class="custom-radio no">
+                                                        <input type="radio" formControlName="answer" value="No" />
+                                                        <span class="box"></span>
+                                                        <span class="text">No</span>
+                                                    </label>
+
+                                                    <label class="custom-radio na">
+                                                        <input type="radio" formControlName="answer" value="NA" />
+                                                        <span class="box"></span>
+                                                        <span class="text">Not Applicable</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="remark-wrp"
+                                                    *ngIf="isFrequencyActive(activeFreq) && q.get('answer')?.value">
+                                                    <p class="textbx-remark">
+                                                        Remark
+                                                        <sup class="sup"
+                                                            *ngIf="q.get('answer')?.value === 'No' || q.get('answer')?.value === 'NA'">*</sup>
+                                                    </p>
+
+                                                    <textarea formControlName="remark" libAddressLine
+                                                         placeholder="Type Here" 
+                                                        [libTextarea]="100"></textarea>
+
+                                                    <small class="error"
+                                                        *ngIf="q.get('remark')?.touched && q.get('remark')?.hasError('required')">
+                                                        Remark is required
+                                                    </small>
+                                                </div>
+                                            </div> -->
+                                            <div
+                                                *ngFor="let group of groupedQuestions">
+
+                                                <h6 class="que-title">{{
+                                                    group.title }}</h6>
+
+                                                <div
+                                                    *ngFor="let row of group.rows"
+                                                    class="oca-comp-form-wrapper-by-date"
+                                                    [formGroupName]="row.index">
+
+                                                    <div
+                                                        class="oca-comp-wrp-by-que">
+
+                                                        <div class="que-txt">
+                                                            {{ row.index + 1 }}.
+                                                            {{
+                                                            row.row[3] }}
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- FILE -->
+                                                    <div class="file-section"
+                                                        *ngIf="showUploadControl(row.index) || showDownloadControl(row.index) || showDeleteControl(row.index)">
+                                                        <label
+                                                            *ngIf="showUploadControl(row.index)"
+                                                            class="upload-wrapper">
+                                                            <input
+                                                                type="file"
+                                                                [accept]="allowedExtensions.join(',')"
+                                                                class="file-input"
+                                                                (change)="onNativeFileSelected($event, row.index)"
+                                                                (click)="resetNativeFileInput($event)" />
+                                                            <img
+                                                                src="asset/internal-app-imgs/attach.png"
+                                                                alt="Upload"
+                                                                class="upload-icon" />
+
+                                                        </label>
+                                                        <div
+                                                            class="download-file-wrp"
+                                                            *ngIf="showDownloadControl(row.index)"
+                                                            (click)="downloadFile(row.index)">
+                                                            <i
+                                                                class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                        </div>
+                                                        <div
+                                                            class="delete-file-wrp"
+                                                            *ngIf="showDeleteControl(row.index)"
+                                                            (click)="deleteFile(row.index)">
+                                                            <img
+                                                                src="asset/internal-app-imgs/delete.png"
+                                                                alt="Delete"
+                                                                class="delete-icon" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- OPTIONS -->
+                                                    <div class="option-group"
+                                                        *ngIf="!isReviewedQuestion(row.index)">
+                                                        <label
+                                                            class="custom-radio yes">
+                                                            <input type="radio"
+                                                                formControlName="answer"
+                                                                [attr.name]="'answer_' + row.index"
+                                                                [disabled]="isQuestionReadonly(row.index)"
+                                                                value="Yes" />
+                                                            <span
+                                                                class="box"></span>
+                                                            <span
+                                                                class="text">Yes</span>
+                                                        </label>
+
+                                                        <label
+                                                            class="custom-radio no">
+                                                            <input type="radio"
+                                                                formControlName="answer"
+                                                                [attr.name]="'answer_' + row.index"
+                                                                [disabled]="isQuestionReadonly(row.index)"
+                                                                value="No" />
+                                                            <span
+                                                                class="box"></span>
+                                                            <span
+                                                                class="text">No</span>
+                                                        </label>
+
+                                                        <label
+                                                            class="custom-radio na">
+                                                            <input type="radio"
+                                                                formControlName="answer"
+                                                                [attr.name]="'answer_' + row.index"
+                                                                [disabled]="isQuestionReadonly(row.index)"
+                                                                value="Not Applicable" />
+                                                            <span
+                                                                class="box"></span>
+                                                            <span
+                                                                class="text">Not
+                                                                Applicable</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div
+                                                        class="reviewed-answer-block"
+                                                        *ngIf="isReviewedQuestion(row.index)">
+                                                        <label
+                                                            class="custom-radio readonly"
+                                                            [ngClass]="getAnswerTheme(questionsFA.at(row.index).get('answer')?.value)">
+                                                            <input type="radio"
+                                                                checked
+                                                                disabled />
+                                                            <span
+                                                                class="box"></span>
+                                                            <span class="text">{{
+                                                                questionsFA.at(row.index).get('answer')?.value
+                                                                }}</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- REMARK -->
+                                                    <div class="remark-wrp"
+                                                        *ngIf="!isReviewedQuestion(row.index) && isFrequencyActive(activeFreq) && questionsFA.at(row.index).get('answer')?.value">
+                                                        <p
+                                                            class="textbx-remark">Remark
+                                                            <sup class="sup"
+                                                                *ngIf="questionsFA.at(row.index).get('answer')?.value === 'No'
+                                                                    || questionsFA.at(row.index).get('answer')?.value === 'Not Applicable'">*</sup>
+                                                        </p>
+                                                        <textarea
+                                                            formControlName="remark"
+                                                            libAddressLine
+                                                            placeholder="Type Here"
+                                                            [libTextarea]="100">
+                                                        </textarea>
+                                                        <small class="error"
+                                                            *ngIf="questionsFA.at(row.index).get('remark')?.touched && questionsFA.at(row.index).get('remark')?.hasError('required')">
+                                                            Remark is required
+                                                        </small>
+                                                    </div>
+
+                                                    <div
+                                                        class="review-panel"
+                                                        *ngIf="isReviewedQuestion(row.index)">
+                                                        <div
+                                                            class="review-panel-top">
+                                                            <img
+                                                                src="asset/internal-app-imgs/manager.png"
+                                                                alt="Manager"
+                                                                class="review-manager-icon" />
+
+                                                            <label
+                                                                class="custom-radio readonly"
+                                                                [ngClass]="getAnswerTheme(questionsFA.at(row.index).get('approverFeedback')?.value)">
+                                                                <input
+                                                                    type="radio"
+                                                                    checked
+                                                                    disabled />
+                                                                <span
+                                                                    class="box"></span>
+                                                                <span
+                                                                    class="text">{{
+                                                                    questionsFA.at(row.index).get('approverFeedback')?.value
+                                                                    }}</span>
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="review-panel-remark"
+                                                            *ngIf="questionsFA.at(row.index).get('approverRemarks')?.value && questionsFA.at(row.index).get('approverRemarks')?.value !== '-'">
+                                                            {{
+                                                            questionsFA.at(row.index).get('approverRemarks')?.value
+                                                            }}
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="by-name-btn-wrp">
+                                            <button type="button"
+                                                class="btn btn-grey"
+                                                (click)="backBtn()"> Back
+                                            </button>
+                                            <button type="submit"
+                                                class="btn btn-submit"
+                                                *ngIf="isFrequencyActive(activeFreq)"
+                                                [disabled]="!canSubmit()">Submit</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </ng-template>
+
+                            <ng-template [libTab]="'ENSURE COMPLIANCE'"
+                                [libTabActive]="activeTab === 'ENSURE COMPLIANCE'"
+                                *ngIf="ensureComplTab">
+                                <div>
+                                    <div
+                                        [libDynamicGrid]="{xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2}"
+                                        [libGridGap]="'0.5rem'">
+                                        <div class="complience-wrp">
+                                            <div
+                                                class="comp-icons green-clr"></div>
+                                            <h6>COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div
+                                                class="comp-icons red-clr"></div>
+                                            <h6>NON-COMPLIANT</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/not_acted_icon.png"
+                                                    alt>
+                                            </div>
+                                            <h6>NO ACTION REQUIRED</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/take_action_icon.png"
+                                                    alt>
+                                            </div>
+                                            <h6>TAKE ACTION</h6>
+                                        </div>
+
+                                        <div class="complience-wrp">
+                                            <div class="comp-icons">
+                                                <img
+                                                    src="asset/internal-app-imgs/checkmark-grey.png"
+                                                    alt>
+                                            </div>
+                                            <h6>REVIEWED BY SUPERVISOR</h6>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="ensureView === 'frequency'">
+                                        <div class="date-pettern-box"
+                                            *ngFor="let item of ensureFreqListWithIcons">
+                                            <div class="date-pettern-box-content"
+                                                (click)="viewEnsurePolicies(item.value[0])">
+                                                <div
+                                                    class="date-pettern-box-content-row"
+                                                    [class.inactive-row]="!isEnsureFrequencyActive(item.value[0])"
+                                                    [class.active-row]="isEnsureFrequencyActive(item.value[0])"
+                                                    [libDynamicGrid]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}">
+                                                    <div
+                                                        [libCol]="{ xs: 7, sm: 7, md: 7, lg: 7 }">
+                                                        <div
+                                                            class="left-content-box">
+                                                            <div
+                                                                class="date-name-box"
+                                                                [class.inactive-box]="!isEnsureFrequencyActive(item.value[0])"
+                                                                [class.active-box]="isEnsureFrequencyActive(item.value[0])">
+                                                                {{item.value[1].charAt(0)}}
+                                                            </div>
+                                                            <div
+                                                                class="date-title-side">{{item.value[1]}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        [libCol]="{ xs: 5, sm: 5, md: 5, lg: 5 }">
+                                                        <div
+                                                            class="right-content-box">
+                                                            <label
+                                                                class="ensure-select"
+                                                                *ngIf="item.canBulkReview"
+                                                                (click)="$event.stopPropagation()">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    [checked]="item.selected"
+                                                                    (change)="toggleEnsureFrequencySelection(item)" />
+                                                                <span>Review</span>
+                                                            </label>
+                                                            <div class="icon"
+                                                                *ngIf="item.icons.compliant">
+                                                                <div
+                                                                    class="cond-base-gree-circle"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="item.icons.nonCompliant">
+                                                                <div
+                                                                    class="cond-base-red-circle"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="item.icons.takeAction">
+                                                                <div
+                                                                    class="cond-base-action"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="item.icons.notActed">
+                                                                <div
+                                                                    class="cond-base-notacted"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="item.icons.reviewed">
+                                                                <div
+                                                                    class="cond-base-checkmark-grey"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-message-wrp"
+                                            *ngIf="ensureFreqListWithIcons.length === 0">
+                                            <p class="panel-message">You do not
+                                                have any controls assigned for
+                                                the current period.</p>
+                                        </div>
+
+                                        <div class="by-name-btn-wrp"
+                                            *ngIf="ensureFreqListWithIcons.length">
+                                            <button type="button"
+                                                class="btn btn-submit"
+                                                [disabled]="!canSubmitEnsureFrequencySelection()"
+                                                (click)="submitEnsureFrequencySelection()">Submit</button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="ensureView === 'users'">
+                                        <div class="by-name-content-details-wrp">
+                                            <div
+                                                [libDynamicGrid]="{xs: 7, sm: 7, md: 7, lg: 7, xl: 7, xxl: 7}"
+                                                [libGridGap]="'0rem'">
+                                                <div
+                                                    *ngFor="let item of ensureFreqListWithIcons">
+                                                    <div class="week-box-fst-ltr"
+                                                        [ngClass]="{ active: ensureActiveFreq === item.value[0] }"
+                                                        (click)="viewEnsurePolicies(item.value[0])">
+                                                        {{item.value[1].charAt(0)}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="ensureHeadTextDate"
+                                            class="ensure-head-date">{{
+                                            ensureHeadTextDate }}</div>
+
+                                        <div class="questionCard">
+                                            <div class="ensure-list-toolbar"
+                                                *ngIf="ensureUsers.length">
+                                                <div class="ensure-list-title">
+                                                    REPORTEE LIST
+                                                </div>
+                                            </div>
+
+                                            <div class="ensure-user-list">
+                                                <div
+                                                    class="date-pettern-box-content"
+                                                    *ngFor="let user of ensureUsers"
+                                                    (click)="openEnsureUser(user)">
+                                                    <div
+                                                        class="date-pettern-box-content-row ensure-user-row"
+                                                        [class.inactive-row]="!isEnsureFrequencyActive(ensureActiveFreq)"
+                                                        [class.active-row]="isEnsureFrequencyActive(ensureActiveFreq)">
+                                                        <div
+                                                            class="left-content-box ensure-user-left">
+                                                            <div
+                                                                class="date-name-box ensure-user-badge"
+                                                                [class.inactive-box]="!isEnsureFrequencyActive(ensureActiveFreq)"
+                                                                [class.active-box]="isEnsureFrequencyActive(ensureActiveFreq)">
+                                                                {{ user.name.charAt(0) }}
+                                                            </div>
+                                                            <div
+                                                                class="ensure-user-name">
+                                                                {{ user.name }}
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            class="right-content-box ensure-user-right">
+                                                            <label
+                                                                class="ensure-select"
+                                                                *ngIf="user.canBulkReview"
+                                                                (click)="$event.stopPropagation()">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    [checked]="user.selected"
+                                                                    (change)="toggleEnsureUserSelection(user)" />
+                                                                <span>Review</span>
+                                                            </label>
+
+                                                            <div class="icon"
+                                                                *ngIf="user.icons.compliant">
+                                                                <div
+                                                                    class="cond-base-gree-circle"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="user.icons.nonCompliant">
+                                                                <div
+                                                                    class="cond-base-red-circle"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="user.icons.takeAction">
+                                                                <div
+                                                                    class="cond-base-action"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="user.icons.notActed">
+                                                                <div
+                                                                    class="cond-base-notacted"></div>
+                                                            </div>
+                                                            <div class="icon"
+                                                                *ngIf="user.icons.reviewed">
+                                                                <div
+                                                                    class="cond-base-checkmark-grey"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-message"
+                                                *ngIf="ensureUsers.length === 0">
+                                                No controls assigned for this
+                                                frequency.
+                                            </div>
+                                        </div>
+
+                                        <div class="by-name-btn-wrp">
+                                            <button type="button"
+                                                class="btn btn-grey"
+                                                (click)="backEnsureFrequencies()">Back</button>
+                                            <button type="button"
+                                                class="btn btn-submit"
+                                                *ngIf="isEnsureFrequencyActive(ensureActiveFreq)"
+                                                [disabled]="!canSubmitEnsureUserSelection()"
+                                                (click)="submitEnsureUserSelection()">Submit</button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="ensureView === 'detail'">
+                                        <div class="by-name-content-details-wrp">
+                                            <div
+                                                [libDynamicGrid]="{xs: 7, sm: 7, md: 7, lg: 7, xl: 7, xxl: 7}"
+                                                [libGridGap]="'0rem'">
+                                                <div
+                                                    *ngFor="let item of ensureFreqListWithIcons">
+                                                    <div class="week-box-fst-ltr"
+                                                        [ngClass]="{ active: ensureActiveFreq === item.value[0] }"
+                                                        (click)="viewEnsurePolicies(item.value[0])">
+                                                        {{item.value[1].charAt(0)}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="ensureHeadTextDate"
+                                            class="ensure-head-date">{{
+                                            ensureHeadTextDate }}</div>
+                                        <div class="ensure-selected-user">{{
+                                            selectedEnsureUserName }}</div>
+
+                                        <form [formGroup]="ensureComplianceForm"
+                                            (ngSubmit)="submitEnsureDetail()">
+                                            <div formArrayName="questions"
+                                                class="questionCard">
+                                                <div
+                                                    *ngFor="let group of ensureGroupedQuestions">
+                                                    <h6 class="que-title">{{
+                                                        group.title }}</h6>
+
+                                                    <div
+                                                        *ngFor="let row of group.rows"
+                                                        class="oca-comp-form-wrapper-by-date"
+                                                        [formGroupName]="row.index">
+                                                        <div
+                                                            class="oca-comp-wrp-by-que">
+                                                            <div class="que-txt">
+                                                                {{ row.index + 1
+                                                                }}. {{
+                                                                row.row[2] }}
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            class="review-panel ensure-user-panel">
+                                                            <div
+                                                                class="review-panel-top">
+                                                                <img
+                                                                    src="asset/internal-app-imgs/Ensureuser.png"
+                                                                    alt="User"
+                                                                    class="review-manager-icon" />
+                                                                <label
+                                                                    class="custom-radio readonly"
+                                                                    [ngClass]="getAnswerTheme(ensureQuestionsFA.at(row.index).get('userAnswer')?.value)">
+                                                                    <input
+                                                                        type="radio"
+                                                                        checked
+                                                                        disabled />
+                                                                    <span
+                                                                        class="box"></span>
+                                                                    <span
+                                                                        class="text">{{
+                                                                        ensureQuestionsFA.at(row.index).get('userAnswer')?.value
+                                                                        ||
+                                                                        'Not Acted'
+                                                                        }}</span>
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                class="review-panel-remark"
+                                                                *ngIf="ensureQuestionsFA.at(row.index).get('userRemark')?.value">
+                                                                {{
+                                                                ensureQuestionsFA.at(row.index).get('userRemark')?.value
+                                                                }}
+                                                            </div>
+                                                            <div
+                                                                class="download-file-wrp ensure-user-download"
+                                                                *ngIf="ensureQuestionsFA.at(row.index).get('userAttachment')?.value"
+                                                                (click)="downloadEnsureUserAttachment(row.index)">
+                                                                <i
+                                                                    class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="file-section"
+                                                            *ngIf="showEnsureUploadControl(row.index) || showEnsureDownloadControl(row.index) || showEnsureDeleteControl(row.index)">
+                                                            <label
+                                                                *ngIf="showEnsureUploadControl(row.index)"
+                                                                class="upload-wrapper">
+                                                                <input
+                                                                    type="file"
+                                                                    [accept]="allowedExtensions.join(',')"
+                                                                    class="file-input"
+                                                                    (change)="onEnsureNativeFileSelected($event, row.index)"
+                                                                    (click)="resetEnsureNativeFileInput($event)" />
+                                                                <img
+                                                                    src="asset/internal-app-imgs/attach.png"
+                                                                    alt="Upload"
+                                                                    class="upload-icon" />
+                                                            </label>
+                                                            <div
+                                                                class="download-file-wrp"
+                                                                *ngIf="showEnsureDownloadControl(row.index)"
+                                                                (click)="downloadEnsureFile(row.index)">
+                                                                <i
+                                                                    class="fa-solid fa-file-arrow-down file-download-icon"></i>
+                                                            </div>
+                                                            <div
+                                                                class="delete-file-wrp"
+                                                                *ngIf="showEnsureDeleteControl(row.index)"
+                                                                (click)="deleteEnsureFile(row.index)">
+                                                                <img
+                                                                    src="asset/internal-app-imgs/delete.png"
+                                                                    alt="Delete"
+                                                                    class="delete-icon" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="option-group">
+                                                            <label
+                                                                class="custom-radio yes">
+                                                                <input
+                                                                    type="radio"
+                                                                    formControlName="answer"
+                                                                    [attr.name]="'ensure_answer_' + row.index"
+                                                                    [disabled]="!isEnsureFrequencyActive(ensureActiveFreq)"
+                                                                    value="Yes" />
+                                                                <span
+                                                                    class="box"></span>
+                                                                <span
+                                                                    class="text">Yes</span>
+                                                            </label>
+
+                                                            <label
+                                                                class="custom-radio no">
+                                                                <input
+                                                                    type="radio"
+                                                                    formControlName="answer"
+                                                                    [attr.name]="'ensure_answer_' + row.index"
+                                                                    [disabled]="!isEnsureFrequencyActive(ensureActiveFreq)"
+                                                                    value="No" />
+                                                                <span
+                                                                    class="box"></span>
+                                                                <span
+                                                                    class="text">No</span>
+                                                            </label>
+
+                                                            <label
+                                                                class="custom-radio na">
+                                                                <input
+                                                                    type="radio"
+                                                                    formControlName="answer"
+                                                                    [attr.name]="'ensure_answer_' + row.index"
+                                                                    [disabled]="!isEnsureFrequencyActive(ensureActiveFreq)"
+                                                                    value="Not Applicable" />
+                                                                <span
+                                                                    class="box"></span>
+                                                                <span
+                                                                    class="text">Not
+                                                                    Applicable</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="remark-wrp"
+                                                            *ngIf="ensureQuestionsFA.at(row.index).get('answer')?.value">
+                                                            <p
+                                                                class="textbx-remark">Remark
+                                                                <sup class="sup"
+                                                                    *ngIf="ensureQuestionsFA.at(row.index).get('answer')?.value === 'No'
+                                                                        || ensureQuestionsFA.at(row.index).get('answer')?.value === 'Not Applicable'
+                                                                        || ensureQuestionsFA.at(row.index).get('answer')?.value !== ensureQuestionsFA.at(row.index).get('userAnswer')?.value">*</sup>
+                                                            </p>
+                                                            <textarea
+                                                                formControlName="remark"
+                                                                libAddressLine
+                                                                placeholder="Type Here"
+                                                                [libTextarea]="100">
+                                                            </textarea>
+                                                        </div>
+                                                        <hr />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="by-name-btn-wrp">
+                                                <button type="button"
+                                                    class="btn btn-grey"
+                                                    (click)="backEnsureUsers()">Back</button>
+                                                <button type="submit"
+                                                    class="btn btn-submit"
+                                                    *ngIf="isEnsureFrequencyActive(ensureActiveFreq)"
+                                                    [disabled]="!canSubmitEnsureDetail()">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <ng-template [libTab]="'DASHBOARD'"
+                                [libTabActive]="activeTab === 'DASHBOARD'"
+                                [ngClass] *ngIf="showDashboardTab">
+                                <div
+                                    [libDynamicGrid]="{xs: 1, sm: 1, md: 12, lg: 12, xl: 12, xxl: 12}"
+                                    [libGridGap]="'0.5rem'">
+                                    <div class="dash-box"
+                                        [libCol]="{lg: 6, xl: 6, xxl: 6 }">
+                                        <div class="selectbox">
+                                            <select [libSelect]="companyOptions"
+                                                [(ngModel)]="selectedCompany"
+                                                (change)="setDepartment(selectedCompany)"
+                                                name="company"
+                                                [libLabelText]="['#000', 'Company']">
+                                            </select>
+                                        </div>
+                                        <div class="selectbox">
+                                            <select
+                                                [libSelect]="functionOptions"
+                                                [(ngModel)]="selectedFunction"
+                                                (change)="setsubmitteddata()"
+                                                name="Function"
+                                                [libLabelText]="['#000', 'Function']">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="dash-box"
+                                        [libCol]="{lg: 6, xl: 6, xxl: 6 }">
+                                        <div class="selectbox">
+                                            <select
+                                                [libSelect]="departmentOptions"
+                                                [(ngModel)]="selectedDepartment"
+                                                (change)="setFunctions(selectedDepartment)"
+                                                name="Dept"
+                                                [libLabelText]="['#000', 'Department']">
+                                            </select>
+                                        </div>
+                                        <div class="selectbox">
+                                            <input class="input-style" libText
+                                                [libLabelText]="['#000', 'Period']"
+                                                libUiUnderline
+                                                value="LAST CLOSED PERIOD"
+                                                disabled />
+                                        </div>
+                                    </div>
+                                    <div class="oca-dashboard"
+                                        [libCol]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}"
+                                        *ngIf="dashboardBars.length !== 0">
+
+                                        <div class="dashboard-title">
+                                            COMPLIANCE SUBMISSIONS
+                                        </div>
+
+                                        <!-- HEADER -->
+                                        <div class="dashboard-header">
+
+                                            <div
+                                                class="header-col primary"></div>
+
+                                            <div class="header-col">
+                                                &lt; 40%
+                                            </div>
+
+                                            <div class="header-col">
+                                                40% to 80%
+                                            </div>
+
+                                            <div class="header-col">
+                                                &gt; 80%
+                                            </div>
+
+                                        </div>
+
+                                        <!-- ROWS -->
+                                        <div class="dashboard-row"
+                                            *ngFor="let bar of dashboardBars">
+
+                                            <!-- PERIOD LETTER -->
+                                            <div class="row-col primary">
+                                                <div class="period-box">
+                                                    {{ bar.code }}
+                                                </div>
+                                            </div>
+
+                                            <!-- HIGH -->
+                                            <div class="row-col">
+
+                                                <div class="bar high"
+                                                    *ngIf="bar.value >=60"></div>
+
+                                                <div class="bar-date"
+                                                    *ngIf="bar.value >=60">
+                                                    {{bar.date1}} {{bar.date2}}
+                                                </div>
+
+                                            </div>
+
+                                            <!-- MEDIUM -->
+                                            <div class="row-col">
+
+                                                <div class="bar medium"
+                                                    *ngIf="bar.value >=20 && bar.value <60"></div>
+
+                                                <div class="bar-date"
+                                                    *ngIf="bar.value >=20 && bar.value <60">
+                                                    {{bar.date1}} {{bar.date2}}
+                                                </div>
+
+                                            </div>
+
+                                            <!-- LOW -->
+                                            <div class="row-col">
+
+                                                <div class="bar low"
+                                                    *ngIf="bar.value < 20"></div>
+
+                                                <div class="bar-date"
+                                                    *ngIf="bar.value < 20">
+                                                    {{bar.date1}} {{bar.date2}}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="panel-group"
+                                        *ngIf="submitteddataarray.length == 0"
+                                        [libCol]="{xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12}">
+                                        <label
+                                            style="padding: 30px; text-align: center;">
+                                            No data found for the selected
+                                            period</label>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <div class="info-i">
+                                <img
+                                    src="https://timescape.timesofindia.com/timescape/employeeapps/assets/images/info-ic.png"
+                                    alt (click)="openInfo()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------------- PDF Submit Modal -----------------------  -->
+<ng-container *ngIf="showInfo">
+    <ng-container [libPopup]="Info" [popupWidth]="'600px'"
+        [popupHeight]="'auto'" (closed)="closeInfo()">
+    </ng-container>
+</ng-container>
+
+<ng-template #Info>
+    <div class="modal-data">
+        <h5 class="pb-2">Coloured Indicators</h5>
+        <ul class="modalcompList pb-2">
+            <li>
+                <div class="ocaCompListSingle">
+                    <div class="ocaCompListBox bgGreen">&nbsp;</div>
+                    <div class="ocaCompListTxt">COMPLIANT</div>
+                </div>
+                <div class="ocaListText">Green: You have submitted ‘YES’ against
+                    all controls in that frequency.</div>
+            </li>
+            <li>
+                <div class="ocaCompListSingle">
+                    <div class="ocaCompListBox bgRed">&nbsp;</div>
+                    <div class="ocaCompListTxt">NON-COMPLIANT</div>
+                </div>
+                <div class="ocaListText">Red: You have submitted ‘NO’ against at
+                    least one of the controls in that frequency.</div>
+            </li><li>
+                <div class="ocaCompListSingle">
+                    <div class="ocaCompListBox bgNotActed">&nbsp;</div>
+                    <div class="ocaCompListTxt">NO ACTION REQUIRED</div>
+                </div>
+                <div class="ocaListText">Frequency not active/No action taken
+                    from
+                    your end</div>
+            </li><li>
+                <div class="ocaCompListSingle">
+                    <div class="ocaCompListBox bgWhiteheader">&nbsp;</div>
+                    <div class="ocaCompListTxt">TAKE ACTION</div>
+                </div>
+                <div class="ocaListText">Blue Arrow: Action required from your
+                    end.</div>
+            </li>
+
+            <li>
+                <div class="ocaCompListSingle">
+                    <div class="ocaCompListBox bgGreyCheckmark ">&nbsp;</div>
+                    <div class="ocaCompListTxt"> REVIEWED BY SUPERVISOR</div>
+                </div>
+                <div class="ocaListText">Tick: Your OCA Supervisor has reviewed
+                    your feedback.</div>
+            </li>
+
+        </ul>
+
+        <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/userimg.png"
+                    alt="userIcon"></div>
+            <h5>Subordinate Help Info:</h5>
+        </div>
+        <ol class="pb-2">
+            <li>Grey band/background on a frequency indicates either of the
+                following:</li>
+            <ol type="a" class="modalheader-sublist">
+                <li>The submission window is not open.</li>
+                <li>Your OCA Supervisor has reviewed your feedback.</li>
+                <li>No action required from your end. Although, details can be
+                    viewed by clicking on the frequency band.
+                </li>
+            </ol>
+            <li>White band/background on a frequency indicates the
+                following:</li>
+            <ol type="a" class="modalheader-sublist">
+                <li>The submission window for this frequency is open.</li>
+                <li>Your OCA Supervisor hasn’t yet reviewed your feedback.</li>
+                <li>Action is pending from your end.</li>
+            </ol>
+
+            <li>Blue box + white band for a frequency means action required from
+                your end.</li>
+            <li>Date Range/Month/Year etc., mentioned besides the frequency,
+                indicates the period for which feedback is
+                being submitted by you. Date Range if not displayed, indicates
+                the
+                submission window is not open.</li>
+            <li>Feedback box with Grey band shows your Supervisor’s feedback
+                against the respective controls, in non-editable mode.</li>
+            <li>Click on Attachment icon to attach a file against the respective
+                controls. For deletion, click on Delete
+                icon.</li>
+        </ol>
+        <div class="modalheader">
+            <div class="userIconImg"><img src="asset/images/managerimg.png"
+                    alt="managerimg"></div>
+            <h5>Supervisor Help Info:</h5>
+        </div>
+        <ol class="pb-2">
+            <li> Grey band/background on a frequency indicates the
+                following:</li>
+            <ol type="a" class="modalheader-sublist">
+                <li>The submission window is not open.</li>
+                <li>You have reviewed all your team’s feedback for the
+                    respective
+                    frequency.</li>
+                <li>No action required from your end. Although, details can be
+                    viewed by clicking on the frequency band.
+                </li>
+            </ol>
+            <li> White band/background on a frequency indicates the
+                following:</li>
+            <ol type="a" class="modalheader-sublist">
+                <li>The submission window for this frequency is open.</li>
+                <li>Action is either pending or available for modification.</li>
+            </ol>
+            <li> Blue box + white band for a frequency means action required or
+                available for modification.</li>
+            <li> Date Range/Month/Year etc., mentioned besides the frequency,
+                indicates the period for which feedback is
+                being submitted by you. Date Range if not displayed, indicates
+                the
+                submission window is not open.</li>
+            <li> Feedback box with Grey band shows your team member’s feedback
+                against the respective controls, in
+                non-editable mode.</li>
+            <li> Default selected feedback would be same as that of your team
+                member’s feedback for the respective
+                control.</li>
+            E.g. If team member has selected as YES, you will see YES as
+            selected by default which can be modified by
+            you on this screen.
+            <li> Click on Attachment icon (if available) to view the attached
+                file.</li>
+
+        </ol>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="Popup" [popupWidth]="'400px'"
+        [popupHeight]="'auto'" (closed)="closePopup()">
+    </ng-container>
+</ng-container>
+<ng-template #Popup>
+    <div class="popup-box">
+        <h3 class="popup-title">Note</h3>
+        <div class="box-content">
+            <img src="asset/internal-app-imgs/Leave_Form_error.png" alt>
+        </div>
+        <p *ngIf="eurekafileSuccessMsg" class="popup-description">Your Controls
+            have been <br> submitted successfully.
+        </p>
+        <p *ngIf="eurekafileErrorMsg" class="popup-description">Your Controls
+            have been <br> not submitted successfully.
+        </p>
+        <button *ngIf="eurekafileSuccessMsg" class="popup-close-btn"
+            (click)="closePopup();backBtn()">BACK</button>
+        <button *ngIf="eurekafileErrorMsg" class="popup-close-btn"
+            (click)="closePopup()">CLOSE</button>
+    </div>
+</ng-template>

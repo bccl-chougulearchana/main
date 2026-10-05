@@ -6,6 +6,8 @@ import * as CryptoJS from 'crypto-js';
 import { CommonService } from '../../core/services/common.service';
 import { UtilityService } from '../../shared/shared-services/utility.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../../shared/shared-services/loader.service';
+
 
 
 @Injectable({
@@ -13,8 +15,8 @@ import { Router } from '@angular/router';
 })
 export class AutheticationService {
 
-  constructor( private common : CommonService, private http: HttpClient, private utility : UtilityService, private router: Router) { }
-
+  constructor( private common : CommonService, private http: HttpClient, private utility : UtilityService, private router: Router,private loaderService: LoaderService) { }
+auth: any = {};
   private withCacheBuster(url: string): string {
     return `${url}?t=${new Date().getTime()}`;
   }
@@ -273,5 +275,268 @@ reloadInProgress = false;
   sessionStorage.clear();
   }
 
+ checkrolemenu() {
+  this.loaderService.show();
 
+  this.auth = this.common.gettoken();
+
+  const headers = new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue
+  });
+
+  return this.http.post<any>(
+    AppSettings.API_CHECK_ROLEMENU,
+    {},
+    {
+      headers,
+      withCredentials: true,
+      observe: 'response'
+    }
+  ).pipe(
+    map(response => {
+      this.loaderService.hide();
+
+      const authorization = response.headers.get('Authorization');
+      const authorizationkey = response.headers.get('Authorizationkey');
+
+      AppSettings.authorization = authorization;
+      AppSettings.authorizationkey = authorizationkey;
+
+      if (authorization && authorizationkey) {
+        this.common.updatetoken(authorization, authorizationkey);
+      }
+
+      return response.body;
+    })
+  );
+}
+
+viewchklist() {
+  this.loaderService.show();
+  this.auth = this.common.gettoken();
+
+  const headers = new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue,
+  });
+
+  return this.http
+    .post(AppSettings.API_VIEW_LIST, {}, {
+      headers,
+      withCredentials: true,
+      observe: 'response', // needed so you can read response headers, like before
+    })
+    .pipe(
+      map((response: HttpResponse<any>) => {
+        this.loaderService.hide();
+
+        const authToken = response.headers.get('Authorization');
+        const authKey = response.headers.get('Authorizationkey');
+
+        AppSettings.authorization = authToken;
+        AppSettings.authorizationkey = authKey;
+
+        if (authToken != null && authKey != null) {
+          this.common.updatetoken(authToken, authKey);
+        }
+
+        return response.body; // HttpClient already parses JSON — this replaces response.json()
+      })
+    );
+}
+codeDeclarationSubmit(answer:any, action:any) {
+  this.loaderService.show();
+  this.auth = this.common.gettoken();
+
+  const headers = new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue,
+  });
+
+  let urlSearchParams: HttpParams = new HttpParams();
+
+  answer.feedback.forEach((feedback:any) => {
+    urlSearchParams = urlSearchParams.append('datalist', feedback);
+  });
+  urlSearchParams = urlSearchParams.append('action', action);
+
+  const jsonData = urlSearchParams.toString();
+
+  return this.http
+    .post(AppSettings.API_DECLARATION_FEEDBACK, jsonData, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    })
+    .pipe(
+      map((response: HttpResponse<any>) => {
+        this.loaderService.hide();
+
+        const authToken = response.headers.get('Authorization');
+        const authKey = response.headers.get('Authorizationkey');
+
+        AppSettings.authorization = authToken;
+        AppSettings.authorizationkey = authKey;
+
+        if (authToken != null && authKey != null) {
+          this.common.updatetoken(authToken, authKey);
+        }
+
+        return response.body;
+      })
+    );
+}
+eurekaSubmitFile(file:any, fileName = "") {
+  console.log(file, 'fileeeeeeeeeeeeee');
+  this.loaderService.show();
+  this.auth = this.common.gettoken();
+
+  const headers = new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue,
+    Accept: '*/*',
+  });
+
+  const formData: FormData = new FormData();
+  if (fileName === "") {
+    formData.append("file", file);
+  } else {
+    formData.append("file", file, fileName);
+  }
+
+  return this.http
+    .post(AppSettings.API_TIME_EUREKA_SUBMIT_FILE, formData, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    })
+    .pipe(
+      map((response: HttpResponse<any>) => {
+        this.loaderService.hide();
+        // console.log(response);
+        //     let variable=response.headers.get('Authorization');
+
+        //  AppSettings.authorization = variable;
+        //  let variable1=response.headers.get('Authorizationkey');
+
+        //   AppSettings.authorizationkey = variable1;
+        //     if(variable!=null && variable1!=null){
+        //   this.commonservice.updatetoken(variable,variable1);
+        // }
+        return response.body;
+      })
+    );
+}
+totalSubordinateCount() {
+  this.loaderService.show();
+  this.auth = this.common.gettoken();
+
+  const headers = new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue,
+  });
+
+  return this.http
+    .post(AppSettings.API_SUBORDINATE_REPORT_TOTALCOUNT, {}, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    })
+    .pipe(
+      map((response: HttpResponse<any>) => {
+        this.loaderService.hide();
+
+        const authToken = response.headers.get('Authorization');
+        const authKey = response.headers.get('Authorizationkey');
+
+        AppSettings.authorization = authToken;
+        AppSettings.authorizationkey = authKey;
+
+        if (authToken != null && authKey != null) {
+          this.common.updatetoken(authToken, authKey);
+        }
+
+        return response.body;
+      })
+    );
+}
+viewApproverchklist() {
+  this.loaderService.show();
+  const headers = this.buildAuthHeaders();
+
+  return this.http
+    .post(AppSettings.API_APPROVER_LIST, {}, { headers, withCredentials: true, observe: 'response' })
+    .pipe(map((response: HttpResponse<any>) => this.handleAuthResponse(response)));
+}
+private buildAuthHeaders(extra: { [key: string]: string } = {}): HttpHeaders {
+  this.auth = this.common.gettoken();
+  return new HttpHeaders({
+    Authorization: this.auth.value,
+    Authorizationkey: this.auth.keyvalue,
+    ...extra,
+  });
+}
+
+private handleAuthResponse(response: HttpResponse<any>): any {
+  this.loaderService.hide();
+
+  const authToken = response.headers.get('Authorization');
+  const authKey = response.headers.get('Authorizationkey');
+
+  AppSettings.authorization = authToken;
+  AppSettings.authorizationkey = authKey;
+
+  if (authToken != null && authKey != null) {
+    this.common.updatetoken(authToken, authKey);
+  }
+
+  return response.body;
+}
+viewUserFeedBack(questionNo:any) {
+  // this.loaderService.show();
+  const headers = this.buildAuthHeaders();
+
+  let urlSearchParams: HttpParams = new HttpParams();
+  urlSearchParams = urlSearchParams.append('questionNum', questionNo);
+
+  const jsonData = urlSearchParams.toString();
+
+  return this.http
+    .post(AppSettings.API_VIEW_USER_FDBK, jsonData, { headers, withCredentials: true, observe: 'response' })
+    .pipe(
+      map((response: HttpResponse<any>) => {
+        // this.loaderService.hide();
+
+        const authToken = response.headers.get('Authorization');
+        const authKey = response.headers.get('Authorizationkey');
+
+        AppSettings.authorization = authToken;
+        AppSettings.authorizationkey = authKey;
+
+        if (authToken != null && authKey != null) {
+          this.common.updatetoken(authToken, authKey);
+        }
+
+        return response.body;
+      })
+    )
+    .toPromise();
+}
+approverDeclarationSubmit(answer:any, action:any) {
+  this.loaderService.show();
+  const headers = this.buildAuthHeaders();
+
+  let urlSearchParams: HttpParams = new HttpParams();
+  answer.feedback.forEach((feedback:any) => {
+    urlSearchParams = urlSearchParams.append('datalist', feedback);
+  });
+  urlSearchParams = urlSearchParams.append('action', action);
+
+  const jsonData = urlSearchParams.toString();
+
+  return this.http
+    .post(AppSettings.API_APPROVER_DECLARATION_FEEDBACK, jsonData, { headers, withCredentials: true, observe: 'response' })
+    .pipe(map((response: HttpResponse<any>) => this.handleAuthResponse(response)));
+}
 }

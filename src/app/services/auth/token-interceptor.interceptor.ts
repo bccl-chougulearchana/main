@@ -32,12 +32,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(authReq).pipe(
-  catchError((error: HttpErrorResponse) => {
-    if (error.status === 401 || error.status === 400 || error.status === 406 ) {
-        auth.reloadHome();
-    } 
-    return throwError(() => error);
-  })
-);
+    catchError((error: HttpErrorResponse) => {
+      // if (error.status === 401 || error.status === 400 || error.status === 406 ) {
+      //     auth.reloadHome();
+      // } 
+      return throwError(() => error);
+    })
+  );
 
 };

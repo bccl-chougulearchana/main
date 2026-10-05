@@ -1,0 +1,209 @@
+<style>
+  .eureka-btn {
+    padding: 13px 43px;
+    display: inline-block;
+    width: auto !important;
+  }
+</style>
+<!-- The Modal -->
+<div class="modal pmodals error" id="myModal"
+  *ngIf="condition == 'error' && page == '' && message != 'You are facing a poor internet connectivity. Please wait...'"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- <i class="fa fa-exclamation-triangle"></i> -->
+        <h4>Note</h4>
+        <img src="assets/images/error.png" />
+        <p>{{message}}</p>
+
+        <button type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">Ok</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- for no internet -->
+<div class="modal pmodals error" id="noInternetModal" *ngIf="condition == 'error' && page == ''" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- <i class="fa fa-exclamation-triangle"></i> -->
+        <h4>Note</h4>
+        <!-- <img src="assets/images/error.png"/> -->
+        <p class="no-internet-text">{{message}}</p>
+
+        <button type="button" class="btn btn-primary eureka-btn" id="btnOk" data-dismiss="modal">Ok</button>
+        <button type="button" class="btn btn-primary eureka-btn" (click)="setLoaderOff()" [routerLink]="['home']"
+          data-dismiss="modal">Cancel</button>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<!-- for no internet -->
+
+<div class="modal pmodals information" id="myModal" *ngIf="condition == 'information' && page == ''"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Information</h4>
+        <!-- <i class="fa fa-info-circle"></i> -->
+        <img src="assets/images/error.png" />
+        <p>{{message}}</p>
+
+        <button type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">Ok</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal pmodals success" id="myModal" *ngIf="condition == 'success' && page == ''" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Note</h4>
+
+        <img src="assets/images/success.png" />
+        <!-- <i class="fa fa-check-circle"></i> -->
+        <p>{{message}}</p>
+
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnOk">Ok</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!--New dialogs with page dependent-->
+<div class="modal pmodals success" id="myModal" *ngIf="condition == 'success2' && page != ''" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4 *ngIf=" page != 'hospitalization'">Note</h4>
+        <h4 *ngIf=" page == 'hospitalization'">Note</h4>
+        <img *ngIf="page == 'eureka'" src="assets/images/Eureka_Success.png" />
+        <img *ngIf="page == 'hospitalization'" src="assets/images/Hospitalization_Success.png" />
+        <img *ngIf="page == 'servicedesk'" src="assets/images/Leave_Form_Successfull.png" />
+        <img *ngIf="page == 'leave'" src="assets/images/Leave_Form_Successfull.png" />
+        <img *ngIf="page == 'donate'" src="assets/images/piggy-bank-icon.png" />
+        <img *ngIf="page == 'audittracker'" src="assets/images/Leave_Form_Successfull.png" />
+        <img *ngIf="page == 'reimbursement'" src="assets/images/Reimbursement_Success.png" />
+
+        <!-- <i class="fa fa-check-circle"></i> -->
+        <p>{{message}}</p>
+
+        <!--<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnOk" >Ok</button>-->
+        <button
+          *ngIf="page == 'eureka' || page == 'hospitalization' || page == 'servicedesk' || page == 'leave'
+          || page == 'reimbursement' || page == 'donate'|| page == 'audittracker'"
+          type="button" class="btn btn-primary" data-dismiss="modal" id="btnOk" (click)="dismissModal()">DONE !</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal pmodals error" id="myModal" *ngIf="condition == 'error2' && page != ''" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- <i class="fa fa-exclamation-triangle"></i> -->
+        <h4>Note</h4>
+
+        <img *ngIf="page == 'eureka'" src="assets/images/Eureka_error.png" />
+        <img *ngIf="page == 'hospitalization'" src="assets/images/Hospitalization_error.png" />
+        <img *ngIf="page == 'leave'" src="assets/images/Leave_Form_error.png" />
+        <img *ngIf="page == 'payslip'" src="assets/images/PaySlip_error.png" />
+        <img *ngIf="page == 'donate'" src="assets/images/piggy-bank-icon.png" />
+        <img *ngIf="page == 'audittracker'" src="assets/images/Leave_Form_error.png" />
+        <img *ngIf="page == 'reimbursement'" src="assets/images/Reimbursement_Error.png" />
+
+        <p>{{message}}</p>
+
+        <!--<button type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">Ok</button>-->
+        <button *ngIf="page == 'eureka' || page == 'hospitalization' || page == 'payslip' || page == 'reimbursement'"
+          type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">TRY AGAIN</button>
+        <button *ngIf="page == 'leave' || page == 'donate'|| page == 'audittracker'" type="button" class="btn btn-primary" id="btnOk"
+          data-dismiss="modal" (click)="dismissModal()">BACK</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal pmodals information" id="myModal" *ngIf="condition == 'information2' && page != ''"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Note</h4>
+        <!-- <i class="fa fa-info-circle"></i> -->
+        <img *ngIf="page == 'leave'" src="assets/images/Leave_Form_info.png" />
+        <img *ngIf="page == 'payslip'" src="assets/images/PaySlip_Information.png" />
+        <img *ngIf="page == 'donate'" src="assets/images/piggy-bank-icon.png" />
+        <p>{{message}}</p>
+
+        <!--<button  *ngIf="page != 'leave' && page != 'payslip'" type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">Ok</button>-->
+        <button *ngIf="page == 'leave'" type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal"
+          (click)="dismissModal()">BACK</button>
+        <button *ngIf="page == 'payslip' || page == 'donate'" type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal"
+          (click)="dismissModal()">Done !</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="modal pmodals information" id="myModal1" *ngIf="condition == 'confirm' && page != ''" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Note</h4>
+
+        <p>{{message}}</p>
+
+        <!--<button  *ngIf="page != 'leave' && page != 'payslip'" type="button" class="btn btn-primary" id="btnOk" data-dismiss="modal">Ok</button>-->
+        <button type="button" class="btn btn-primary" id="btnConfirmBack" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmOk" data-dismiss="modal">Yes !</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>

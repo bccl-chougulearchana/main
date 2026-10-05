@@ -1,0 +1,97 @@
+
+<div id="internal-app-main">
+  <div id="internal-app-header">
+    <div class="d-flex align-items-center p-2 app-title">
+      <div class="col">
+        <h5 class="text-center">Partner Locator</h5>
+      </div>
+    </div>
+  </div>
+
+  <div id="internal-app-content-box">
+    <div class="app-container">
+      <div class="content-part">
+        <div class="internal-app-content-form">
+
+          <form [formGroup]="locatorForm">
+            <div class="input-box">
+              <input
+                class="input-style add-astrix"
+                [libNumber]="[10, 0]"
+                libUiUnderline
+                [libLabelText]="['#333', 'Search Partner']"
+                formControlName="queryString"
+                placeholder="Please enter Vendor Code"
+                (keyup)="onSearchKeyUp(true)"
+                (keydown.enter)="callDynamicData()"/>
+              <i  class="fa fa-times" *ngIf="locatorForm.value.queryString" (click)="clearSearchData()"></i>
+              <i class="fa fa-search" (click)="callDynamicData()"></i>
+            </div>
+          </form>
+
+          <!-- Error -->
+        <div *ngIf="showErr">
+          <h5 class="noData">{{ locatorForm.value.queryString }} - Details Not Found</h5>
+        </div>
+
+        <!-- Results -->
+        <ul *ngIf="show" class="suggestion-list teamSelector">
+          <li
+            *ngFor="let item of colleaguesList; trackBy: trackByVendor"
+            class="suggestionlistli leave-history-box approved">
+
+            <div class="user-email-details">
+                       <img
+                    class="left-image"
+                    [src]="item.imagecheck ? item.individualImage : 'asset/images/profile4.png'" />
+
+              <span class="people-name">{{ item.vendorCode }}</span>
+            </div>
+
+            <div class="people-details">
+              <hr />
+              <div class="emailPOC">
+              <div class="people-loc-row">
+                <div class="p-heading">
+                  <img src="asset/images/people/Department.png" width="30" />
+                </div>
+                <div class="p-details">
+                  <span class="username-new">{{ item.name }}</span>
+                </div>
+              </div>
+              </div>
+              <ng-container *ngFor="let email of emailListcount">
+                <div class="emailPOC">
+                <div class="people-loc-row">
+                  <div class="p-heading">
+                    <img src="asset/images/people/Email.png" width="30" />
+                  </div>
+                  <div class="p-details">
+                    <span class="partner-email">{{ email.email }}</span>
+                  </div>
+                </div>
+                
+                
+                <div class="people-loc-row">
+                  <div class="p-heading"></div>
+                  <div class="p-details">
+                    <a class="partner-email" (click)="openMail(email.additionalEmail)">
+                      {{ email.additionalEmail }}
+                    </a>
+                  </div>
+                </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </li>
+        </ul>
+  
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,212 @@
+<!-- <div class="header">
+<div class="logo" [routerLink]="['/toi-education']" routerLinkActive="router-link-active" >
+    <img src="logo/new_logo.jpeg" alt="">
+</div>
+<div [libMenuBar]="['right', menu]"></div>
+</div> -->
+
+  <div class="d-flex align-items-center p-2 form-title">
+    <div class="col">
+      <h5 class="text-center">PROCESS</h5>
+    </div>
+  </div>
+
+<div class="p-3" >
+  <!-- Month & Year Dropdown -->
+ <div class="d-flex justify-content-between flex-wrap align-items-center gap-2 mb-3 p-2 bg-white shadow-sm rounded">
+  <div class="left d-flex flex-wrap align-items-center gap-2 p-1">
+      <label class="me-2 fw-semibold text-secondary">
+    Select Month and Year:
+  </label>
+
+  <!-- Month Select -->
+  <select
+    class="form-select w-auto"
+    [(ngModel)]="selectedMonth"
+  >
+    <option *ngFor="let m of months" [value]="m.id">{{ m.label }}</option>
+  </select>
+
+  <!-- Year Select -->
+  <select
+    class="form-select w-auto"
+    [(ngModel)]="selectedYear"
+  >
+    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+  </select>
+
+  <!-- Load Button -->
+  <button
+  type="button"
+  class="btn btn-light rounded-3 px-3 py-2 d-flex align-items-center justify-content-center"
+  (click)="loadData()"
+  style="font-size: 1.25rem; line-height: 1;"
+>
+  ▶
+</button>
+  </div>
+   <div class="right p-1">
+    <p class="mb-0 fw-semibold">✅ Shortlisted Application | ❌ Rejected Application</p>
+  </div>
+
+</div>
+
+ <div *ngIf="tableData.length" [libCustomTableNU]="tableData" [columns]="tableColumns"></div>
+</div>
+
+<!-- Student Details Modal -->
+<div class="modal fade" id="studentDetailsModal" tabindex="-1" aria-labelledby="studentDetailsModalLabel" aria-hidden="true"> 
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="studentDetailsModalLabel">Student Application Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- Application ID -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="field-box">
+                <label class="form-label">Application ID</label>
+                <div class="value">{{ selectedStudentDetails.applicationId }}</div>
+              </div>
+            </div>
+          </div>
+
+         <div class="row g-3">
+            <!-- Loop for normal fields -->
+            <div class="col-md-3 col-sm-6" *ngFor="let field of fieldList" 
+                [ngClass]="{ 'd-none': field.key.startsWith('doc') }">
+                <ng-container *ngIf="selectedStudentDetails[field.key] && !field.key.startsWith('doc')">
+                <div class="field-box">
+                    <label class="form-label">{{ field.label }}</label>
+                    <div class="value">{{ selectedStudentDetails[field.key] }}</div>
+                </div>
+                </ng-container>
+            </div>
+
+            <!-- Handle docs separately so they don’t leave gaps -->
+            <div class="col-md-3 col-sm-6" *ngIf="selectedStudentDetails.doc1">
+                <div class="field-box">
+                <label class="form-label">Student Marksheet</label>
+                <div class="value" role="button" (click)="downloadDocument(selectedStudentDetails.doc1)">
+                    {{ selectedStudentDetails.doc1 }}
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6" *ngIf="selectedStudentDetails.doc2">
+                <div class="field-box">
+                <label class="form-label">Admission Letter</label>
+                <div class="value" role="button" (click)="downloadDocument(selectedStudentDetails.doc2)">
+                    {{ selectedStudentDetails.doc2 }}
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6" *ngIf="selectedStudentDetails.doc3">
+                <div class="field-box">
+                <label class="form-label">Special Student supporting document</label>
+                <div class="value" role="button" (click)="downloadDocument(selectedStudentDetails.doc3)">
+                    {{ selectedStudentDetails.doc3 }}
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6" *ngIf="selectedStudentDetails.doc4 && !selectedStudentDetails.doc3">
+                <div class="field-box">
+                <label class="form-label">National / State Level Achievement Certificate</label>
+                <div class="value" role="button" (click)="downloadDocument(selectedStudentDetails.doc4)">
+                    {{ selectedStudentDetails.doc4 }}
+                </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-custom" (click)="printStudentDetails()">
+          DOWNLOAD AS PDF
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="printArea">
+  <div class="print-header">
+    <h2>Student Application Details</h2>
+  </div>
+  <div class="print-content print-grid">
+     <div class="print-field print-full">
+      <label>Application ID</label>
+      <div class="value">{{ selectedStudentDetails.applicationId }}</div>
+    </div>
+
+    <div class="print-field" *ngFor="let field of fieldList" >
+      <label *ngIf="selectedStudentDetails[field.key]">{{ field.label }}</label>
+      <div *ngIf="selectedStudentDetails[field.key]" class="value">{{ selectedStudentDetails[field.key] }}</div>
+    </div>
+  </div>
+
+  <div class="print-footer">
+    Generated on {{ today | date }}
+  </div>
+
+</div>
+
+
+<div class="modal fade custom-modal" id="remarkModal" tabindex="-1" aria-labelledby="remarkModalLabel" aria-hidden="true"> 
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="remarkModalLabel">Add Remark</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onRemarkClose(false)"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <form>
+          <div class="text-center">
+            <label for="remark-text" class="col-form-label" >Remark:</label>
+            <textarea libText class="form-control" id="remark-text" [(ngModel)]="remarks" name="remark" maxlength="200"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer mb-3">
+        <button type="button" class="btn btn-custom btn-custom-sm" data-bs-dismiss="modal" (click)="onRemarkClose(false)">Close</button>
+        <button type="button" class="btn btn-custom btn-custom-sm" (click)="onRemarkClose(true)">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #Remarkmodal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="remarkModalLabel">Add Remark</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onRemarkClose(false)"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <form>
+          <div class="text-center">
+            <label for="remark-text" class="col-form-label" >Remark:</label>
+            <textarea libText class="form-control" id="remark-text" [(ngModel)]="remarks" name="remark" maxlength="200"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer mb-3">
+        <button type="button" class="btn btn-custom" data-bs-dismiss="modal" (click)="onRemarkClose(false)">Close</button>
+        <button type="button" class="btn btn-custom" (click)="onRemarkClose(true)">Submit</button>
+      </div>
+    </div>
+</ng-template>
+<ng-container *ngIf="showRemark">
+    <ng-container [libPopup]="Remarkmodal" [popupWidth]="'380px'" [popupHeight]="'235px'" (closed)="remarkmodalClose()">
+    </ng-container>
+</ng-container> -->
+
+
+<router-outlet></router-outlet>

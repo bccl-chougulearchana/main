@@ -1,0 +1,61 @@
+.logo{
+    width: 300px;
+    margin-bottom: -40px;
+}
+
+@media (max-width: 769px) {
+    .logo{
+    width: 300px;
+    margin-bottom: 0px;
+    }
+    .form-style{
+    margin: 30px 0px 30px 20px;
+
+}
+.title-attach{
+   text-align: center;
+}
+}
+.logo img{
+    padding: 10px 0 0 10px;
+    width: 180px;
+}
+.form-title{
+    background-color: rgb(0, 191, 255);
+    color: white;
+}
+.errorMsg{
+    color: red;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.textBlack *{
+    color: black !important;
+}
+
+input:disabled{
+    background-color: #f0f0f0 !important;
+}
+select:disabled {
+  background-color: #f0f0f0 !important; /* Light gray */
+  cursor: not-allowed;
+}
+.lib-date-input {
+     padding-right: 0px;
+}
+.lib-label-wrapper {
+    width: 250px;
+}
+.custom-input{
+    width: 250px;
+}
+.title-attach{
+    font-family: open sans; font-weight: bold; padding-bottom: 15px;
+}
+@media (min-width: 769px) {
+.form-style{
+    margin: 30px 0px 30px 40px;
+}
+}

@@ -302,7 +302,7 @@ private handleNavigationState$(): Observable<boolean> {
     return of(true); 
   }
  
-  // return of(true); 
+  return of(true); 
   return this.auth.chkAlreadyLogin().pipe(
     tap(isValid => {
       if (!isValid) {

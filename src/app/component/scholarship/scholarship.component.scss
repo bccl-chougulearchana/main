@@ -1,0 +1,132 @@
+.logo{
+    width: 300px;
+    margin-bottom: -40px;
+}
+.logo img{
+    padding: 10px 0 0 10px;
+    width: 180px;
+}
+.min-window{ min-height: 95vh !important; }
+
+/* ===== MENU BAR ===== */
+
+.menu-nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  position: static;
+}
+
+.menu-toggle {
+  display: none;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #000;
+  margin: 3px 0;
+}
+
+.menu-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.menu-container.right {
+  justify-content: flex-end;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 10px 10px 0;
+  position: relative;
+}
+
+.menu-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #999;
+  display: flex;
+  gap: 6px;
+}
+
+.menu-item.active .menu-label {
+  color: #000;
+}
+
+.menu-underline {
+  height: 4px;
+  background: #2ec6ff;
+  width: 0;
+  margin-top: 13px;
+  transition: width 0.3s ease;
+}
+
+.menu-item.active .menu-underline {
+  width: 100%;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 768px) {
+    .logo{
+    width: 150px;
+    margin-bottom: 0px;
+    }
+    .logo img{
+        padding: 10px 0 0 10px;
+        width: 135px;
+    }
+  .menu-toggle {
+    display: flex;
+  }
+  .menu-nav {
+    position: relative !important;
+  }
+  .menu-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    flex-direction: column;
+    background: #fff;
+    min-width: 200px;
+    max-height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .menu-container.right {
+    left: auto;
+    right: 0;
+  }
+
+  .menu-container.show {
+    display: flex;
+    gap: 6px;
+  }
+}
+.menu-label {
+  color: #999;
+}
+
+.menu-underline {
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.menu-item.active .menu-label {
+  color: #000;
+}
+
+.menu-item.active .menu-underline {
+  width: 100%;
+}

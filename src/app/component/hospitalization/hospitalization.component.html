@@ -1,0 +1,57 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center app-title">
+            <div class="col">
+                <h3 class="text-center title-text-padding">HOSPITALIZATION</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                <div class="internal-app-content-title">
+                    <h3>Notify Hospitalization</h3>
+                </div>
+                <div class="internal-app-content-form">
+                    <form [formGroup]="hospitalizationForm" (ngSubmit)="hospitalizationFormSubmit()">
+                        <input formControlName="memberId" libRequired libTel libUiUnderline
+                            [libLabelText]="['#888', 'SAP Number']" class="disable-ui" readonly>
+                        <input formControlName="patientName" class="add-astrix" libRequired libText libUiUnderline
+                            [libLabelText]="['#888', 'Patient Name ']">
+                        <input formControlName="hospitalname" class="add-astrix" libRequired libText libUiUnderline
+                            [libLabelText]="['#888', 'Hospital Name/Location ']">
+                        <input formControlName="dateofadmission" libDate libRequired libUiUnderline
+                            [libLabelText]="['#888', 'Date Of Admission']">
+                        <textarea formControlName="reason" class="add-astrix" libRequired libAddressLine libUiUnderline
+                            [libLabelText]="['#888', 'Reason']"></textarea>
+                        <input formControlName="recipientsMailId" class="disable-ui" libRequired libUiUnderline
+                            [libLabelText]="['#888', 'Email ID']" readonly>
+                        <input formControlName="phoneNumber" class="add-astrix" libRequired libMobile libUiUnderline
+                            [libLabelText]="['#888', 'Contact Number']">
+                        <button type="submit" class="notify-btn"
+                            [style.cursor]="hospitalizationForm.valid ? 'pointer' : 'not-allowed'">notify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-container *ngIf="showPopup">
+    <ng-container [libPopup]="Popup" [popupWidth]="'400px'" [popupHeight]="'auto'" (closed)="closePopup()">
+    </ng-container>
+</ng-container>
+<ng-template #Popup>
+    <div class="popup-box">
+        <h3 class="popup-title">Note</h3>
+        <div class="box-content">
+           <img src="https://uatjiffy.timesgroup.com/timescape/betajiffy/assets/images/Hospitalization_Success.png" alt="">
+        </div>
+            <p *ngIf="responseSuccessStatus" class="popup-description">Your hospitalization intimation <br> has been sent.</p>
+            <p *ngIf="responseErrorStatus" class="popup-description">Your hospitalization intimation <br> has not been sent.</p>
+        <button *ngIf="responseSuccessStatus" class="popup-close-btn" (click)="closePopup()">Done !</button>
+        <button *ngIf="responseErrorStatus" class="popup-close-btn" (click)="closePopup()">Close !</button>
+    </div>
+</ng-template>

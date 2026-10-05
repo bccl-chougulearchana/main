@@ -1,17 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UtilityService } from '../../shared/shared-services/utility.service';
+  declare var $: any;
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+   public showHeader:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showSidebar:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showFooter:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   Cryptokey = CryptoJS.enc.Utf8.parse('bcctoi1521bl1234');
   Cryptoiv = CryptoJS.enc.Utf8.parse('bcctoi1521bl1234');
   private config: any | null = null;
+  public title: BehaviorSubject<string> = new BehaviorSubject<string>('Timescape');
   constructor(private http: HttpClient, private utility: UtilityService) { }
 
   private withCacheBuster(url: string): string {
@@ -136,5 +141,31 @@ export class CommonService {
   isSessionCheckEnabled(): boolean {
     return !!this.config?.sessionCheck;
   }
+
+   setTitle(title: string) {
+
+    this.title.next(title);
+  }
+
+  showHeaderComponents(){
+  if (localStorage.getItem('reference') == 'timescape') {
+    this.showSidebar.next(true);
+    this.showHeader.next(true);
+    setTimeout(() => {
+      $(".menu-toggle-ic").hide()
+      $(".searchig").hide()
+      $(".notification").hide()
+      $(".logo").css("cssText", "margin-top: 0 !important;width: 519px;");
+    }, 100);
+  } else {
+    // setTimeout(() => {
+    //   $(".logo").css("cssText", "width: 170px !important;");
+    // }, 100);
+    this.showSidebar.next(true);
+    this.showHeader.next(true);
+  }
+  this.showFooter.next(false);
+
+}
 
 }

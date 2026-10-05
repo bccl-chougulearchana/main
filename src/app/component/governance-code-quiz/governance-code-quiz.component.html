@@ -1,0 +1,357 @@
+<div id="internal-app-main">
+    <div id="internal-app-header">
+        <div class="d-flex align-items-center p-2 app-title">
+            <div class="col">
+                <h5 class="text-center">Governance Code - Quiz</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="internal-app-content-box">
+        <div class="app-container">
+            <div class="content-part">
+                
+                <section *ngIf="startPage">
+                    <p class="quiz-info">
+                        Following are the links to the documents which needs to
+                        be read before attempting this Governance Code
+                    </p>
+
+                    <ul class="policy-list">
+                        <li (click)="openPolicy('GP')">Gift Policy</li>
+                        <li *ngIf="empDetail?.companyCode === '1001'"
+                            (click)="openPolicy('WBP')">Whistle Blower
+                            Policy</li>
+                        <li *ngIf="empDetail?.companyCode === '1001'"
+                            (click)="openPolicy('PIT')">Prevention of Insider
+                            Trading</li>
+                        <li *ngIf="empDetail?.companyCode === '1001'"
+                            (click)="openPolicy('CBP')">Code of Ethics &
+                            Business Principles</li>
+                        <li *ngIf="empDetail?.companyCode !== '1001'"
+                            (click)="openPolicy('COE')">Code of Conduct &
+                            Ethics</li>
+                        <li *ngIf="empDetail?.companyCode !== '1001'"
+                            (click)="openPolicy('BCE')">Buying Code of
+                            Ethics</li>
+                        <li *ngIf="empDetail?.companyCode === '1000'"
+                            (click)="openPolicy('POSH')">POSH Policy</li>
+                    </ul>
+
+                    <p class="quiz-info" *ngIf="sucessEmptyList">I would like to
+                        continue with the Governance Code - Quiz.</p>
+
+                    <button
+                        *ngIf="sucessEmptyList"
+                        class="primary-btn"
+                        (click)="openConfirmPolicy()">
+                        Continue
+                    </button>
+
+                    <p *ngIf="errorMsgBool" class="error-text">{{ errorMsg}}</p>
+
+                    <div *ngIf="!sucessEmptyList && !errorMsgBool">
+                        <p class="QuizQuesInnerText"> You have already answered the Governance Code -
+                                Quiz!</p>
+                        <p class="QuizQuesInnerText">Your score is {{ scoreValue }}/100</p>
+                         <div style="font-weight: 600;" *ngIf="scoreValue == 100" class="QuizQuesInnerText">
+                            You can re-appear for the  Governance Code - Quiz from 1<sup>st</sup> of April in the next financial year.
+                        </div>
+                        <button
+                            *ngIf="scoreValue == 100"
+                            class="primary-btn"
+                            (click)="downloadPdf()">
+                            <img src="asset/images/download.png" class="downloadICon" />
+                            DOWNLOAD CERTIFICATE
+                        </button>
+			<div *ngIf="scoreValue != 100">
+
+                                <div class="QuizQuesInnerText"
+                                    >
+                                    You need to answer all the questions
+                                    correctly (score: 100/100) in order to
+                                    complete the quiz for the current financial
+                                    year.
+                                </div>
+
+                                <div class="QuizQuesInnerText"
+                                   >
+                                    You can re-appear for the Governance Code -
+                                    Quiz on or after "{{ reappearDate }}"
+                                </div>
+
+                            </div>
+                    </div>
+                </section> 
+
+                <section *ngIf="instructionPage">
+                    <h2 class="QuizQuesTextInstruction">Instructions</h2>
+                    <ul class="Instructions-list">
+                        <li>Please answer all 10 questions and complete the Quiz
+                            within 30 minutes.</li>
+                        <li>You need to answer all the questions correctly
+                            (score: 100/100) in order to complete the quiz for
+                            the current financial year.</li>
+                        <li>You need to re-appear for the quiz till you score
+                            100/100.</li>
+                        <li>After 30 minutes your answers will get auto
+                            submitted.</li>
+                        <li>Do not refresh the Quiz Page.</li>
+                    </ul>
+                    <button class="primary-btn" (click)="startQuiz()">
+                        START QUIZ
+                    </button>
+                </section>
+                <section class="quiz-page" *ngIf="quizPage">
+                    <div class="timer TimerMainDiv">
+                        <div class="TimeleftTextDiv">
+                            <span>Time Left</span>
+                        </div>
+                        <div class="TimerTextMainDiv">
+                            <div class="TimerDataMainDiv">
+                                <div class="TimerDataDiv">
+                                    <div class="hoursDiv">
+                                        <p class="hoursText" id="minutes">{{ min
+                                            }}</p>
+                                    </div>
+                                    <div class="colonDiv">
+                                        <span class="star-colon">:</span>
+                                    </div>
+                                    <div class="minuteDiv">
+                                        <p class="minuteText" id="seconds">{{
+                                            seconds | number:'2.0'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="TimeRightTextDiv">
+                            <span>{{ currentPage }}/{{ quizList.length }}</span>
+                        </div>
+                    </div>
+
+                    <p *ngIf="timeLeftInfo" class="warning">
+                        Your answers will auto submit in {{ seconds }} seconds
+                    </p>
+
+                    <nav class="question-nav">
+                        <button
+                            *ngFor="let _ of quizList; let i = index"
+                            [class.active]="currentPage === i + 1"
+                            [class.visited]="visitedPages.has(i + 1)"
+                            (click)="goToPage(i + 1)">
+                            {{ i + 1 }}
+                        </button>
+                    </nav>
+                    <ng-container *ngFor="let ques of quizList; let i = index">
+                        <div *ngIf="currentPage === i + 1">
+
+                            <p class="questions" >
+                                <span class="serialNumber">{{ i + 1 }}. </span>
+                                <span>{{ques[1] }}</span> </p>
+
+                            <h4 *ngFor="let ans of ques[2]; let j = index"
+                                class="answer">
+                                <input #cb
+                                    type="checkbox"
+                                    [id]="'ans_' + ques[0] + '_' + j"
+                                    [checked]="isChecked(ques[0], j)"
+                                    (change)="toggleAnswer(ques[0], j,  cb.checked)" />
+
+                                <label
+                                    class="greenColor"
+                                    [for]="'ans_' + ques[0] + '_' + j">
+                                </label>
+
+                                <span class="lbltxt">{{ ans }}</span>
+                            </h4>
+
+                            <div class="nav-btns">
+                                <button *ngIf="i > 0"
+                                    (click)="goToPage(i)">
+                                    <img alt class="PreviousIcon"
+                                        src="asset/images/PreviousIcon.png">Previous</button>
+                                <button *ngIf="i + 1 < quizList.length"
+                                    (click)="goToPage(i + 2)">Next <img alt
+                                        class="NextIcon"
+                                        src="asset/images/nextIcon.png"></button>
+                                <button *ngIf="i + 1 === quizList.length"
+                                    (click)="submitQuiz(false)">Submit <img alt
+                                        class="NextIcon"
+                                        src="asset/images/nextIcon.png"></button>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </section>
+                <!-- <section *ngIf="scorePage">
+                    <h2 *ngIf="finalScore === 100">Congratulations!</h2>
+                    <h2 *ngIf="finalScore < 100">Oops!</h2>
+
+                    <p>Your score is {{ finalScore }}/100</p>
+
+                    <button
+                        *ngIf="finalScore === 100"
+                        class="secondary-btn"
+                        (click)="downloadPdf()">
+                        Download Certificate
+                    </button>
+
+                    <p *ngIf="finalScore < 100">
+                        You can re-appear on {{ reappearDate }}
+                    </p>
+                </section> -->
+                <section class="InsideSecDiv" *ngIf="scorePage">
+                    <div class="login-back1">
+                        <div class="InnerDivSec">
+                            <p class="QuizQuesInnerblueText">your scoreboard</p>
+                            <p *ngIf="finalScore < 100"
+                                class="QuizQuesInnerText2">Oops!</p>
+                            <p *ngIf="finalScore == 100"
+                                class="QuizQuesInnerText2">Congratulations!</p>
+                            <p class="QuizQuesInnerblackText">
+                                Your score is {{ finalScore }}/100
+                            </p>
+                            <img *ngIf="finalScore < 100"
+                                src="asset/images/sad_face.png"
+                                class="sad_faceIcon center-img" />
+
+                            <img *ngIf="finalScore == 100"
+                                src="asset/images/clap_icon.png"
+                                class="clapIcon center-img" />
+
+                            <!-- Passed -->
+                            <div *ngIf="finalScore == 100">
+
+                                <div class="QuizQuesInnerText"
+                                    style="font-weight:600;">
+                                    You can re-appear for the Governance Code -
+                                    Quiz from 1<sup>st</sup> of April in the
+                                    next financial year.
+                                </div>
+
+                                <div class="buttonWrapper">
+                                    <div class="ocasumbitBox">
+                                        <button class="primary-btn"
+                                            (click)="downloadPdf()">
+                                            <img
+                                                src="asset/images/download.png"
+                                                class="downloadICon" />
+                                            DOWNLOAD CERTIFICATE
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Failed -->
+                            <div *ngIf="finalScore < 100">
+
+                                <div class="QuizQuesInnerText"
+                                    style="font-weight:600;">
+                                    You need to answer all the questions
+                                    correctly (score: 100/100) in order to
+                                    complete the quiz for the current financial
+                                    year.
+                                </div>
+
+                                <div class="QuizQuesInnerText"
+                                    style="font-weight:600;">
+                                    You can re-appear for the Governance Code -
+                                    Quiz on or after "{{ reappearDate }}"
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+                <section class="InsideSecDiv"
+                    *ngIf="errorMsgBool && quizPage === false && startPage === false">
+                    <div class="login-back1">
+                        <br> <br>
+                        <div class="errMsgText">
+                            {{ errorMsg }}
+                        </div>
+                        <br><br>
+                        <div class="buttonWrapper">
+                            <div class="ocasumbitBox">
+                                
+                                <button class="primary-btn" (click)="back()">
+                                    <img alt class="PreviousIcon"
+                                        src="asset/images/PreviousIcon.png">BACK</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #ConfirmModal>
+    <div class="modal-body text-center">
+        <p>I have read all the policy documents.</p><br>
+        <button class="btn btn-custom" (click)="confirmPolicy()">Yes</button>
+        <button class="btn  btn-custom"
+            (click)="showConfirmModal = false">No</button>
+    </div>
+</ng-template>
+<ng-container *ngIf="showConfirmModal">
+    <ng-container [libPopup]="ConfirmModal" [popupWidth]="'380px'"
+        [popupHeight]="'auto'" (closed)="showConfirmModal = false">
+    </ng-container>
+</ng-container>
+
+<ng-container *ngIf="showVideoModal">
+    <ng-container [libPopup]="VideoModal" [popupWidth]="'400px'"
+        [popupHeight]="'auto'" (closed)="closeVideo()">
+    </ng-container>
+</ng-container>
+<ng-template #VideoModal>
+    <div class="modal-body text-center">
+        <video controls autoplay>
+            <source [src]="videoSrc" type="video/mp4" />
+        </video>
+        <button class="btn  btn-custom" (click)="closeVideo()">close</button>
+    </div>
+</ng-template>
+
+<!-- Hidden Certificate Template -->
+<div #certificateTemplate 
+     style="position: fixed; left: -9999px; top: 0;">
+  <div id="iframe">
+    <div class="InnerDivSec">
+      <div>
+        <br><br>
+        <p class="QuizQuesInnerText2">Congratulations!</p>
+      </div>
+      <div><br>
+        <p class="QuizQuesInnerblackText">
+          Your score is {{ finalScore }}/100
+        </p><br>
+      </div>
+      <br>
+      <div>
+        <img src="asset/images/clap_icon.png"
+             class="clapIcon center-img">
+      </div>
+      <div class="certicicateNameDiv">
+        <p>
+          This is certify that
+          <span>{{ employeeName }}</span>
+        </p>
+        <p>
+          has successfully completed the Governance Code - Quiz
+          conducted on {{ submittedOn | date:'dd-MMM-yyyy' }}
+        </p>
+        <p>
+          and will be required to retake the code - quiz from
+          1 <sup>st</sup> April in the next financial year!!!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

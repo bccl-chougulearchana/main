@@ -1,0 +1,202 @@
+@import url('../hospitalization/hospitalization.component.scss');
+
+h6 {
+    margin-bottom: 0px;
+    align-self: center;
+}
+
+.sociey-head {
+    font-size: 14px;
+    color: #a1a1a1;
+    text-align: center;
+}
+
+.lib-select {
+    height: 48px;
+}
+
+.tabs-wrapper {
+    margin: 30px 0px;
+}
+
+.tabs-header {
+    justify-content: flex-start;
+    border-bottom: 1px solid #a1a1a1;
+    margin: 0 0 20px 0;
+}
+
+.tabs-header li {
+    font-size: 13px;
+    padding: 20px;
+}
+
+.tabs-header li.active {
+    border-bottom: 3px solid #01beff;
+    font-weight: 600;
+}
+
+.tabs-body {
+    padding: 0px;
+
+    background: #fff;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+}
+
+.prize-color {
+    color: green;
+}
+
+.balance-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.date-section {
+    margin: 20px 0px;
+}
+
+.lib-label-wrapper {
+    margin-bottom: 0px;
+}
+
+.submit-btn {
+    background: #01beff;
+    box-shadow: none;
+    outline: none;
+    margin: 10px 15px;
+    text-align: center;
+    // width: auto;
+    // padding: 14px 30px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: 0.3s;
+    // margin: 0 auto;
+    color: #fff;
+    // display: inherit;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+// .account-data-wrapper {
+//     overflow: hidden;
+//     overflow-y: scroll;
+//     height: 300px;
+// }
+
+.account-data {
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24);
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.account-label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.account-value {
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    font-weight: 400;
+}
+
+.credit-txt {
+    color: green;
+}
+
+.debit-txt {
+    color: red;
+}
+
+.no-data-found {
+    font-size: 1rem;
+}
+
+.mb-two {
+    margin-bottom: 15px;
+}
+
+.note {
+    margin-top: 30px;
+}
+
+.document-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+}
+
+.doc-img {
+    height: 45px;
+    max-width: 100%;
+    margin-right: 20px;
+}
+
+.doc-text {
+    font-size: 12px;
+}
+
+// .doc-img-wraper{
+//     width: 50%;
+// }
+
+@media screen and (max-width: 768px) {
+    .submit-btn {
+        padding: 20px 30px;
+    }
+}
+
+.btn-enable {
+    cursor: pointer;
+    background-color: #01beff; // blue
+    color: #fff;
+}
+
+.btn-disable {
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #666;
+}
+
+.cursonr-p {
+    cursor: pointer;
+}
+
+.back-btn {
+    background: #01beff;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none !Important;
+    text-align: center;
+    width: auto;
+    padding: 14px 30px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: 0.3s;
+    margin: 0 auto;
+    color: #fff !important;
+    display: inherit;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.note-txt {
+    font-size: 16px;
+}
+
+.ledger-account-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px
+}

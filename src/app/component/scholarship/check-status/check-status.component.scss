@@ -1,0 +1,410 @@
+.logo{
+    width: 300px;
+    margin-bottom: -40px;
+}
+
+@media (max-width: 769px) {
+    .logo{
+    width: 300px;
+    margin-bottom: 0px;
+    }
+}
+.logo img{
+    padding: 10px 0 0 10px;
+    width: 180px;
+}
+.form-title{
+    background-color: rgb(0, 191, 255);
+     color: white;
+}
+.modal-content {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.modal-body .form-label {
+  font-size: 0.85rem;
+}
+
+.modal-body .fw-bold {
+  font-size: 1rem;
+}
+
+#studentDetailsModal {
+  .modal-body {
+    background-color: #f9f9f9;
+
+    .field-box {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      height: 100%;
+
+      label {
+        font-size: 0.85rem;
+        color: #666;
+        font-weight: 500;
+      }
+
+      .value {
+        font-size: 1rem;
+        color: #000;
+        font-weight: 600;
+        word-break: break-word;
+      }
+      [role=button] {
+          cursor: pointer;
+      }
+    }
+  }
+}
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+}
+// #printArea {
+//   width: 210mm;
+//   height: 297mm;
+//   background: #fff;
+//   padding: 20mm;
+//   font-family: Arial, sans-serif;
+//   display: none;
+//   box-sizing: border-box;
+//   position: relative; /* Needed for footer positioning */
+// }
+
+// #printArea h2 {
+//   text-align: center;
+//   margin-bottom: 10mm;
+//   font-size: 18pt;
+//   font-weight: bold;
+// }
+
+// #printArea .field-box {
+//   padding: 10px;
+//   border-radius: 4px;
+//   display: inline-block;
+//   width: 90%;
+//   vertical-align: top;
+//   box-sizing: border-box;
+// }
+
+// #printArea label {
+//   display: block;
+//   font-size: 11pt;
+//   font-weight: bold;
+//   color: #000;
+//   margin-bottom: 2mm;
+// }
+
+// #printArea .value {
+//   font-size: 10pt;
+//   color: #000;
+// }
+
+// #printArea .footer {
+//   position: absolute;
+//   bottom: 10mm;        
+//   left: 0;
+//   width: 100%;
+//   text-align: center;
+//   font-size: 10pt;
+//   color: #333;
+// }
+    .btn-custom {
+      background-color: rgb(0, 191, 255);
+      border: none;
+      color: white;
+      width: 200px;
+    }
+
+    .btn-custom:hover {
+      background-color: rgb(0, 160, 210);
+    }
+@media print {
+  #studentDetailsModal { display: none !important; }
+  #printArea { display: block !important; }
+}
+
+    .custom-modal .modal-title {
+      text-align: center;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .custom-modal .modal-body {
+      font-size: 1.1rem;
+    }
+
+    .custom-modal .modal-footer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .custom-modal .btn-custom {
+      background-color: rgb(0, 191, 255) !important;
+      border: none;
+      color: white;
+      width: 80px;
+    }
+
+    .custom-modal .btn-custom:hover {
+      background-color: rgb(0, 160, 210)!important ;
+    }
+#center div {
+  justify-content: center;
+  align-items: center;
+}
+
+
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+
+/* Column */
+.col { flex: 1 0 0%; }
+
+/* Container fluid */
+.container-fluid {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Grid */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.row.g-3 {
+  row-gap: 1rem;
+}
+
+[class*="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+.col-12 { width: 100%; }
+
+@media (min-width: 576px) {
+  .col-sm-6 { width: 50%; }
+}
+
+@media (min-width: 768px) {
+  .col-md-3 { width: 25%; }
+}
+
+/* Visibility */
+.d-none { display: none !important; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+/* ===============================
+   MODAL BASE
+================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal.fade {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.fade.show {
+  opacity: 1;
+}
+
+/* Prevent background scroll */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ===============================
+   MODAL DIALOG
+================================ */
+.modal-dialog {
+  position: relative;
+  margin: 1.75rem auto;
+  width: calc(100% - 2rem);
+  max-width: 500px;
+}
+
+.modal-xl {
+  max-width: 1140px;
+}
+
+@media (min-width: 1200px) {
+  .modal-xl {
+    max-width: 1140px;
+  }
+}
+
+/* Centered modal */
+.modal-dialog-centered {
+  min-height: calc(100% - 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scrollable modal */
+.modal-dialog-scrollable {
+  height: calc(100% - 3.5rem);
+}
+
+.modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+}
+
+/* ===============================
+   MODAL CONTENT
+================================ */
+.modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body {
+  padding: 1.25rem;
+}
+
+.modal-footer {
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-close::before {
+  content: "×";
+}
+/* =========================
+   PRINT AREA – FIXED A4
+========================= */
+#printArea {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 8mm 20mm 8mm;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  display: none;
+  position: relative; /* ✅ THIS FIXES FOOTER */
+}
+
+
+/* Header */
+.print-header h2 {
+  text-align: center;
+  margin-bottom: 12mm;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.print-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4mm 2mm;
+}
+
+/* Field box */
+.print-field {
+  // border: 1px solid #ccc;
+  padding: 5mm;
+  border-radius: 4px;
+}
+
+.print-field label {
+  display: block;
+  font-size: 11pt;
+  font-weight: bold;
+  margin-bottom: 2mm;
+}
+
+.print-field .value {
+  font-size: 10pt;
+}
+
+/* Full width rows */
+.print-full {
+  grid-column: span 4;
+}
+
+.print-footer  {
+  position: absolute;
+  bottom: 10mm;        
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10pt;
+  color: #333;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printArea,
+  #printArea * {
+    visibility: visible;
+  }
+
+  #printArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+  }
+}

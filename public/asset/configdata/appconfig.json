@@ -8,5 +8,16 @@
   ],
   "allowedDomains" : ["timesofindia.com", "timesinternet.in", "artha.in"],
   "ideal_session_timeout_in_minutes": 30,
-  "sessionCheck" : true
+  "sessionCheck" : true,
+  "GiftPolicy" : "https://sattva.timesofindia.com/bccl//A77PLMQQ91ZW",
+  "WhistleBlowerPolicy" : "https://sattva.timesofindia.com/bccl//6a57cd0794ff050f8d4c5eb1b4d7f932",
+  "ENILCodePIT" : "https://sattva.timesofindia.com/bccl//98b721fff20a4ccc07d2cb1f2425003e",
+  "COEBP" : "https://sattva.timesofindia.com/bccl//b6ecf0edcafefb2a9c2bad5ad840ec12",
+  "GuidetoCodedeclaration":"http://tsweb1.timesgroup.com/player/GuidetoCodedeclaration.mp4",
+  "GuidetoGovernanceQuiz":"http://tsweb.timesgroup.com/player/GuidetoGovernanceQuiz.mp4",
+  "COE":"https://sattva.timesofindia.com/bccl/A77PLMQQ91ZW/",
+  "BCOE":"https://sattva.timesofindia.com/bccl/A77PLMQQ91ZW/",
+  "POSHPolicy":"https://sattva.timesofindia.com/bccl/F91XZPLK8830Q/"
+
+ 
 }

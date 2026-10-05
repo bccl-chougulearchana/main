@@ -22,7 +22,7 @@ export const routes: Routes = [
         c => c.LoginComponent
       )
   },
-  { path: 'error/:val', component: ErrorExitComponent},
+  { path: 'error/:val', component: ErrorExitComponent },
 
 
   // Main layout (protected)
@@ -40,7 +40,7 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () =>
           import('./component/home/home.component').then(c => c.HomeComponent),
-         runGuardsAndResolvers: 'always'
+        runGuardsAndResolvers: 'always'
       },
       {
         path: 'contentPreview',
@@ -83,11 +83,58 @@ export const routes: Routes = [
           import('./component/service-desk/service-desk.component').then(
             c => c.ServiceDeskComponent
           ),
-      }
+      },
+      {
+        path: 'oca',
+        loadComponent: () =>
+          import('./component/oca/oca.component').then(
+            c => c.OcaComponent
+          ),
+      },
+      {
+        path: 'timesSocietyAccount', loadComponent: () =>
+          import('./component/times-society-account/times-society-account.component').then(
+            c => c.TimesSocietyAccountComponent)
+      },
+      {
+        path: 'peopleLocator',
+        loadComponent: () => import('./component/people-locator/people-locator.component').then(
+          c => c.PeopleLocatorComponent)
+      },
+      {
+        path: 'partnerLocator',
+        loadComponent: () => import('./component/partner-locator/partner-locator.component').then(
+          c => c.PartnerLocatorComponent)
+      },
+      {
+        path: 'requisitionerLocator',
+        loadComponent: () => import('./component/requisitioner-locator/requisitioner-locator.component').then(
+          c => c.RequisitionerLocatorComponent)
+      },
+      {
+        path: 'governacecodedeclaration',
+        loadComponent: () => import('./component/governance-code-declaration/governance-code-declaration.component').then(
+          c => c.GovernanceCodeDeclarationComponent)
+      },
+      {
+        path: 'Mycompliancereport',
+        loadComponent: () => import('./component/governance-code-declaration/mycompliancereport/mycompliancereport.component').then(
+          c => c.MycompliancereportComponent)
+      },
+      {
+        path: 'viewcompliancecode',
+        loadComponent: () => import('./component/governance-code-declaration/viewcompliancecode/viewcompliancecode.component').then(
+          c => c.ViewcompliancecodeComponent)
+      }, {
+        path: 'govdeclarationmycompliancecode',
+        loadComponent: () => import('./component/governance-code-declaration/governance-declaration-mycompliancecode/governance-declaration-mycompliancecode.component').then(
+          c => c.GovernanceDeclarationMycompliancecodeComponent)
+      },
+
     ]
   },
 
   // Wildcard route
- { path: '**', component: ErrorExitComponent }
+  { path: '**', component: ErrorExitComponent }
 
 ];

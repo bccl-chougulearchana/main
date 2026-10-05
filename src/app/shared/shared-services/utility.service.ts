@@ -39,6 +39,7 @@ export class UtilityService {
   private notificationSubject = new BehaviorSubject<any| null>(null);
   notification$ = this.notificationSubject.asObservable();
 
+   selectedSociety: string | null = null;
   constructor(private sharedApiService: SharedApiService) { };
 
   setempData(value: any) {

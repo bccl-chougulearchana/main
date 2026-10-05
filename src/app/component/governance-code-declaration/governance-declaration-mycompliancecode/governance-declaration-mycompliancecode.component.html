@@ -1,0 +1,222 @@
+<div class="container" >
+  <div class="content-part leave-page bgGrayCont">
+    <!-- <div class="navWrapper__hasicon"> -->
+      <ul class="nav nav-tabs nav-bgWhite">
+        <li routerLinkActive="active"  (click)="govcodetabclick(role[2])"
+        *ngFor="let role of temproleList; let k = index" id="govcodeId{{k}}">
+        <a  data-toggle="tab" 
+        >{{role[2]}}
+        </a></li>
+        <!-- <li routerLinkActive="active" id="compliancetabId" (click)="complianceTabClick()"><a style="color: #000;" [routerLink]="['govcodedeclaration/mycompliancecode']" data-toggle="tab" >My Compliance Code</a></li>
+        <li routerLinkActive="active" id="reportstabId" (click)="reportsTabClick()"><a style="color: #000;" [routerLink]="['govcodedeclaration']" data-toggle="tab" >Status Reports</a></li> -->
+      </ul>
+    <!-- </div> -->
+    <div class="" *ngIf="codecompliancequizPage">
+      <div class="">
+
+        <div class="">
+        <select id="menuFilter" class="form-control textWrapper ng-pristine ng-valid ng-touched categorySelect" (change)="ondropdownChange($event)">
+          <option  id="categoryName{{m}}" [value]="menu.value"  *ngFor="let menu of uniquemenuListdata;let m = index">{{menu.text}}</option>
+        </select>
+<div class="clear"></div>
+        <!-- contentScroll -->
+        <div class="QuizQuestionMainDiv">
+          <div class="QuizQuestionDiv">
+            <div class="QuizQuestionHeadingTxtDiv">
+              <span class="QuizQuestionHeadingTxt">{{selectedCategory}}</span>
+            </div>
+            <div class="declarationqueansSec"  >
+            <div *ngFor="let menuData of uniqueMenuData let k = index">
+              <div class="QuizQuestionTextMAinDiv">
+                <span class="QuizQuestionText QuizQuestionCount">{{k+1}}.</span>
+                <span class="QuizQuestionText">{{menuData[1]}}</span>
+              </div>
+              <!-- <div class="iconsplacemt">
+                <span class="">  
+                    <a  data-placement="bottom" mattooltip="Download" style="display: none; pointer-events: all;" target="_blank" title="" aria-describedby="cdk-describedby-message-24" cdk-describedby-host="" class="downloadIcon DownloadFileIcon0">
+                        <span class="fa fa-download" aria-hidden="true"></span>
+                    </a>
+                    <img  data-placement="bottom" src="assets/images/attach.png" style="cursor: pointer;"  class="{{'attachFileIcon'}}{{m}}" id="attachFileIcon{{m}}"> 
+                    <img  data-placement="bottom"  src="assets/images/delete.png" style="cursor: pointer;display:none" title="" aria-describedby="cdk-describedby-message-20" cdk-describedby-host="" class="delete-trash-leave deleteFileIcon0" id="deleteFileIcon0">
+                    <input  class="form-control" style="display: none;" type="file" id="attachFile0">      
+                    <input type="hidden" id="attachFileName0">       
+                </span> 
+               </div> -->
+               <div class="col-xs-12 iconsplacemt">
+                <span class="">  
+                    <a target="_blank" style="display: none;" (click)="downloadAttachment(menuData[14],menuData[4])" class="downloadIcon {{'DownloadFileIcon'}}{{k}}" matTooltip="Download" data-placement="bottom" title="" >
+                        <span class="fa fa-download"></span>
+                    </a>
+                    <!-- <div> -->
+                      <img style="cursor: pointer;display: none" class="{{'attachFileIcon'}}{{k}}" (click)="file.click();" src="assets/images/attach.png" matTooltip="Add" data-placement="bottom"/>
+                      <img style="cursor: pointer; display: none; margin-bottom: 6px;" class="delete-trash-leave {{'deleteFileIcon'}}{{k}}" (click)="deleteAttachment(k)" src="assets/images/delete.png" matTooltip="Delete" data-placement="bottom" title="" />
+                      <input type="file" style="display: none;" #file class="form-control" (change)="onFileSelectEvent($event,k)" (click)="InputFileName($event)">      
+                      <input type="hidden" id="{{'attachFile'}}{{k}}" />    
+                    <!-- </div> -->
+                     
+                </span> 
+               </div>  
+              <div class="Quiz-menu-post1" style="padding: 30px 5px 0px 0px;">
+              <ul class="">
+              <div id="mCSB_1" class="" tabindex="0">
+          
+  
+            <div id="" class="mCSB_container" >	
+              <div class="checkSingle1" id="">
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="{{'ocaQues'}}{{k}}"  
+                  id="{{'ocaWtypeSecYesD'}}{{k}}" value="Yes" (click)="optionsclick(menuData[0],'Yes', menuData[10],menuData[7])" >
+                  <label for="{{'ocaWtypeSecYesD'}}{{k}}" class="greenColor"></label>
+                  <span class="lbltxt">Yes</span>
+                </div>
+              </div>
+  
+              <div class="checkSingle1" id="">
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="{{'ocaQues'}}{{k}}" (click)="optionsclick(menuData[0],'No', menuData[10],menuData[7])"
+                  id="{{'ocaWtypeSecNoE'}}{{k}}" value="No">
+                  <label for="{{'ocaWtypeSecNoE'}}{{k}}" class="redColor"></label>
+                  <span class="lbltxt">No</span>
+                </div>
+              </div>
+            
+              <div class="checkSingle" style="display: none;" id="notApplicable{{k}}">
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="{{'ocaQues'}}{{k}}" (click)="optionsclick(menuData[0],'NA', menuData[10],menuData[7])"
+                  id="{{'ocaWtypeSecNotapplicableF'}}{{k}}"
+                  value="Not Applicable">
+                  <label for="{{'ocaWtypeSecNotapplicableF'}}{{k}}"
+                  class="greyColor"></label>
+                  <span class="lbltxt">Not Applicable</span>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+            </ul>
+              </div>
+              <div class="RemarksTextDiv"  id="RemarksTextDiv{{k}}" >
+                <span class="QuizQuestionText">Remarks <span class="redAstrick" style="display: none;" 
+                  id="redstar{{k}}">*</span></span>
+                <div>
+                  <textarea id="RemarksText{{k}}" name="" class="textareaSec"></textarea>
+                </div>
+              </div>
+              <hr *ngIf="k+1<uniqueMenuData.length" class="hrMargin">
+            </div>
+            <div *ngIf="uniqueMenuData.length == 0">
+              <label>No Data Found</label>
+            </div>
+           
+          </div>
+        </div>
+        </div>
+<div class="clear"></div>
+
+
+        <!--<div class="buttonWrapper1">
+          <div class="ocasumbitBox" id="ocasumbitButton">
+              
+            <a class="btn-ocasubmit" href="SaveCode.html">
+              SAVE & SUBMIT LATER 
+            </a>
+            <!--<button class="btn-ocasubmit" type="submit">SAVE & SUBMIT LATER </button>
+          </div>
+          
+          
+        </div>
+        <div class="next_icon_Div mobile_next_icon_Div">
+          <a href="GovernanceQuizQueAns1.html"><img src="./images/NextIcon.png" alt="" class="next_icon"></a>
+        </div>
+
+
+
+        </div>-->
+        <div class="buttonWrapper" style="position:relative">
+          <div class="ocasumbitBox"  *ngIf="PreviousShow" >
+            <!-- <button class="btn-ocasubmit" type="submit" href="GovernanceQuizQueAns.html" onclick="moveToFirstQuePage()">
+              CONTINUE
+            </button> -->
+            <button class="btn-ocasubmit" type="submit" (click)="previousClick()">
+              <img src="assets/images/PreviousIcon.png" alt="" class="PreviousIcon"> PREVIOUS 
+            </button>
+          </div>
+
+          <div class="ocasumbitBox"  *ngIf="NextShow">
+            <!--<button class="btn-ocasubmit" type="submit" href="GovernanceQuizQueAns.html" onclick="moveToFirstQuePage()">CONTINUE</button>-->
+            <button class="btn-ocasubmit" type="submit" (click)="NextClick()">
+              NEXT <img src="assets/images/nextIcon.png" alt="" class="NextIcon">
+            </button>
+          </div>
+          <div class="ocasumbitBox" *ngIf="finalsubmitShow" id="FinalSubmitbtn" >
+            <!--<button class="btn-ocasubmit" type="submit" href="GovernanceQuizQueAns.html" onclick="moveToFirstQuePage()">CONTINUE</button>-->
+            <button class="btn-ocasubmitFinal" type="submit" (click)="FinalSubmit(selectedCategory)">
+              SAVE & SUBMIT FINAL <img src="assets/images/nextIcon.png" alt="" class="NextIcon">
+            </button>
+          </div>
+         
+        </div>
+      <div class="text-center" style="padding-bottom: 20px;display: none;"  id="submitlatertext">
+          You have submitted your code successfully.
+        </div>
+        <!--  -->
+        <div style="cursor: pointer;" >
+          <a class="hyperLinkData" id="savesublater{{pageNo}}" (click)="saveNSubmit(selectedCategory)">
+            Save & Submit Later
+          </a>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+	  <router-outlet></router-outlet>
+   </div> 
+</div>
+
+<div class="modal pmodals" id="unanswered"  data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- <i class="fa fa-exclamation-triangle"></i> -->
+        <h4>Note</h4>
+        <img src="assets/images/success.png" style="padding-bottom: 15px;"/>
+        <div  *ngFor="let  unansweredData of unansweredList let k = index">
+          <p id="unansweredData">
+            {{unansweredData}} <br>
+          </p>
+         </div>
+         <p id="saveText" style="display: none;">
+          You have successfully saved your Governance Code - Declaration.
+        </p>
+        <p id="submittedText" style="display: none;">
+          You have successfully submitted your Governance Code - Declaration.
+        </p>
+        <p id="atleastOneText" style="display: none;">
+          Kindly answer atleast one  question.
+        </p>
+        <p id="answerAllText" style="display: none;">
+          Kindly answer all questions.
+        </p>
+        <p id="uploadDocumentTextSave" style="display: none;">
+          Please attach supporting document in "{{editedCategoryText}}" for Question No. {{countervalueSave}}
+        </p>
+        <p id="uploadDocumentTextSubmit" style="display: none;">
+          Please attach supporting document in "{{editedCategoryText}}" for Question No. {{countervalueSave}}
+        </p>
+        <p id="remarksPopupText" style="display: none;">
+          Please enter remarks in "{{editedCategoryText}}" for Question No. {{countervalueSave}}
+        </p>
+        <button style="width:100%;" type="button" class="btn btn-primary" id="btnOk"
+          data-dismiss="modal" (click)="dismissModal()">OK</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<app-dialogModel></app-dialogModel>
+
+  
