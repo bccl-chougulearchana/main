@@ -42,7 +42,6 @@ export class AppSettings {
   // public static humourCarousel = "https://tsweb.timesgroup.com/timescape/homepage/assets/images/corporatehumour//";
   public static humourCarousel = AppSettings.apitime + "/timescape/homepage/assets/images/corporatehumour/";
   // ------------------------- Humour Carousel Home ----------------------- 
-
   public static contentRefreshTimeInMinutes = 0; //10 minute in milliseconds
 
   // ------------------------ Poll ------------------------ 
